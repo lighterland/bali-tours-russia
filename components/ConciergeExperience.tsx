@@ -190,8 +190,33 @@ export function ConciergeExperience({
       website: data.get("website") || "",
       submittedAt: new Date().toISOString(),
     };
+    const selectedChannel = String(data.get("preferredChannel"));
+    const bookingDraft = {
+      packageTitle: selectedPackage ? text(selectedPackage.title) : labels.chooseRoute,
+      date: [data.get("date"), data.get("endDate")].filter(Boolean).join(" — "),
+      guests: String(data.get("guests") || ""), pickup: String(data.get("pickup") || ""), notes: String(data.get("notes") || ""), language: locale,
+    } as const;
 
     try {
+      if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "true") {
+        const message = buildBookingMessage(bookingDraft);
+        if (selectedChannel === "WhatsApp" && whatsappNumber) {
+          window.open(buildWhatsAppLink(whatsappNumber, bookingDraft), "_blank", "noopener,noreferrer");
+        } else if (selectedChannel === "Telegram" && telegramUrl) {
+          await navigator.clipboard?.writeText(message);
+          window.open(telegramUrl, "_blank", "noopener,noreferrer");
+        } else if (selectedChannel === "VK" && vkUrl) {
+          await navigator.clipboard?.writeText(message);
+          window.open(vkUrl, "_blank", "noopener,noreferrer");
+        } else if (selectedChannel === "Email" && businessEmail) {
+          window.location.href = `mailto:${businessEmail}?subject=${encodeURIComponent(`Booking enquiry · ${bookingDraft.packageTitle}`)}&body=${encodeURIComponent(message)}`;
+        }
+        setSubmitState({ status: "success", enquiryId });
+        form.reset();
+        setPreferredChannel("WhatsApp");
+        setWhatsAppDraft({ date: "", guests: "2", pickup: "", notes: "" });
+        return;
+      }
       const response = await fetch("/api/enquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -200,12 +225,6 @@ export function ConciergeExperience({
       const result = (await response.json()) as { ok?: boolean; message?: string; enquiryId?: string };
       if (!response.ok || !result.ok) throw new Error(result.message || labels.errorMessage);
       setSubmitState({ status: "success", enquiryId: result.enquiryId || enquiryId });
-      const selectedChannel = String(data.get("preferredChannel"));
-      const bookingDraft = {
-        packageTitle: selectedPackage ? text(selectedPackage.title) : labels.chooseRoute,
-        date: [data.get("date"), data.get("endDate")].filter(Boolean).join(" — "),
-        guests: String(data.get("guests") || ""), pickup: String(data.get("pickup") || ""), notes: String(data.get("notes") || ""), language: locale,
-      } as const;
       if (selectedChannel === "WhatsApp" && whatsappNumber) {
         window.open(buildWhatsAppLink(whatsappNumber, bookingDraft), "_blank", "noopener,noreferrer");
       } else if (selectedChannel === "Telegram" && telegramUrl) {
