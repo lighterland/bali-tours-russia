@@ -1,0 +1,35 @@
+# Clarify ownership and business model
+
+Type: grilling
+Status: resolved
+Blocked by: none
+
+Define partners, responsibilities, commission or markup rules, settlement flow, cancellation liability, and what “in Moscow” means.
+
+## Done when
+
+- Roles and decision owners are explicit.
+- Revenue, payment, refund, and cancellation flows are described.
+
+## Comments
+
+- 2026-07-11: Claimed for a live business-model interview. No production implementation will begin during this discovery ticket.
+- 2026-07-11: Target-market decision: the initial acquisition segment is Russian travellers still in Russia who are planning a first or second Bali trip, especially couples or small groups seeking private tours, Russian-language information, transparent pricing, and clear inclusions. Russian travellers already in Bali remain a serviceable secondary segment rather than the initial acquisition focus. Canonical terms recorded in `CONTEXT.md`.
+- 2026-07-11: Customer-problem decision: the core problem is limited access from Russia to relevant and trustworthy Bali-tour channels, compounded by uncertainty about final price, inclusions, communication, payment confidence, and support through fulfilment. Price, Russian-language communication, private-tour convenience, and ticket-inclusive packages are potential value dimensions to validate, not yet the positioning itself.
+- 2026-07-11: New source evidence: Bali.Discount references include a VK community and a shared Google business profile. A new partner audio says its packages include attraction tickets and are perceived as aimed at an upper-middle segment; this remains an unverified market hypothesis. See `docs/source-inventory.md`.
+- 2026-07-11: Positioning decision: use one trust-led umbrella brand rather than claiming to be both cheap and premium. The offer may span an essential tier with controlled inclusions and transparent extras, and a convenience tier with more inclusions and simpler coordination. Both tiers retain the same service, safety, and transparency baseline. Canonical terms recorded in `CONTEXT.md`.
+- 2026-07-11: Role decision: Erland is the Russia-market partner responsible for acquisition channels, platform, customer communication, and enquiry/booking administration. The partner represented in the source conversation is the Bali operating partner and owns local preparation, supplier coordination, tour delivery, and field-incident handling after operational handoff. The precise handoff trigger remains open.
+- 2026-07-11: Commercial hypothesis: a 20-25% share may be viable compensation for Erland's scope, but it is not yet approved as economically sufficient until the commission base, acquisition spend, payment and FX costs, refund exposure, taxes, and customer-service workload are defined.
+- 2026-07-11: Negotiation position: Erland seeks a net 20-25% share after domain, advertising/acquisition, payment, and FX costs, which are proposed as the Bali operating partner's responsibility. Any Erland contribution to operating costs must be separately scoped and capped rather than deducted automatically. A possible 5-10% RUB-IDR conversion spread is only a hypothesis and requires legal, transparency, volatility, refund, tax, and payment-rail validation. See `docs/partner-negotiation-notes.md`.
+- 2026-07-11: Preliminary payment boundary: prefer a licensed payment provider or contracted business that can serve Russian payers and settle IDR. Do not make personal receipt of RUB, informal conversion, and onward IDR transfer the official flow before regulatory and provider validation. Multi-currency must distinguish display, invoice, payer, and settlement currencies. See `docs/payment-options-preliminary.md`.
+- 2026-07-11: MVP journey decision: enquiries will remain manually assisted for the foreseeable initial stage; automatic checkout is not required. Erland's existing experience with community RUB-IDR exchange is a useful discovery capability but is not yet defined as the official customer payment rail or an obligation within the 20-25% share.
+- 2026-07-11: Currency and channel decision: USD is the catalogue reference currency, while RUB and IDR values are calculated for each quote under a disclosed rate and validity window. WhatsApp remains the assisted-conversation channel, but each confirmed request must be captured in a structured booking summary rather than relying on chat history as the operational source of truth.
+- 2026-07-11: Pricing-rate decision: package conversion uses a business-set fixed commercial rate, such as USD 70 multiplied by IDR 18,500, distinct from XE/spot references and from Erland's community RUB-IDR exchange rate. The review cadence and FX-loss owner remain to be agreed with the partner.
+- 2026-07-11: Cancellation principles agreed: operator-caused cancellation means full customer refund and operating-side liability; customer cancellation may deduct disclosed, genuinely non-refundable third-party costs and a time-based penalty. Refund uses the amount and currency actually received rather than a new exchange rate. Proposed 72-hour and 24-hour cutoffs remain supplier/partner negotiation items.
+- 2026-07-11: Customer-service decision: customers use one business WhatsApp entry point. Erland owns administrative support during defined normal hours, while the Bali operating partner owns field support and must provide a day-of-tour emergency escalation path. This does not promise general 24/7 support; operating hours, response targets, language coverage, and backup ownership remain to be specified.
+- 2026-07-11: "In Moscow" decision: it means Russian-market presence through promotion to people in Russia, locally credible identity/domain, Russia-based customer service, and relevant payment presentation or acceptance. A Moscow office or Russian legal entity is explicitly outside the initial scope; `.ru`, RUB support, hosting, and channel choices remain separate validation questions.
+- 2026-07-11: Final clarification: possible RUB-IDR exchange is conceived as a separate add-on that helps customers obtain IDR for personal spending in Bali, not as the primary tour-payment rail. WhatsApp is the initial assisted-service channel, while Telegram and VK must be evaluated as communication and acquisition alternatives for Russian-market accessibility.
+
+## Resolution
+
+Resolved with user confirmation on 2026-07-11. The initial business model is a trust-led, Russian-market Bali tour service using assisted enquiry and structured booking handoff. Erland owns Russian-market acquisition, platform, customer communication, quotation, and booking administration; the Bali operating partner owns suppliers, fulfilment, and field incidents. The catalogue uses USD with business-set RUB/IDR conversions. Erland's target is a net 20-25% share, subject to written agreement on cost and liability allocation. Cancellation, refund, customer-service, and Russian-market-presence principles are recorded; exact payment rails, supplier cutoffs, channel viability, legal compliance, and content rights remain validation work in subsequent tickets.

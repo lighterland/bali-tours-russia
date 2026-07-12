@@ -1,0 +1,103 @@
+type ProcessStep = { number: string; title: string; body: string };
+
+export type SiteCopy = {
+  nav: { routes: string; process: string; trust: string; contact: string; cta: string };
+  hero: { eyebrow: string; title: string; accent: string; lead: string; routesCta: string; whatsappCta: string; footer: string[] };
+  statement: { eyebrow: string; title: string; body: string; link: string };
+  routes: { eyebrow: string; title: string; body: string };
+  process: { eyebrow: string; title: string; steps: ProcessStep[] };
+  trust: { eyebrow: string; title: string; body: string; stats: Array<{ value: string; label: string }> };
+  contact: { eyebrow: string; title: string; formTitle: string; formBody: string; directTitle: string; directBody: string };
+  footer: { body: string; copyrightSuffix: string };
+};
+
+export const siteCopy: Record<"ru" | "en", SiteCopy> = {
+  ru: {
+    nav: { routes: "Маршруты", process: "Как всё проходит", trust: "Почему мы", contact: "Контакты", cta: "Обсудить поездку" },
+    hero: {
+      eyebrow: "Частные маршруты · Бали · живая консультация",
+      title: "Бали ближе,",
+      accent: "чем кажется.",
+      lead: "Откройте Бали в своём ритме — частные маршруты, яркие впечатления и забота о каждой детали вашей поездки.",
+      routesCta: "Выбрать маршрут",
+      whatsappCta: "Написать в WhatsApp",
+      footer: ["01 · Ваш ритм", "02 · Понятный расчёт", "03 · Подтверждение команды"],
+    },
+    statement: {
+      eyebrow: "Не просто список экскурсий",
+      title: "Сначала понимаем поездку. Потом собираем маршрут.",
+      body: "Для пары, семьи или небольшой компании — без ощущения конвейера. Вы заранее видите формат, ориентир цены и то, что потребует отдельного подтверждения.",
+      link: "Посмотреть процесс",
+    },
+    routes: { eyebrow: "Маршруты", title: "Отправная точка для вашего Бали.", body: "Цены ниже — ориентир в USD. Наличие, точный состав и итоговый расчёт подтверждаются вручную." },
+    process: {
+      eyebrow: "Путь клиента",
+      title: "От выбора маршрута до дня поездки.",
+      steps: [
+        { number: "01", title: "Расскажите о поездке", body: "Дата, количество гостей, район отеля, интересы и особые пожелания." },
+        { number: "02", title: "Получите предложение", body: "Подходящий маршрут, понятная стоимость и всё, что входит в программу." },
+        { number: "03", title: "Подтвердите детали", body: "Мы вручную проверяем наличие и фиксируем согласованный состав." },
+        { number: "04", title: "Отправляйтесь на Бали", body: "Перед поездкой вы получаете подтверждённую сводку и контакт для дня тура." },
+      ],
+    },
+    trust: {
+      eyebrow: "Путешествия, которые остаются с вами",
+      title: "Ваш Бали. Ваш ритм.",
+      body: "Путешествуйте с семьёй или друзьями без посторонних. Вы выбираете настроение и маршрут, а местные гиды знакомят вас с культурой, традициями и самыми красивыми местами острова.",
+      stats: [{ value: "Private", label: "ваша компания" }, { value: "Bali", label: "местная команда" }, { value: "RU / EN", label: "поддержка" }],
+    },
+    contact: {
+      eyebrow: "Два удобных способа",
+      title: "Начните так, как вам комфортно.",
+      formTitle: "Оставить заявку",
+      formBody: "Вы заполняете короткую форму. Наша команда первой напишет вам в выбранном канале.",
+      directTitle: "Написать напрямую",
+      directBody: "Напишите нам в WhatsApp, чтобы выбрать маршрут, проверить дату и оформить бронирование.",
+    },
+    footer: { body: "Частные маршруты и живая консультация для путешественников из России.", copyrightSuffix: "Русский текст и операционные условия проверяются перед публикацией." },
+  },
+  en: {
+    nav: { routes: "Journeys", process: "How it works", trust: "Why us", contact: "Contact", cta: "Plan your trip" },
+    hero: {
+      eyebrow: "Private journeys · Bali · personal consultation",
+      title: "Bali is closer",
+      accent: "than it seems.",
+      lead: "Discover Bali at your own pace with private journeys, unforgettable experiences, and thoughtful care throughout your trip.",
+      routesCta: "Explore journeys",
+      whatsappCta: "Chat on WhatsApp",
+      footer: ["01 · Your pace", "02 · Clear pricing", "03 · Local confirmation"],
+    },
+    statement: {
+      eyebrow: "More than a list of tours",
+      title: "First we understand your trip. Then we shape the journey.",
+      body: "For couples, families, or small groups—without the conveyor-belt feeling. You see the format, indicative price, and anything requiring confirmation in advance.",
+      link: "See how it works",
+    },
+    routes: { eyebrow: "Journeys", title: "A starting point for your Bali.", body: "Prices below are indicative in USD. Availability, exact inclusions, and the final quote are confirmed personally." },
+    process: {
+      eyebrow: "Your journey",
+      title: "From choosing a journey to the day you travel.",
+      steps: [
+        { number: "01", title: "Tell us about your trip", body: "Dates, number of guests, hotel area, interests, and special requests." },
+        { number: "02", title: "Receive your trip plan", body: "A suitable journey, clear price, and everything included in the experience." },
+        { number: "03", title: "Confirm the details", body: "We check availability personally and record the agreed inclusions." },
+        { number: "04", title: "Experience Bali", body: "Before the tour, you receive a confirmed summary and a day-of-tour contact." },
+      ],
+    },
+    trust: {
+      eyebrow: "Travel that stays with you",
+      title: "Your Bali. Your pace.",
+      body: "Travel privately with family or friends. You choose the mood and route while local guides introduce you to Bali's culture, traditions, and remarkable places.",
+      stats: [{ value: "Private", label: "your own group" }, { value: "Bali", label: "local team" }, { value: "RU / EN", label: "support" }],
+    },
+    contact: {
+      eyebrow: "Two easy ways to start",
+      title: "Begin in the way that suits you.",
+      formTitle: "Send an enquiry",
+      formBody: "Complete a short form. Our team will contact you first through your preferred channel.",
+      directTitle: "Message us directly",
+      directBody: "Message us on WhatsApp to choose a journey, check your date, and complete your booking.",
+    },
+    footer: { body: "Private Bali journeys and personal consultation for international travellers.", copyrightSuffix: "Prices and operating conditions are confirmed before booking." },
+  },
+};
