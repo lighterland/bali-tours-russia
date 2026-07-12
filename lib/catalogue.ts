@@ -57,7 +57,6 @@ function tour(data: {
 }
 
 const terrace = "Bali rice terraces sunrise mist wide cinematic.jpg";
-const ubud = "Ubud rice terraces palm trees morning.jpg";
 const east = "Tirta Gangga Bali water palace.jpg";
 const waterfall = "Bali waterfall jungle vertical.jpg";
 const uluwatu = "Uluwatu cliff sunset aerial.jpg";

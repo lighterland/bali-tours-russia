@@ -7,6 +7,7 @@ import { localized, type SupportedLanguage } from "@/lib/i18n";
 import { mediaAssets } from "@/lib/media";
 import { siteCopy } from "@/lib/site-copy";
 import { buildBookingMessage, buildWhatsAppLink } from "@/lib/whatsapp";
+import Link from "next/link";
 
 type Props = {
   packages: TourPackage[];
@@ -24,7 +25,14 @@ type SubmitState =
   | { status: "success"; enquiryId: string }
   | { status: "error"; message: string };
 
-const heroFallback = mediaAssets.riceTerraces.url;
+const resolveAssetUrl = (url: string) => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  return `${basePath}${url}`;
+};
+
+const heroFallback = resolveAssetUrl(mediaAssets.riceTerraces.url);
 
 const curatedMedia: Record<string, string> = {
   kintamani: "/media/incoming/Ubud%20rice%20terraces%20palm%20trees%20morning.jpg",
@@ -278,7 +286,7 @@ export function ConciergeExperience({
       <section className="hero" id="top">
         <div className="hero-sticky">
           <div className="hero-media" style={{ backgroundImage: `url(${heroFallback})` }} aria-hidden="true">
-            {heroVideoUrl ? <video autoPlay muted loop playsInline preload="metadata" poster={heroFallback} src={heroVideoUrl} /> : null}
+            {heroVideoUrl ? <video autoPlay muted loop playsInline preload="metadata" poster={heroFallback} src={resolveAssetUrl(heroVideoUrl)} /> : null}
             <div className="hero-scrim" />
           </div>
           <div className="hero-content">
@@ -317,7 +325,7 @@ export function ConciergeExperience({
         <div className="route-grid">
           {packages.map((tour, index) => (
             <article className={`route-card ${index === 0 || index === 4 ? "featured" : ""}`} key={tour.id} data-reveal>
-              <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`} style={curatedMedia[tour.id] ? { backgroundImage: `url(${curatedMedia[tour.id]})` } : undefined} role="img" aria-label={text(tour.title)} />
+              <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`} style={curatedMedia[tour.id] ? { backgroundImage: `url(${resolveAssetUrl(curatedMedia[tour.id])})` } : undefined} role="img" aria-label={text(tour.title)} />
               <div className="route-body">
                 <div className="route-kicker"><span>{text(tour.family)}</span><span>{text(tour.duration)}</span></div>
                 <h3>{text(tour.title)}</h3>
@@ -355,7 +363,7 @@ export function ConciergeExperience({
       </section>
 
       <section className="trust section" id="trust">
-        <div className="trust-image" style={{ backgroundImage: "url('/media/incoming/Bali%20local%20hospitality%20hands%20detail.jpg')" }} data-reveal />
+        <div className="trust-image" style={{ backgroundImage: `url(${resolveAssetUrl('/media/incoming/Bali%20local%20hospitality%20hands%20detail.jpg')})` }} data-reveal />
         <div className="trust-copy" data-reveal>
           <p className="eyebrow dark">{copy.trust.eyebrow}</p>
           <h2>{copy.trust.title}</h2>
@@ -412,7 +420,7 @@ export function ConciergeExperience({
           </div>
           <input type="hidden" name="language" value={language} />
           <label><span>{labels.wishes}</span><textarea name="notes" maxLength={1500} placeholder={labels.wishesPlaceholder} value={whatsAppDraft.notes} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, notes: event.target.value }))} /></label>
-          <label className="consent"><input type="checkbox" name="consent" required /><span>{labels.consent} <a href="/privacy">{labels.details}</a>.</span></label>
+          <label className="consent"><input type="checkbox" name="consent" required /><span>{labels.consent} <Link href="/privacy">{labels.details}</Link>.</span></label>
           <label className="honeypot" aria-hidden="true"><span>Website</span><input name="website" tabIndex={-1} autoComplete="off" /></label>
           <input type="hidden" name="source" value="website-home" />
           <button className="button submit-button" type="submit" disabled={submitState.status === "submitting"}>

@@ -12,7 +12,10 @@ const nextConfig: NextConfig = {
         assetPrefix: "/bali-tours-russia/",
         trailingSlash: true,
         images: { unoptimized: true },
-        env: { NEXT_PUBLIC_STATIC_EXPORT: "true" },
+        env: {
+          NEXT_PUBLIC_STATIC_EXPORT: "true",
+          NEXT_PUBLIC_BASE_PATH: "/bali-tours-russia",
+        },
       }
     : {}),
 };
