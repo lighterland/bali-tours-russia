@@ -11,6 +11,7 @@ Status: harga website tetap **indicative**; availability, inclusions, dan final 
 - Hasil desimal dibulatkan secara wajar ke atas. Pada audit ini seluruh hasil terverifikasi berupa nominal USD bulat sehingga tidak diperlukan pembulatan tambahan.
 - Harga `on request` tidak diubah.
 - Harga tanpa dasar OpenBali atau referensi partner yang dapat diverifikasi tidak ditebak dan tidak dinaikkan otomatis.
+- Pengecualian berdasarkan arahan pemilik: biaya tamu tambahan Kintamani tetap USD 10/orang dan tidak mengikuti hasil USD 6 dari rumus markup 20%. Harga utama Kintamani tetap mengikuti rumus.
 
 ## Sumber
 
@@ -24,7 +25,7 @@ Persentase kenaikan di tabel adalah perubahan dari harga website sebelumnya ke h
 
 | Paket | Harga dasar | Perhitungan dan pembulatan | Harga website sebelumnya | Harga baru | Persentase kenaikan | Status |
 | --- | ---: | --- | ---: | ---: | ---: | --- |
-| Kintamani & the heart of Bali | USD 55/mobil; tambahan USD 5/orang di atas 4 tamu | 55 × 1,20 = 66; 5 × 1,20 = 6; tanpa pembulatan | USD 65/mobil; tambahan USD 10/orang | USD 66/mobil; tambahan USD 6/orang | 1,54% (harga mobil); turun 40% (tambahan tamu) | diubah |
+| Kintamani & the heart of Bali | USD 55/mobil; referensi tambahan USD 5/orang di atas 4 tamu | 55 × 1,20 = 66; biaya tambahan dikecualikan dari rumus dan dipertahankan USD 10 | USD 65/mobil; tambahan USD 10/orang | USD 66/mobil; tambahan USD 10/orang | 1,54% (harga mobil); 0% (tambahan tamu) | diubah |
 | Northwest Bali | USD 65/mobil | 65 × 1,20 = 78; tanpa pembulatan | USD 78/mobil | USD 78/mobil | 0% | sudah sesuai |
 | East Bali | USD 65/mobil | 65 × 1,20 = 78; tanpa pembulatan | USD 78/mobil | USD 78/mobil | 0% | sudah sesuai |
 | Temples of Bali | belum terverifikasi | tidak dihitung | USD 65/mobil | USD 65/mobil | — | perlu konfirmasi |

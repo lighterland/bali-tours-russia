@@ -90,6 +90,7 @@ Placeholder exclusions:
 - Hasil desimal dibulatkan secara wajar ke atas ke nominal USD yang mudah ditampilkan dan pembulatannya harus dicatat.
 - Unit asli tetap dipertahankan: per mobil, per orang, per grup, atau `mulai dari`.
 - Paket `on request` tetap `on request`. Paket tanpa harga dasar terverifikasi tidak dinaikkan otomatis dan harus masuk daftar konfirmasi.
+- Pengecualian model sementara berdasarkan arahan pemilik: biaya tamu tambahan Kintamani dipertahankan USD 10/orang; markup 20% tetap berlaku untuk harga utama paketnya.
 - Semua harga tetap indicative; availability, inclusions, dan final quote dikonfirmasi manual sebelum booking.
 - Audit penerapan per 16 Juli 2026 tercatat di [`pricing-markup-audit.md`](pricing-markup-audit.md).
 
