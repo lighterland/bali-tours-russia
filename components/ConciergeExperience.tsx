@@ -121,6 +121,7 @@ export function ConciergeExperience({
   const language: SupportedLanguage = locale;
   const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", guests: "2", pickup: "", notes: "" });
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
+  const [showHeroVideo, setShowHeroVideo] = useState(false);
   const copy = siteCopy[locale];
   const labels = ui[locale];
   const text = (value: Parameters<typeof localized>[0]) => localized(value, locale);
@@ -137,6 +138,18 @@ export function ConciergeExperience({
 
   useEffect(() => {
     document.documentElement.lang = locale;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const connection = (navigator as Navigator & {
+      connection?: EventTarget & { saveData?: boolean; effectiveType?: string };
+    }).connection;
+    const updateHeroVideo = () => {
+      const slowConnection = ["slow-2g", "2g"].includes(connection?.effectiveType || "");
+      setShowHeroVideo(!connection?.saveData && !slowConnection && !motionQuery.matches);
+    };
+    updateHeroVideo();
+    motionQuery.addEventListener("change", updateHeroVideo);
+    connection?.addEventListener("change", updateHeroVideo);
+
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const observer = new IntersectionObserver(
       (entries) => {
@@ -150,10 +163,9 @@ export function ConciergeExperience({
       { threshold: 0.12 },
     );
     elements.forEach((element) => observer.observe(element));
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let frame = 0;
     const animateScroll = () => {
-      if (reducedMotion) return;
+      if (motionQuery.matches) return;
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         document.querySelectorAll<HTMLElement>(".route-image.has-media").forEach((image) => {
@@ -165,7 +177,13 @@ export function ConciergeExperience({
     };
     animateScroll();
     window.addEventListener("scroll", animateScroll, { passive: true });
-    return () => { observer.disconnect(); window.removeEventListener("scroll", animateScroll); cancelAnimationFrame(frame); };
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", animateScroll);
+      motionQuery.removeEventListener("change", updateHeroVideo);
+      connection?.removeEventListener("change", updateHeroVideo);
+      cancelAnimationFrame(frame);
+    };
   }, [locale]);
 
   function choosePackage(id: string) {
@@ -284,6 +302,7 @@ export function ConciergeExperience({
       <section className="hero" id="top">
         <div className="hero-sticky">
           <div className="hero-media" style={{ backgroundImage: `url(${heroFallback})` }} aria-hidden="true">
+            {showHeroVideo ? <video autoPlay muted loop playsInline preload="none" poster={heroFallback} src={resolveAssetUrl("/media/hero-bali.mp4")} /> : null}
             <div className="hero-scrim" />
           </div>
           <div className="hero-content">
