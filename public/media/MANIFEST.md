@@ -12,9 +12,9 @@ Tambahkan satu baris untuk setiap aset yang masuk ke production.
 | `route-nusa-penida.jpg` | pending | pending | pending | pending | route card | pending |
 | `trust-local-team.jpg` | partner, written permission required | pending | pending | pending | trust proof | pending |
 | `craft-jewellery.webp` | user-supplied Pexels file `pexels-darrel-und-217939-693617.jpg` | Darrel Und | 2026-07-15 | verify Pexels source page before launch | craft and jewellery card | pending |
-| `hero-bali.mp4` | existing project video, web-compressed with FFmpeg | n/a | 2026-07-15 | verify original source terms before launch | home hero | pending |
+| `hero-bali.mp4` | user-supplied `15821291_720_1280_30fps_compressed.mp4`, web-compressed with FFmpeg | pending | 2026-07-15 | verify original source terms before launch | home hero | pending |
 
-The hero video was reduced from 14.7 MB to 2.5 MB, stripped of audio, resized to 540×960, and prepared for fast-start playback. The still image loads first; reduced-motion and data-saver visitors keep the still image instead of loading video.
+The supplied 6.58 MB video was reduced to 2.52 MB, stripped of audio, resized to 540×960, and prepared for fast-start playback. The still image loads first; reduced-motion and data-saver visitors keep the still image instead of loading video.
 
 ## Temporary CDN assets used by the current build
 
