@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { enquirySchema, type EnquiryPayload } from "@/lib/enquiry";
 import { packages } from "@/lib/catalogue";
 import { russian } from "@/lib/i18n";
+import { findBaliService } from "@/lib/bali-services";
 
 export const runtime = "nodejs";
 
@@ -20,13 +21,14 @@ function escapeHtml(value: string) {
 
 function renderEmail(enquiry: EnquiryPayload) {
   const tour = packages.find((item) => item.id === enquiry.packageId);
+  const service = findBaliService(enquiry.packageId);
   const row = (label: string, value: string) =>
     `<tr><td style="padding:8px 12px;color:#667085;border-bottom:1px solid #eee">${label}</td><td style="padding:8px 12px;border-bottom:1px solid #eee"><strong>${escapeHtml(value || "—")}</strong></td></tr>`;
 
   return `
     <div style="font-family:Arial,sans-serif;color:#172019;max-width:720px;margin:auto">
       <p style="font-size:12px;letter-spacing:.08em;color:#876b3c">NEW RUSSIAN-MARKET ENQUIRY</p>
-      <h1 style="font-size:28px">${escapeHtml(tour ? russian(tour.title) : enquiry.packageId)}</h1>
+      <h1 style="font-size:28px">${escapeHtml(tour ? russian(tour.title) : service ? russian(service.title) : enquiry.packageId)}</h1>
       <table style="width:100%;border-collapse:collapse">
         ${row("Enquiry ID", enquiry.enquiryId)}
         ${row("Name", enquiry.name)}

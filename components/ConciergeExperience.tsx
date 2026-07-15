@@ -7,6 +7,7 @@ import { localized, type SupportedLanguage } from "@/lib/i18n";
 import { mediaAssets } from "@/lib/media";
 import { siteCopy } from "@/lib/site-copy";
 import { buildBookingMessage, buildWhatsAppLink } from "@/lib/whatsapp";
+import { baliServiceOptions, findBaliService, generalBaliService } from "@/lib/bali-services";
 import Link from "next/link";
 
 type Props = {
@@ -61,10 +62,10 @@ const ui = {
     photo: "Атмосферное фото", priceNote: "ориентир · наличие по запросу", request: "Запросить",
     teamPhoto: "Атмосферное фото · реальная команда будет добавлена после письменного разрешения",
     fillForm: "Заполнить форму", openWhatsApp: "Открыть WhatsApp", otherChannels: "Другие каналы:",
-    formEyebrow: "Заявка на бронирование", chooseRoute: "Выберите маршрут", formIntro: "Укажите дату и детали поездки. Мы свяжемся с вами, подтвердим наличие и поможем завершить бронирование.",
+    formEyebrow: "Заявка", chooseRoute: "Выберите маршрут или услугу", formIntro: "Укажите даты и детали запроса. Мы свяжемся с вами, уточним условия и поможем со следующим шагом.",
     sent: "Заявка отправлена.", sentDetail: "Ориентир ответа: в течение рабочего дня. Номер:", sendError: "Не получилось отправить.",
-    name: "Имя *", whatsapp: "WhatsApp с кодом страны *", date: "Дата начала *", datePlaceholder: "", endDate: "Дата окончания (необязательно)",
-    guests: "Количество гостей *", route: "Маршрут", channel: "Как связаться *", optional: "необязательно", pickup: "Отель или район",
+    name: "Имя *", whatsapp: "WhatsApp с кодом страны *", date: "Дата начала *", serviceDate: "Предпочтительная дата (необязательно)", datePlaceholder: "", endDate: "Дата окончания (необязательно)",
+    guests: "Количество гостей *", serviceGuests: "Количество человек (необязательно)", route: "Что вас интересует?", journeysGroup: "Маршруты", servicesGroup: "Услуги на Бали · наличие по запросу", channel: "Как связаться *", optional: "необязательно", pickup: "Отель или район",
     pickupPlaceholder: "Можно сообщить позже", language: "Язык общения *", wishes: "Пожелания", wishesPlaceholder: "Темп, интересы, особые потребности",
     consent: "Я согласен(-на) на обработку данных заявки и обратную связь.", details: "Подробнее", sending: "Отправляем…", send: "Отправить заявку",
     footerRoutes: "Маршруты", footerContact: "Контакты", footerPrivacy: "Данные заявки", errorMessage: "Не удалось отправить запрос.", detailsLabel: "Подробнее", includedLabel: "Что включено", routeLabel: "Маршрут и остановки", priceLabel: "Условия цены",
@@ -74,10 +75,10 @@ const ui = {
     photo: "Atmospheric image", priceNote: "indicative · availability on request", request: "Request",
     teamPhoto: "Atmospheric image · the real team will be added after written permission",
     fillForm: "Complete the form", openWhatsApp: "Open WhatsApp", otherChannels: "Other channels:",
-    formEyebrow: "Booking request", chooseRoute: "Choose a journey", formIntro: "Share your date and trip details. We will contact you, confirm availability, and help complete your booking.",
+    formEyebrow: "Enquiry", chooseRoute: "Choose a journey or service", formIntro: "Share your dates and request details. We will contact you, confirm the arrangements, and help with the next step.",
     sent: "Enquiry sent.", sentDetail: "Expected reply: within one business day. Reference:", sendError: "Unable to send.",
-    name: "Name *", whatsapp: "WhatsApp with country code *", date: "Start date *", datePlaceholder: "", endDate: "End date (optional)",
-    guests: "Number of guests *", route: "Journey", channel: "Preferred contact *", optional: "optional", pickup: "Hotel or area",
+    name: "Name *", whatsapp: "WhatsApp with country code *", date: "Start date *", serviceDate: "Preferred date (optional)", datePlaceholder: "", endDate: "End date (optional)",
+    guests: "Number of guests *", serviceGuests: "People or group size (optional)", route: "What are you interested in?", journeysGroup: "Journeys", servicesGroup: "Bali services · availability on request", channel: "Preferred contact *", optional: "optional", pickup: "Hotel or area",
     pickupPlaceholder: "You can tell us later", language: "Communication language *", wishes: "Your wishes", wishesPlaceholder: "Pace, interests, special requirements",
     consent: "I agree to the processing of my enquiry data and to being contacted.", details: "Learn more", sending: "Sending…", send: "Send enquiry",
     footerRoutes: "Journeys", footerContact: "Contact", footerPrivacy: "Enquiry data", errorMessage: "Unable to send the enquiry.", detailsLabel: "View details", includedLabel: "What's included", routeLabel: "Route and stops", priceLabel: "Price terms",
@@ -85,8 +86,8 @@ const ui = {
 } as const;
 
 const services = {
-  ru: { eyebrow: "Сервисы на Бали", title: "Всё необходимое для поездки и жизни на острове.", body: "Закажите транспорт для одного дня или всей поездки, а также получите помощь с практическими вопросами переезда и жизни на Бали.", items: ["Аренда скутеров и мотоциклов", "Автомобили с водителем или без", "Минивэны и трансферы для групп", "Визы, земля и документы", "Строительство виллы и открытие бизнеса", "Счёт в местном банке"], cta: "Отправить запрос" },
-  en: { eyebrow: "Bali services", title: "Everything you need for the journey—and life on the island.", body: "Arrange transport for a single day or your whole stay, and get practical support for relocating or establishing life in Bali.", items: ["Scooter and motorbike rental", "Self-drive or chauffeured cars", "Minivans and group transfers", "Visas, land and documentation", "Villa construction and business setup", "Local bank account"], cta: "Send a request" },
+  ru: { eyebrow: "Сервисы на Бали", title: "Всё необходимое для поездки и жизни на острове.", body: "Закажите транспорт для одного дня или всей поездки, а также получите помощь с практическими вопросами переезда и жизни на Бали.", cta: "Отправить запрос" },
+  en: { eyebrow: "Bali services", title: "Everything you need for the journey—and life on the island.", body: "Arrange transport for a single day or your whole stay, and get practical support for relocating or establishing life in Bali.", cta: "Send a request" },
 } as const;
 
 function ArrowIcon() {
@@ -127,11 +128,17 @@ export function ConciergeExperience({
   const text = (value: Parameters<typeof localized>[0]) => localized(value, locale);
 
   const selectedPackage = useMemo(
-    () => packages.find((tour) => tour.id === selectedPackageId) || packages[0],
+    () => packages.find((tour) => tour.id === selectedPackageId),
     [packages, selectedPackageId],
   );
+  const selectedService = findBaliService(selectedPackageId);
+  const selectedInterestTitle = selectedPackage
+    ? text(selectedPackage.title)
+    : selectedService
+      ? text(selectedService.title)
+      : labels.chooseRoute;
   const directWhatsApp = buildWhatsAppLink(whatsappNumber, {
-    packageTitle: selectedPackage ? text(selectedPackage.title) : labels.chooseRoute,
+    packageTitle: selectedInterestTitle,
     language: locale,
     ...whatsAppDraft,
   });
@@ -186,8 +193,16 @@ export function ConciergeExperience({
     };
   }, [locale]);
 
-  function choosePackage(id: string) {
+  function selectInterest(id: string) {
     setSelectedPackageId(id);
+    setWhatsAppDraft((value) => ({
+      ...value,
+      guests: id.startsWith("service-") ? "" : value.guests || "2",
+    }));
+  }
+
+  function choosePackage(id: string) {
+    selectInterest(id);
     document.getElementById("request")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -216,7 +231,7 @@ export function ConciergeExperience({
     };
     const selectedChannel = String(data.get("preferredChannel"));
     const bookingDraft = {
-      packageTitle: selectedPackage ? text(selectedPackage.title) : labels.chooseRoute,
+      packageTitle: selectedInterestTitle,
       date: [data.get("date"), data.get("endDate")].filter(Boolean).join(" — "),
       guests: String(data.get("guests") || ""), pickup: String(data.get("pickup") || ""), notes: String(data.get("notes") || ""), language: locale,
     } as const;
@@ -238,7 +253,7 @@ export function ConciergeExperience({
         setSubmitState({ status: "success", enquiryId });
         form.reset();
         setPreferredChannel("WhatsApp");
-        setWhatsAppDraft({ date: "", guests: "2", pickup: "", notes: "" });
+        setWhatsAppDraft({ date: "", guests: selectedService ? "" : "2", pickup: "", notes: "" });
         return;
       }
       const response = await fetch("/api/enquiries", {
@@ -260,7 +275,7 @@ export function ConciergeExperience({
       }
       form.reset();
       setPreferredChannel("WhatsApp");
-      setWhatsAppDraft({ date: "", guests: "2", pickup: "", notes: "" });
+      setWhatsAppDraft({ date: "", guests: selectedService ? "" : "2", pickup: "", notes: "" });
     } catch (error) {
       setSubmitState({
         status: "error",
@@ -389,8 +404,8 @@ export function ConciergeExperience({
 
       <section className="services section" id="services">
         <div data-reveal><p className="eyebrow dark">{services[locale].eyebrow}</p><h2>{services[locale].title}</h2><p>{services[locale].body}</p></div>
-        <div className="service-list" data-reveal>{services[locale].items.map((item) => <span key={item}>{item}</span>)}</div>
-        <a className="button primary" href="#request">{services[locale].cta} <ArrowIcon /></a>
+        <div className="service-list" data-reveal>{baliServiceOptions.map((service) => <span key={service.id}>{text(service.title)}</span>)}</div>
+        <a className="button primary" href="#request" onClick={() => selectInterest(generalBaliService.id)}>{services[locale].cta} <ArrowIcon /></a>
       </section>
 
       <section className="contact section" id="request">
@@ -403,7 +418,7 @@ export function ConciergeExperience({
         <form className="contact-form" id="contact-form" onSubmit={submitEnquiry} data-reveal>
           <div className="form-heading">
             <p className="eyebrow dark">{labels.formEyebrow}</p>
-            <h3>{selectedPackage ? text(selectedPackage.title) : labels.chooseRoute}</h3>
+            <h3>{selectedInterestTitle}</h3>
             <p>{labels.formIntro}</p>
           </div>
           {submitState.status === "success" ? (
@@ -420,12 +435,12 @@ export function ConciergeExperience({
             <label><span>{labels.whatsapp}</span><input name="whatsapp" autoComplete="tel" inputMode="tel" placeholder="+7 …" required pattern="\+?[1-9][0-9]{7,14}" /></label>
           </div>
           <div className="form-grid two">
-            <label><span>{labels.date}</span><input name="date" type="date" value={whatsAppDraft.date} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, date: event.target.value }))} required /></label>
+            <label><span>{selectedService ? labels.serviceDate : labels.date}</span><input name="date" type="date" value={whatsAppDraft.date} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, date: event.target.value }))} required={!selectedService} /></label>
             <label><span>{labels.endDate}</span><input name="endDate" type="date" min={whatsAppDraft.date || undefined} /></label>
           </div>
           <div className="form-grid two">
-            <label><span>{labels.guests}</span><select name="guests" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required>{["1", "2", "3", "4", "5", "6+"].map((value) => <option key={value}>{value}</option>)}</select></label>
-            <label><span>{labels.route}</span><select name="packageId" value={selectedPackageId} onChange={(event) => setSelectedPackageId(event.target.value)}>{packages.map((tour) => <option value={tour.id} key={tour.id}>{text(tour.title)}</option>)}</select></label>
+            <label><span>{selectedService ? labels.serviceGuests : labels.guests}</span><select name="guests" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required={!selectedService}>{selectedService ? <option value="">—</option> : null}{["1", "2", "3", "4", "5", "6+"].map((value) => <option key={value}>{value}</option>)}</select></label>
+            <label><span>{labels.route}</span><select name="packageId" value={selectedPackageId} onChange={(event) => selectInterest(event.target.value)}><optgroup label={labels.journeysGroup}>{packages.map((tour) => <option value={tour.id} key={tour.id}>{text(tour.title)}</option>)}</optgroup><optgroup label={labels.servicesGroup}><option value={generalBaliService.id}>{text(generalBaliService.title)}</option>{baliServiceOptions.map((service) => <option value={service.id} key={service.id}>{text(service.title)}</option>)}</optgroup></select></label>
           </div>
           <div className="form-grid two">
             <label><span>{labels.channel}</span><select name="preferredChannel" value={preferredChannel} onChange={(event) => setPreferredChannel(event.target.value as (typeof contactChannels)[number])}>{contactChannels.map((channel) => <option key={channel}>{channel}</option>)}</select></label>
