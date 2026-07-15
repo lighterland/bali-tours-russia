@@ -109,4 +109,13 @@ const stories: Record<string, LocalizedText> = {
   "java-yogyakarta": local("Джокьякарта раскрывается слоями: рассвет у Боробудура, каменные башни Прамбанана, дворцы, ремесленные кварталы и живая городская культура между древними памятниками.", "Yogyakarta reveals itself in layers: morning light at Borobudur, the stone towers of Prambanan, royal history, artisan neighbourhoods, and a living city culture between ancient landmarks."),
 };
 
-export const packages: TourPackage[] = basePackages.map((item) => ({ ...item, experience: stories[item.id] || item.experience }));
+const partnerPriceAdjustments: Partial<Record<string, TourPackage["price"]>> = {
+  "northwest-bali": { status: "indicative", currency: "USD", label: local("$78 / авто", "$78 / car") },
+  "east-bali": { status: "indicative", currency: "USD", label: local("$78 / авто", "$78 / car") },
+};
+
+export const packages: TourPackage[] = basePackages.map((item) => ({
+  ...item,
+  price: partnerPriceAdjustments[item.id] || item.price,
+  experience: stories[item.id] || item.experience,
+}));

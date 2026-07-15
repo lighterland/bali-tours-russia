@@ -73,7 +73,7 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
       body: "For couples, families, or small groups—without the conveyor-belt feeling. You see the format, indicative price, and anything requiring confirmation in advance.",
       link: "See how it works",
     },
-    routes: { eyebrow: "Journeys", title: "A starting point for your Bali.", body: "Prices below are indicative in USD. Availability, exact inclusions, and the final quote are confirmed personally." },
+    routes: { eyebrow: "Journeys", title: "A starting point for your Bali.", body: "Prices are shown in USD as a guide. We confirm availability, inclusions, and your final price before booking." },
     process: {
       eyebrow: "Your journey",
       title: "From choosing a journey to the day you travel.",

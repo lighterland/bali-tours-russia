@@ -11,7 +11,9 @@ Tambahkan satu baris untuk setiap aset yang masuk ke production.
 | `route-south-uluwatu.jpg` | pending | pending | pending | pending | route card | pending |
 | `route-nusa-penida.jpg` | pending | pending | pending | pending | route card | pending |
 | `trust-local-team.jpg` | partner, written permission required | pending | pending | pending | trust proof | pending |
-| `hero-bali.mp4` | AI provider, prompt in docs/media-acquisition-guide.md | n/a | pending | provider terms pending | home hero | pending |
+| `craft-jewellery.webp` | user-supplied Pexels file `pexels-darrel-und-217939-693617.jpg` | Darrel Und | 2026-07-15 | verify Pexels source page before launch | craft and jewellery card | pending |
+
+The previous 14.7 MB `hero-bali.mp4` was removed on 2026-07-15 to reduce initial page weight. The home hero now uses the existing still-image fallback.
 
 ## Temporary CDN assets used by the current build
 

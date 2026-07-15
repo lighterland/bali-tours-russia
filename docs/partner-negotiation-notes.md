@@ -59,6 +59,13 @@ Nilai utama bisnis sebaiknya berasal dari margin jasa yang transparan, bukan spe
 - Partner perlu menyediakan penanggung jawab serta kontak darurat pada hari tur. Ini bukan janji layanan customer service umum 24/7.
 - Jam layanan normal, target waktu respons, bahasa dukungan, prosedur eskalasi, dan pengganti ketika Erland atau partner tidak tersedia masih harus ditetapkan.
 
+## Penyesuaian harga kendaraan rute timur dan barat
+
+- Pada 15 Juli 2026, Partner Operasional Bali meminta ongkos mobil untuk rute Bali Timur dan Bali Barat dinaikkan 20%.
+- Untuk katalog saat ini, arahan tersebut diterapkan pada `east-bali` dan `northwest-bali`: harga indikatif kendaraan berubah dari USD 65 menjadi USD 78 per mobil.
+- Kenaikan ini hanya berlaku pada komponen mobil untuk kedua rute tersebut; harga aktivitas, tiket, dan paket lain tidak ikut berubah.
+- Harga tetap berstatus indikatif sampai ketersediaan, inclusions, dan final quote dikonfirmasi sebelum booking.
+
 ## Arti kebutuhan "di Moscow"
 
 - Kebutuhan ditafsirkan sebagai kehadiran pasar Rusia: promosi kepada pelanggan di Rusia, identitas atau domain yang terasa lokal, customer service yang dijalankan dari Rusia, serta kemampuan menampilkan atau menerima metode pembayaran yang relevan.

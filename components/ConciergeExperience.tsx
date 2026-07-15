@@ -16,7 +16,6 @@ type Props = {
   telegramUrl: string;
   vkUrl: string;
   businessEmail: string;
-  heroVideoUrl: string;
 };
 
 type SubmitState =
@@ -35,22 +34,22 @@ const resolveAssetUrl = (url: string) => {
 const heroFallback = resolveAssetUrl(mediaAssets.riceTerraces.url);
 
 const curatedMedia: Record<string, string> = {
-  kintamani: "/media/incoming/Ubud%20rice%20terraces%20palm%20trees%20morning.jpg",
+  kintamani: "/media/incoming/ubud-rice-terraces.webp",
   "northwest-bali": "/media/northwest-bali.jpg",
-  "east-bali": "/media/incoming/Tirta%20Gangga%20Bali%20water%20palace.jpg",
-  "temple-tour": "/media/incoming/Balinese%20temple%20stone%20carving%20close%20up.jpg",
-  "beach-tour": "/media/incoming/Bali%20winding%20road%20tropical%20aerial.jpg",
-  rafting: "/media/rafting-bali.jpg",
+  "east-bali": "/media/incoming/tirta-gangga.webp",
+  "temple-tour": "/media/incoming/temple-carving.webp",
+  "beach-tour": "/media/incoming/bali-winding-road.webp",
+  rafting: "/media/rafting-bali.webp",
   fishing: "/media/fishing.jpg",
   "turtle-snorkeling": "/media/turtle-snorkeling.jpg",
   surfing: "/media/incoming/Bali%20surfing.jpg",
   safari: "/media/safari-bali.jpg",
   "batur-sunrise": "/media/batur-sunrise.jpg",
   "water-sports": "/media/water-sports.jpg",
-  atv: "/media/atv-bali.jpg",
-  "nusa-penida": "/media/incoming/Kelingking%20beach%20aerial%20Bali.jpg",
-  "craft-jewellery": "/media/incoming/Bali%20local%20hospitality%20hands%20detail.jpg",
-  "romantic-dinner": "/media/incoming/Bali%20winding%20road%20tropical%20aerial.jpg",
+  atv: "/media/atv-bali.webp",
+  "nusa-penida": "/media/incoming/kelingking-beach.webp",
+  "craft-jewellery": "/media/craft-jewellery.webp",
+  "romantic-dinner": "/media/incoming/bali-winding-road.webp",
   "vehicle-rental": "/media/vehicle-rental.jpg",
   "java-bromo-ijen": "/media/incoming/Mount%20Bromo%20sunrise.jpg",
   "java-yogyakarta": "/media/incoming/Borobudur%20Temple.jpg",
@@ -115,7 +114,6 @@ export function ConciergeExperience({
   telegramUrl,
   vkUrl,
   businessEmail,
-  heroVideoUrl,
 }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedPackageId, setSelectedPackageId] = useState(packages[0]?.id || "");
@@ -268,7 +266,7 @@ export function ConciergeExperience({
         </nav>
         <div className="header-actions">
           <div className="language-toggle" role="group" aria-label="Language">
-            {(["ru", "en"] as const).map((value) => <a key={value} href={`/${value}`} className={locale === value ? "active" : ""} aria-current={locale === value ? "page" : undefined}>{value.toUpperCase()}</a>)}
+            {(["ru", "en"] as const).map((value) => <a key={value} href={resolveAssetUrl(`/${value}/`)} className={locale === value ? "active" : ""} aria-current={locale === value ? "page" : undefined}>{value.toUpperCase()}</a>)}
           </div>
           <a className="header-cta" href="#request">{copy.nav.cta}</a>
         </div>
@@ -286,7 +284,6 @@ export function ConciergeExperience({
       <section className="hero" id="top">
         <div className="hero-sticky">
           <div className="hero-media" style={{ backgroundImage: `url(${heroFallback})` }} aria-hidden="true">
-            {heroVideoUrl ? <video autoPlay muted loop playsInline preload="metadata" poster={heroFallback} src={resolveAssetUrl(heroVideoUrl)} /> : null}
             <div className="hero-scrim" />
           </div>
           <div className="hero-content">
@@ -435,6 +432,9 @@ export function ConciergeExperience({
         <div className="footer-actions"><nav className="footer-links" aria-label={labels.navLabel}><a href="#routes">{labels.footerRoutes}</a><a href="#request">{labels.footerContact}</a></nav><div className="footer-socials"><a className="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a><a className="social-link" href="https://vk.com/" target="_blank" rel="noreferrer" aria-label="VK"><SocialIcon name="vk" /></a>{telegramUrl ? <a className="social-link" href={telegramUrl} target="_blank" rel="noreferrer" aria-label="Telegram"><SocialIcon name="telegram" /></a> : null}<a className="social-link" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a></div></div>
         <small>© {new Date().getFullYear()} · {copy.footer.copyrightSuffix}</small>
       </footer>
+      <a className="whatsapp-fab" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label={labels.openWhatsApp} title={labels.openWhatsApp}>
+        <SocialIcon name="whatsapp" />
+      </a>
     </main>
   );
 }
