@@ -10,6 +10,14 @@ Status: draf untuk dipertegas; belum merupakan kesepakatan.
 - Kontribusi Erland untuk kebutuhan operasional bukan potongan otomatis. Setiap kontribusi harus mempunyai tujuan, nominal atau batas, periode, dan bukti penggunaan yang jelas.
 - Harga pelanggan, harga net partner, inclusions, exclusions, refund, dan pembagian pendapatan harus tercatat per booking agar dapat direkonsiliasi.
 
+## Model harga katalog sementara
+
+- Untuk katalog website tahap sekarang, model operasional yang dipakai adalah **markup 20% atas harga dasar OpenBali atau referensi partner yang dapat diverifikasi**.
+- Rumus kerja: `harga website indikatif = harga dasar referensi × 1,20`, dengan pembulatan wajar ke atas bila hasilnya desimal.
+- Model markup ini tidak sama dengan komisi 20% dari harga jual final. Struktur komisi atau pembagian pendapatan final tetap merupakan hal terpisah yang harus disepakati.
+- Harga tanpa dasar terverifikasi tidak boleh dinaikkan otomatis. Semua harga tetap indicative dan final quote dikonfirmasi manual.
+- Rincian dasar, perhitungan, pembulatan, dan paket yang perlu konfirmasi tercatat di [`pricing-markup-audit.md`](pricing-markup-audit.md).
+
 ## Hal yang harus dipertegas
 
 - Apakah 20% atau 25%, dan kondisi yang membedakannya.

@@ -83,6 +83,16 @@ Placeholder exclusions:
 5. **Mulai dari** — harga pembuka; quotation final bergantung pada tanggal, peserta, pickup, dan kebutuhan.
 6. **Berdasarkan permintaan** — untuk Custom Private Tour.
 
+## Model harga sementara untuk katalog website
+
+- Untuk paket yang mempunyai harga dasar OpenBali atau referensi partner yang dapat diverifikasi, harga indikatif website dihitung sebagai `harga dasar × 1,20`.
+- Model ini adalah **markup 20% atas harga dasar referensi**, bukan komisi 20% dari harga jual final.
+- Hasil desimal dibulatkan secara wajar ke atas ke nominal USD yang mudah ditampilkan dan pembulatannya harus dicatat.
+- Unit asli tetap dipertahankan: per mobil, per orang, per grup, atau `mulai dari`.
+- Paket `on request` tetap `on request`. Paket tanpa harga dasar terverifikasi tidak dinaikkan otomatis dan harus masuk daftar konfirmasi.
+- Semua harga tetap indicative; availability, inclusions, dan final quote dikonfirmasi manual sebelum booking.
+- Audit penerapan per 16 Juli 2026 tercatat di [`pricing-markup-audit.md`](pricing-markup-audit.md).
+
 ## Opsi availability pilot
 
 - Default semua paket: `confirmation required`.
