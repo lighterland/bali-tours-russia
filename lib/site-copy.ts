@@ -98,6 +98,6 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
       directTitle: "Message us directly",
       directBody: "Message us on WhatsApp to choose a journey, check your date, and complete your booking.",
     },
-    footer: { body: "Private Bali journeys and personal consultation for international travellers.", copyrightSuffix: "Prices and operating conditions are confirmed before booking." },
+    footer: { body: "Private Bali journeys with local planning and personal support.", copyrightSuffix: "Prices and operating conditions are confirmed before booking." },
   },
 };
