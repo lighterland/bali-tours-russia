@@ -1,7 +1,7 @@
 # Audit Markup Harga Katalog
 
 Tanggal audit: 16 Juli 2026  
-Status: harga website tetap **indicative**; availability, inclusions, dan final quote dikonfirmasi manual.
+Status: nominal website dalam RUB dan USD merupakan **harga jual tetap**; availability dan inclusions dikonfirmasi manual.
 
 ## Aturan sementara
 
@@ -12,6 +12,7 @@ Status: harga website tetap **indicative**; availability, inclusions, dan final 
 - Harga `on request` tidak diubah.
 - Harga tanpa dasar OpenBali atau referensi partner yang dapat diverifikasi tidak ditebak dan tidak dinaikkan otomatis.
 - Pengecualian berdasarkan arahan pemilik: biaya tamu tambahan Kintamani tetap USD 10/orang dan tidak mengikuti hasil USD 6 dari rumus markup 20%. Harga utama Kintamani tetap mengikuti rumus.
+- Harga RUB adalah harga jual tetap kedua, bukan estimasi: acuan internal 82 RUB/USD dibulatkan ke atas per 500 RUB untuk nominal mulai 3.000 RUB dan per 100 RUB untuk nominal yang lebih kecil. Katalog tidak memakai simbol `~`.
 
 ## Sumber
 

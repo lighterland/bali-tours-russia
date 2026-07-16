@@ -24,7 +24,7 @@ Klarifikasi business model: kapabilitas tersebut terutama dibayangkan sebagai la
 ### Tahap validasi kecil
 
 - Gunakan enquiry terbantu melalui chat sebagai alur utama; checkout otomatis bukan kebutuhan MVP.
-- Tampilkan harga katalog utama dalam USD. Konversi harga pelanggan ke RUB atau IDR menggunakan kurs harga paket yang ditetapkan bisnis, misalnya USD 70 dikalikan Rp18.500. Kurs komersial ini harus dibedakan dari kurs spot atau kurs penukaran komunitas dan mempunyai aturan peninjauan.
+- Tampilkan price list tetap dalam RUB dan USD. Nominal RUB ditetapkan bisnis dari acuan internal dan pembulatan komersial, bukan konversi spot pada saat pelanggan membuka halaman. Kanal pembayaran tetap dikonfirmasi manual sampai tersedia jalur resmi yang mendukungnya.
 - Gunakan payment link dari penyedia pembayaran Indonesia berizin untuk metode yang benar-benar dapat digunakan pelanggan. Midtrans atau Xendit layak diuji sebagai checkout IDR, bukan diasumsikan menerima kartu bank Rusia.
 - Jika pelanggan sudah berada di Bali, tawarkan metode IDR lokal yang tersedia melalui penyedia berizin, misalnya payment link atau QRIS.
 - Untuk pelanggan di Rusia, lakukan eksperimen pembayaran tanpa dana nyata atau nominal minimum yang dapat dikembalikan hanya setelah penyedia pembayaran menyetujui merchant, bisnis, negara pembayar, metode, dan refund flow.

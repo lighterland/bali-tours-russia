@@ -23,7 +23,7 @@ Tidak ada paket di dokumen ini yang sudah berstatus `confirmed` atau `publishabl
 
 ## Paket kandidat
 
-| ID | Paket kandidat | Tier | Harga indikatif | Unit | Stop/tema kandidat | Durasi | Status |
+| ID | Paket kandidat | Tier | Harga katalog USD | Unit | Stop/tema kandidat | Durasi | Status |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
 | UBD-E | Ubud & Central Bali | Essential | mulai USD 60 | per kendaraan, maks. 4 | air terjun, pusat Ubud, sawah terasering, viewpoint | 9–10 jam | pilot |
 | UBD-P | Ubud & Central Bali | Practical | mulai USD 85 | per orang, min. 2 | rute Central Bali dengan tiket utama dan koordinasi tambahan | 9–10 jam | pilot |
@@ -85,13 +85,15 @@ Placeholder exclusions:
 
 ## Model harga sementara untuk katalog website
 
-- Untuk paket yang mempunyai harga dasar OpenBali atau referensi partner yang dapat diverifikasi, harga indikatif website dihitung sebagai `harga dasar × 1,20`.
+- Untuk paket yang mempunyai harga dasar OpenBali atau referensi partner yang dapat diverifikasi, harga katalog USD dihitung sebagai `harga dasar × 1,20`.
 - Model ini adalah **markup 20% atas harga dasar referensi**, bukan komisi 20% dari harga jual final.
 - Hasil desimal dibulatkan secara wajar ke atas ke nominal USD yang mudah ditampilkan dan pembulatannya harus dicatat.
 - Unit asli tetap dipertahankan: per mobil, per orang, per grup, atau `mulai dari`.
 - Paket `on request` tetap `on request`. Paket tanpa harga dasar terverifikasi tidak dinaikkan otomatis dan harus masuk daftar konfirmasi.
 - Pengecualian model sementara berdasarkan arahan pemilik: biaya tamu tambahan Kintamani dipertahankan USD 10/orang; markup 20% tetap berlaku untuk harga utama paketnya.
-- Semua harga tetap indicative; availability, inclusions, dan final quote dikonfirmasi manual sebelum booking.
+- Untuk pasar Rusia, katalog memakai dua harga jual tetap: RUB ditampilkan lebih dahulu pada halaman Rusia dan USD lebih dahulu pada halaman Inggris. Harga RUB memakai acuan internal 82 RUB/USD lalu dibulatkan ke nominal komersial; harga ini bukan estimasi kurs dan tidak memakai simbol `~`.
+- Pelanggan dapat memilih nominal harga tetap dalam RUB atau USD yang ditampilkan. Kanal pembayaran dikonfirmasi manual sampai checkout resmi tersedia; perubahan kurs harian tidak mengubah price list sampai bisnis memperbaruinya.
+- Nominal katalog dalam RUB dan USD merupakan harga jual tetap; availability dan inclusions dikonfirmasi manual sebelum booking.
 - Audit penerapan per 16 Juli 2026 tercatat di [`pricing-markup-audit.md`](pricing-markup-audit.md).
 
 ## Opsi availability pilot

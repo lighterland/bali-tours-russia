@@ -6,7 +6,7 @@ export type TourPackage = {
   title: LocalizedText;
   family: LocalizedText;
   summary: LocalizedText;
-  price: { status: "indicative"; currency: "USD"; label: LocalizedText };
+  price: { status: "fixed" | "on_request"; currencies: readonly ("USD" | "RUB")[]; label: LocalizedText };
   duration: LocalizedText;
   media: MediaAsset;
   highlights: LocalizedText[];
@@ -29,6 +29,7 @@ function tour(data: {
   tags: Array<[string, string]>; stops: Array<[string, string]>; includedRu?: string; includedEn?: string; priceRuDetail?: string; priceEnDetail?: string;
   itineraryLabelRu?: string; itineraryLabelEn?: string; includedLabelRu?: string; includedLabelEn?: string; priceLabelRu?: string; priceLabelEn?: string;
 }): TourPackage {
+  const isOnRequest = data.priceEn === "on request";
   const activityIds = new Set(["rafting", "fishing", "turtle-snorkeling", "surfing", "safari", "batur-sunrise", "water-sports", "atv", "craft-jewellery", "romantic-dinner"]);
   const isActivity = activityIds.has(data.id);
   const itineraryLabel = isActivity
@@ -42,7 +43,7 @@ function tour(data: {
     : local("Условия цены", "Price terms");
   return {
     id: data.id, title: local(data.ru, data.en), family: local(data.familyRu, data.familyEn), summary: local(data.summaryRu, data.summaryEn),
-    price: { status: "indicative", currency: "USD", label: local(data.priceRu, data.priceEn) }, duration: local(data.durationRu, data.durationEn),
+    price: { status: isOnRequest ? "on_request" : "fixed", currencies: isOnRequest ? [] : ["USD"], label: local(data.priceRu, data.priceEn) }, duration: local(data.durationRu, data.durationEn),
     media: img(data.image), highlights: highlights(...data.tags), itinerary: highlights(...data.stops),
     itineraryLabel: data.itineraryLabelRu && data.itineraryLabelEn ? local(data.itineraryLabelRu, data.itineraryLabelEn) : itineraryLabel,
     experience: local(
@@ -66,11 +67,11 @@ const carving = "Balinese temple stone carving close up.jpg";
 const hands = "Bali local hospitality hands detail.jpg";
 
 const basePackages: TourPackage[] = [
-  tour({id:"kintamani",ru:"Кинтамани и сердце Бали",en:"Kintamani & the heart of Bali",familyRu:"Хит",familyEn:"Bestseller",summaryRu:"Вулкан Батур, Убуд, рисовые террасы и водопад за один насыщенный день.",summaryEn:"Mount Batur views, Ubud, rice terraces, and a waterfall in one rewarding day.",priceRu:"$65 / авто",priceEn:"$65 / car",durationRu:"09:00–19:00",durationEn:"09:00–19:00",image:terrace,tags:[["Вулкан","Volcano"],["Убуд","Ubud"],["Террасы","Terraces"]],stops:[["Смотровая площадка Батур","Mount Batur viewpoint"],["Убуд и деревни мастеров","Ubud and artisan villages"],["Террасы и водопад","Rice terraces and waterfall"]],includedRu:"Частный автомобиль с кондиционером и водитель-гид.",includedEn:"Private air-conditioned car and driver-guide.",priceRuDetail:"До 4 гостей; +$10 за дополнительного гостя. Билеты отдельно.",priceEnDetail:"Up to 4 guests; +$10 per additional guest. Tickets excluded."}),
+  tour({id:"kintamani",ru:"Кинтамани и сердце Бали",en:"Kintamani & the heart of Bali",familyRu:"Хит",familyEn:"Bestseller",summaryRu:"Вулкан Батур, Убуд, рисовые террасы и водопад за один насыщенный день.",summaryEn:"Mount Batur views, Ubud, rice terraces, and a waterfall in one rewarding day.",priceRu:"$65 / авто",priceEn:"$65 / car",durationRu:"09:00–19:00",durationEn:"09:00–19:00",image:terrace,tags:[["Вулкан","Volcano"],["Убуд","Ubud"],["Террасы","Terraces"]],stops:[["Смотровая площадка Батур","Mount Batur viewpoint"],["Убуд и деревни мастеров","Ubud and artisan villages"],["Террасы и водопад","Rice terraces and waterfall"]],includedRu:"Частный автомобиль с кондиционером и водитель-гид.",includedEn:"Private air-conditioned car and driver-guide.",priceRuDetail:"До 4 гостей; +1 000 ₽ или +$10 за дополнительного гостя. Билеты отдельно.",priceEnDetail:"Up to 4 guests; +$10 or +1,000 ₽ per additional guest. Tickets excluded."}),
   tour({id:"northwest-bali",ru:"Северо-запад Бали",en:"Northwest Bali",familyRu:"Маршрут",familyEn:"Journey",summaryRu:"Озеро Братан, Улун Дану, Таман Аюн и водопады прохладного севера.",summaryEn:"Lake Bratan, Ulun Danu, Taman Ayun, and waterfalls in Bali's cooler north.",priceRu:"$65 / авто",priceEn:"$65 / car",durationRu:"09:00–20:00",durationEn:"09:00–20:00",image:waterfall,tags:[["Озёра","Lakes"],["Храмы","Temples"],["Водопады","Waterfalls"]],stops:[["Озеро Братан и Улун Дану","Lake Bratan and Ulun Danu"],["Таман Аюн","Taman Ayun"],["Водопад на севере","Northern waterfall"]]}),
   tour({id:"east-bali",ru:"Восточный Бали",en:"East Bali",familyRu:"Маршрут",familyEn:"Journey",summaryRu:"Водные дворцы, чёрный песок и культурные места восточного побережья.",summaryEn:"Water palaces, black-sand coast, and cultural landmarks of East Bali.",priceRu:"$65 / авто",priceEn:"$65 / car",durationRu:"09:00–20:00",durationEn:"09:00–20:00",image:east,tags:[["Тирта Ганга","Tirta Gangga"],["Таман Уджунг","Taman Ujung"],["Побережье","Coast"]],stops:[["Гоа Лавах","Goa Lawah"],["Таман Уджунг","Taman Ujung"],["Тирта Ганга","Tirta Gangga"]]}),
   tour({id:"temple-tour",ru:"Храмы Бали",en:"Temples of Bali",familyRu:"Культура",familyEn:"Culture",summaryRu:"Знаковые храмы на скалах и у океана в элегантном частном маршруте.",summaryEn:"Iconic cliffside and ocean temples on a relaxed private journey.",priceRu:"$65 / авто",priceEn:"$65 / car",durationRu:"9–10 часов",durationEn:"9–10 hours",image:carving,tags:[["Улувату","Uluwatu"],["Танах Лот","Tanah Lot"],["Таман Аюн","Taman Ayun"]],stops:[["Храм Улувату","Uluwatu Temple"],["Танах Лот","Tanah Lot"],["Таман Аюн","Taman Ayun"]]}),
-  tour({id:"beach-tour",ru:"Пляжи Бали",en:"Bali Beach Journey",familyRu:"Побережье",familyEn:"Coast",summaryRu:"Лучшие пляжи Букита, впечатляющие скалы и закат над Индийским океаном.",summaryEn:"Bukit's best beaches, dramatic cliffs, and an Indian Ocean sunset.",priceRu:"$60 / авто",priceEn:"$60 / car",durationRu:"8–10 часов",durationEn:"8–10 hours",image:uluwatu,tags:[["Пандава","Pandawa"],["Паданг-Паданг","Padang Padang"],["Закат","Sunset"]],stops:[["Пандава или Баланган","Pandawa or Balangan"],["Паданг-Паданг","Padang Padang"],["Улувату на закате","Uluwatu at sunset"]],priceRuDetail:"До 4 гостей; +$6 за дополнительного гостя. Максимум 6 гостей.",priceEnDetail:"Up to 4 guests; +$6 per additional guest. Maximum 6 guests."}),
+  tour({id:"beach-tour",ru:"Пляжи Бали",en:"Bali Beach Journey",familyRu:"Побережье",familyEn:"Coast",summaryRu:"Лучшие пляжи Букита, впечатляющие скалы и закат над Индийским океаном.",summaryEn:"Bukit's best beaches, dramatic cliffs, and an Indian Ocean sunset.",priceRu:"$60 / авто",priceEn:"$60 / car",durationRu:"8–10 часов",durationEn:"8–10 hours",image:uluwatu,tags:[["Пандава","Pandawa"],["Паданг-Паданг","Padang Padang"],["Закат","Sunset"]],stops:[["Пандава или Баланган","Pandawa or Balangan"],["Паданг-Паданг","Padang Padang"],["Улувату на закате","Uluwatu at sunset"]],priceRuDetail:"До 4 гостей; +500 ₽ или +$6 за дополнительного гостя. Максимум 6 гостей.",priceEnDetail:"Up to 4 guests; +$6 or +500 ₽ per additional guest. Maximum 6 guests."}),
   tour({id:"rafting",ru:"Рафтинг в джунглях",en:"Jungle Rafting",familyRu:"Приключение",familyEn:"Adventure",summaryRu:"Сплав по Аюнгу или Телага Ваджа среди ущелий, леса и водопадов.",summaryEn:"Raft the Ayung or Telaga Waja through gorges, jungle, and waterfalls.",priceRu:"от $45 / гость",priceEn:"from $45 / guest",durationRu:"5–7 часов",durationEn:"5–7 hours",image:waterfall,tags:[["Река","River"],["Джунгли","Jungle"],["Активно","Active"]],stops:[["Трансфер к базе","Transfer to base"],["Инструктаж и сплав","Briefing and rafting"],["Душ и обед","Shower and lunch"]]}),
   tour({id:"fishing",ru:"Морская рыбалка",en:"Private Sea Fishing",familyRu:"Океан",familyEn:"Ocean",summaryRu:"Частный выход к Нуса-Пениде и Лембонгану с троллингом и снорклингом.",summaryEn:"Private trip to Nusa Penida and Lembongan with trolling and snorkeling.",priceRu:"$390 / 4 гостя",priceEn:"$390 / 4 guests",durationRu:"08:00–16:00",durationEn:"08:00–16:00",image:penida,tags:[["Троллинг","Trolling"],["Снорклинг","Snorkeling"],["Частный катер","Private boat"]],stops:[["Троллинг в открытом море","Offshore trolling"],["Коралловая рыбалка","Reef fishing"],["Снорклинг","Snorkeling"]]}),
   tour({id:"turtle-snorkeling",ru:"Черепаший остров и снорклинг",en:"Turtle Island & Snorkeling",familyRu:"Для семьи",familyEn:"Family",summaryRu:"Лёгкая морская прогулка, снорклинг и посещение черепашьего острова.",summaryEn:"An easy boat trip with snorkeling and a visit to Turtle Island.",priceRu:"$38 / гость",priceEn:"$38 / guest",durationRu:"3–4 часа",durationEn:"3–4 hours",image:penida,tags:[["Черепахи","Turtles"],["Лодка","Boat"],["Снорклинг","Snorkeling"]],stops:[["Трансфер из Нуса-Дуа","Pickup from Nusa Dua"],["Снорклинг","Snorkeling"],["Черепаший остров","Turtle Island"]]}),
@@ -110,15 +111,43 @@ const stories: Record<string, LocalizedText> = {
 };
 
 const auditedPriceAdjustments: Partial<Record<string, TourPackage["price"]>> = {
-  kintamani: { status: "indicative", currency: "USD", label: local("$66 / авто", "$66 / car") },
-  "northwest-bali": { status: "indicative", currency: "USD", label: local("$78 / авто", "$78 / car") },
-  "east-bali": { status: "indicative", currency: "USD", label: local("$78 / авто", "$78 / car") },
-  "batur-sunrise": { status: "indicative", currency: "USD", label: local("$84 / гость", "$84 / guest") },
-  "nusa-penida": { status: "indicative", currency: "USD", label: local("$96 / гость", "$96 / guest") },
+  kintamani: { status: "fixed", currencies: ["USD"], label: local("$66 / авто", "$66 / car") },
+  "northwest-bali": { status: "fixed", currencies: ["USD"], label: local("$78 / авто", "$78 / car") },
+  "east-bali": { status: "fixed", currencies: ["USD"], label: local("$78 / авто", "$78 / car") },
+  "batur-sunrise": { status: "fixed", currencies: ["USD"], label: local("$84 / гость", "$84 / guest") },
+  "nusa-penida": { status: "fixed", currencies: ["USD"], label: local("$96 / гость", "$96 / guest") },
+};
+
+const fixedRubPriceLabels: Partial<Record<string, LocalizedText>> = {
+  kintamani: local("5 500 ₽ / авто", "5,500 ₽ / car"),
+  "northwest-bali": local("6 500 ₽ / авто", "6,500 ₽ / car"),
+  "east-bali": local("6 500 ₽ / авто", "6,500 ₽ / car"),
+  "temple-tour": local("5 500 ₽ / авто", "5,500 ₽ / car"),
+  "beach-tour": local("5 000 ₽ / авто", "5,000 ₽ / car"),
+  rafting: local("от 4 000 ₽ / гость", "from 4,000 ₽ / guest"),
+  fishing: local("32 000 ₽ / 4 гостя", "32,000 ₽ / 4 guests"),
+  "turtle-snorkeling": local("3 500 ₽ / гость", "3,500 ₽ / guest"),
+  surfing: local("6 000 ₽ / гость", "6,000 ₽ / guest"),
+  safari: local("от 6 500 ₽ / гость", "from 6,500 ₽ / guest"),
+  "batur-sunrise": local("7 000 ₽ / гость", "7,000 ₽ / guest"),
+  "water-sports": local("от 2 500 ₽", "from 2,500 ₽"),
+  atv: local("от 5 500 ₽ / гость", "from 5,500 ₽ / guest"),
+  "nusa-penida": local("8 000 ₽ / гость", "8,000 ₽ / guest"),
+  "romantic-dinner": local("от 2 100 ₽ / стол", "from 2,100 ₽ / table"),
 };
 
 export const packages: TourPackage[] = basePackages.map((item) => ({
   ...item,
-  price: auditedPriceAdjustments[item.id] || item.price,
+  price: (() => {
+    const usdPrice = auditedPriceAdjustments[item.id] || item.price;
+    const rubPrice = fixedRubPriceLabels[item.id];
+    if (!rubPrice) return usdPrice;
+    return {
+      ...usdPrice,
+      status: "fixed" as const,
+      currencies: ["RUB", "USD"] as const,
+      label: local(`${rubPrice.ru} · ${usdPrice.label.ru}`, `${usdPrice.label.en} · ${rubPrice.en}`),
+    };
+  })(),
   experience: stories[item.id] || item.experience,
 }));

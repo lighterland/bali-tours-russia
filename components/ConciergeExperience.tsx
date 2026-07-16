@@ -59,7 +59,7 @@ const curatedMedia: Record<string, string> = {
 const ui = {
   ru: {
     brand: "BALI · БЛИЖЕ", navLabel: "Главная навигация", openMenu: "Открыть меню", closeMenu: "Закрыть меню",
-    photo: "Атмосферное фото", priceNote: "ориентир · наличие по запросу", request: "Запросить",
+    photo: "Атмосферное фото", priceNote: "фиксированная цена · наличие подтверждается", request: "Запросить",
     teamPhoto: "Атмосферное фото · реальная команда будет добавлена после письменного разрешения",
     fillForm: "Заполнить форму", openWhatsApp: "Открыть WhatsApp", otherChannels: "Другие каналы:",
     formEyebrow: "Заявка", chooseRoute: "Выберите маршрут или услугу", formIntro: "Укажите даты и детали запроса. Мы свяжемся с вами, уточним условия и поможем со следующим шагом.",
@@ -72,7 +72,7 @@ const ui = {
   },
   en: {
     brand: "BALI · CLOSER", navLabel: "Main navigation", openMenu: "Open menu", closeMenu: "Close menu",
-    photo: "Atmospheric image", priceNote: "indicative · availability on request", request: "Request",
+    photo: "Atmospheric image", priceNote: "fixed price · availability confirmed", request: "Request",
     teamPhoto: "Atmospheric image · the real team will be added after written permission",
     fillForm: "Complete the form", openWhatsApp: "Open WhatsApp", otherChannels: "Other channels:",
     formEyebrow: "Enquiry", chooseRoute: "Choose a journey or service", formIntro: "Share your dates and request details. We will contact you, confirm the arrangements, and help with the next step.",
@@ -370,7 +370,7 @@ export function ConciergeExperience({
                   <div><strong>{text(tour.priceDetailLabel)}</strong><p>{text(tour.priceDetail)}</p></div>
                 </details>
                 <div className="route-bottom">
-              <div><strong>{text(tour.price.label)}</strong><small>{labels.priceNote}</small></div>
+              <div><strong>{text(tour.price.label)}</strong>{tour.price.status === "fixed" && <small>{labels.priceNote}</small>}</div>
                   <button className="circle-button" type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.request}: ${text(tour.title)}`}>↗</button>
                 </div>
               </div>

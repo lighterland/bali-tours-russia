@@ -13,9 +13,9 @@ Status: draf untuk dipertegas; belum merupakan kesepakatan.
 ## Model harga katalog sementara
 
 - Untuk katalog website tahap sekarang, model operasional yang dipakai adalah **markup 20% atas harga dasar OpenBali atau referensi partner yang dapat diverifikasi**.
-- Rumus kerja: `harga website indikatif = harga dasar referensi × 1,20`, dengan pembulatan wajar ke atas bila hasilnya desimal.
+- Rumus kerja: `harga katalog USD = harga dasar referensi × 1,20`, dengan pembulatan wajar ke atas bila hasilnya desimal.
 - Model markup ini tidak sama dengan komisi 20% dari harga jual final. Struktur komisi atau pembagian pendapatan final tetap merupakan hal terpisah yang harus disepakati.
-- Harga tanpa dasar terverifikasi tidak boleh dinaikkan otomatis. Semua harga tetap indicative dan final quote dikonfirmasi manual.
+- Harga tanpa dasar terverifikasi tidak boleh dinaikkan otomatis. Price list RUB dan USD bersifat tetap; availability, inclusions, dan kanal pembayaran dikonfirmasi manual.
 - Rincian dasar, perhitungan, pembulatan, dan paket yang perlu konfirmasi tercatat di [`pricing-markup-audit.md`](pricing-markup-audit.md).
 
 ## Hal yang harus dipertegas
@@ -46,7 +46,7 @@ Nilai utama bisnis sebaiknya berasal dari margin jasa yang transparan, bukan spe
 - Penerimaan RUB ke rekening pribadi Erland lalu konversi dan penerusan IDR tidak dijadikan alur bisnis resmi sebelum ditinjau dari sisi izin, KYC/AML, pajak, perlindungan konsumen, dan aturan transfer dana.
 - Preferensi awal adalah penyedia pembayaran berizin atau badan usaha yang menerima pembayaran, mencatat booking, dan melakukan settlement dalam IDR.
 - Dukungan RUB, USD, atau IDR dipisahkan antara mata uang tampilan, mata uang invoice/kontrak, mata uang yang dibayar pelanggan, dan mata uang settlement partner.
-- Posisi saat ini: USD menjadi mata uang acuan harga katalog; RUB atau IDR menyesuaikan pada saat quote. Mata uang invoice/kontrak dan settlement masih harus dipertegas bersama partner serta penyedia pembayaran.
+- Posisi saat ini: USD menjadi acuan internal dan katalog menampilkan price list tetap dalam RUB serta USD. Kanal pembayaran, mata uang invoice/kontrak, dan settlement masih harus dipertegas bersama partner serta penyedia pembayaran.
 - Konversi katalog menggunakan kurs harga paket yang ditetapkan bisnis dan dipisahkan dari kurs aktual pertukaran RUB-IDR. Partner perlu menyepakati siapa yang menetapkan kurs, kapan ditinjau, dan siapa menanggung selisih ketika pasar bergerak.
 - Detail opsi dan sumber awal tercatat di `docs/payment-options-preliminary.md`.
 - Erland mempunyai pengalaman konversi RUB-IDR dalam konteks komunitas mahasiswa atau diaspora Rusia. Partner perlu memahami bahwa kapabilitas ini belum otomatis menjadi kewajiban Erland untuk bertindak sebagai payment processor atau penanggung risiko dana pelanggan.
@@ -70,9 +70,9 @@ Nilai utama bisnis sebaiknya berasal dari margin jasa yang transparan, bukan spe
 ## Penyesuaian harga kendaraan rute timur dan barat
 
 - Pada 15 Juli 2026, Partner Operasional Bali meminta ongkos mobil untuk rute Bali Timur dan Bali Barat dinaikkan 20%.
-- Untuk katalog saat ini, arahan tersebut diterapkan pada `east-bali` dan `northwest-bali`: harga indikatif kendaraan berubah dari USD 65 menjadi USD 78 per mobil.
+- Untuk katalog saat ini, arahan tersebut diterapkan pada `east-bali` dan `northwest-bali`: harga kendaraan berubah dari USD 65 menjadi USD 78 per mobil.
 - Kenaikan ini hanya berlaku pada komponen mobil untuk kedua rute tersebut; harga aktivitas, tiket, dan paket lain tidak ikut berubah.
-- Harga tetap berstatus indikatif sampai ketersediaan, inclusions, dan final quote dikonfirmasi sebelum booking.
+- Nominal price list tetap; ketersediaan dan inclusions dikonfirmasi sebelum booking.
 
 ## Arti kebutuhan "di Moscow"
 

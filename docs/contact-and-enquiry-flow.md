@@ -27,7 +27,7 @@ Template pesan Rusia, masih memerlukan review penutur fasih:
 Отель или район: {pickup_area}
 Пожелания: {notes}
 
-Пожалуйста, пришлите финальные детали и стоимость в USD.
+Пожалуйста, подтвердите детали и выбранную валюту цены: RUB или USD.
 ```
 
 Website mengisi placeholder dari pilihan pengguna lalu melakukan URL encoding di browser. Jangan memasukkan data sensitif yang tidak diperlukan ke URL.

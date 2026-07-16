@@ -26,10 +26,10 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
     statement: {
       eyebrow: "Не просто список экскурсий",
       title: "Сначала понимаем поездку. Потом собираем маршрут.",
-      body: "Для пары, семьи или небольшой компании — без ощущения конвейера. Вы заранее видите формат, ориентир цены и то, что потребует отдельного подтверждения.",
+      body: "Для пары, семьи или небольшой компании — без ощущения конвейера. Вы заранее видите формат, фиксированную цену в RUB и USD и то, что потребует отдельного подтверждения.",
       link: "Посмотреть процесс",
     },
-    routes: { eyebrow: "Маршруты", title: "Отправная точка для вашего Бали.", body: "Цены ниже — ориентир в USD. Наличие, точный состав и итоговый расчёт подтверждаются вручную." },
+    routes: { eyebrow: "Маршруты", title: "Отправная точка для вашего Бали.", body: "Цены указаны как фиксированные суммы в RUB и USD. Наличие и точный состав подтверждаются лично перед бронированием." },
     process: {
       eyebrow: "Путь клиента",
       title: "От выбора маршрута до дня поездки.",
@@ -70,10 +70,10 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
     statement: {
       eyebrow: "More than a list of tours",
       title: "First we understand your trip. Then we shape the journey.",
-      body: "For couples, families, or small groups—without the conveyor-belt feeling. You see the format, indicative price, and anything requiring confirmation in advance.",
+      body: "For couples, families, or small groups—without the conveyor-belt feeling. You see the format, fixed prices in RUB and USD, and anything requiring confirmation in advance.",
       link: "See how it works",
     },
-    routes: { eyebrow: "Journeys", title: "A starting point for your Bali.", body: "Prices are shown in USD as a guide. We confirm availability, inclusions, and your final price before booking." },
+    routes: { eyebrow: "Journeys", title: "A starting point for your Bali.", body: "Prices are fixed amounts in RUB and USD. We confirm availability and exact inclusions personally before booking." },
     process: {
       eyebrow: "Your journey",
       title: "From choosing a journey to the day you travel.",
