@@ -6,7 +6,7 @@ export type TourPackage = {
   title: LocalizedText;
   family: LocalizedText;
   summary: LocalizedText;
-  price: { status: "fixed" | "on_request"; currencies: readonly ("USD" | "RUB")[]; label: LocalizedText };
+  price: { status: "fixed" | "on_request"; currencies: readonly ("USD" | "RUB")[]; label: LocalizedText; secondaryLabel?: LocalizedText };
   duration: LocalizedText;
   media: MediaAsset;
   highlights: LocalizedText[];
@@ -146,7 +146,8 @@ export const packages: TourPackage[] = basePackages.map((item) => ({
       ...usdPrice,
       status: "fixed" as const,
       currencies: ["RUB", "USD"] as const,
-      label: local(`${rubPrice.ru} · ${usdPrice.label.ru}`, `${usdPrice.label.en} · ${rubPrice.en}`),
+      label: local(rubPrice.ru, usdPrice.label.en || usdPrice.label.ru),
+      secondaryLabel: local(usdPrice.label.ru, rubPrice.en || rubPrice.ru),
     };
   })(),
   experience: stories[item.id] || item.experience,

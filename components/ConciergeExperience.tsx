@@ -354,8 +354,9 @@ export function ConciergeExperience({
           <p>{copy.routes.body}</p>
         </div>
         <div className="route-grid">
-          {packages.map((tour, index) => (
-            <article className={`route-card ${index === 0 || index === 4 ? "featured" : ""}`} key={tour.id} data-reveal>
+          {packages.map((tour, index) => {
+            const secondaryPrice = tour.price.secondaryLabel ? text(tour.price.secondaryLabel) : undefined;
+            return <article className={`route-card ${index === 0 || index === 4 ? "featured" : ""}`} key={tour.id} data-reveal>
               <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`} style={curatedMedia[tour.id] ? { backgroundImage: `url(${resolveAssetUrl(curatedMedia[tour.id])})` } : undefined} role="img" aria-label={text(tour.title)} />
               <div className="route-body">
                 <div className="route-kicker"><span>{text(tour.family)}</span><span>{text(tour.duration)}</span></div>
@@ -370,12 +371,16 @@ export function ConciergeExperience({
                   <div><strong>{text(tour.priceDetailLabel)}</strong><p>{text(tour.priceDetail)}</p></div>
                 </details>
                 <div className="route-bottom">
-              <div><strong>{text(tour.price.label)}</strong>{tour.price.status === "fixed" && <small>{labels.priceNote}</small>}</div>
+                  <div className="route-price">
+                    <strong className="route-price-primary">{text(tour.price.label)}</strong>
+                    {secondaryPrice && <span className="route-price-secondary">{secondaryPrice}</span>}
+                    {tour.price.status === "fixed" && <small>{labels.priceNote}</small>}
+                  </div>
                   <button className="circle-button" type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.request}: ${text(tour.title)}`}>↗</button>
                 </div>
               </div>
-            </article>
-          ))}
+            </article>;
+          })}
         </div>
       </section>
 
