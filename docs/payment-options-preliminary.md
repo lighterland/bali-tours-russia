@@ -44,6 +44,22 @@ Klarifikasi business model: kapabilitas tersebut terutama dibayangkan sebagai la
 3. Deposit IDR setelah pelanggan tiba di Bali, hanya sebagai fallback operasional dan bukan solusi utama untuk booking dari Rusia.
 4. Penerimaan RUB pribadi dan konversi informal: tidak direkomendasikan sebagai alur bisnis.
 
+## Bentuk pilot booking fee dan pelunasan
+
+- Gunakan USD sebagai mata uang kontraktual booking.
+- Quotation mencatat harga total USD, diskon, booking fee, saldo partner, mata uang pembayaran aktual, kurs, timestamp, dan fee pembayaran.
+- Jika disepakati booking fee 20% sekaligus merupakan bagian Erland, sisa 80% dibayar pelanggan kepada Partner Operasional Bali saat tiba. Status refundable/non-refundable tetap harus dijelaskan sebelum pelanggan membayar.
+- Nominal saldo partner dikunci dalam USD saat booking. Bila partner menerima IDR, konversi dilakukan pada waktu pembayaran dengan sumber kurs yang disepakati dan bukti perhitungan.
+- Nilai RUB untuk booking fee memakai quote tetap dengan masa berlaku singkat, bukan nilai ambigu yang berubah setelah transfer.
+- Model ini tidak membuat penerimaan RUB pribadi menjadi jalur resmi; pilihan payment rail berizin tetap harus divalidasi.
+
+### Keputusan pemilik 17 Juli 2026
+
+- Booking fee 20% merupakan bagian Erland setelah booking dikonfirmasi, dengan tetap tunduk pada kewajiban refund yang disampaikan sebelum pembayaran.
+- Partner menerima saldo 80% saat pelanggan tiba. Secara operasional partner fleksibel menerima mata uang, tetapi transaksi yang dilakukan di Indonesia perlu memperhatikan kewajiban penggunaan Rupiah dan jalur pembayaran yang sah.
+- Harga website tetap memakai USD sebagai acuan internasional; halaman Rusia dapat menampilkan RUB sebagai harga panduan/quote berdampingan dengan USD.
+- Tidak ada diskon yang boleh mengurangi harga net partner atau bagian Erland tanpa persetujuan baru. Kode promo pada fase pilot berfungsi sebagai pemicu negosiasi/quotation, bukan potongan otomatis.
+
 ## Hal yang harus diuji
 
 - Siapa merchant legal dan pemegang dana pelanggan.

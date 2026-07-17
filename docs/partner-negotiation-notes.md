@@ -27,6 +27,17 @@ Status: draf untuk dipertegas; belum merupakan kesepakatan.
 - Siapa menanggung refund, chargeback, pembatalan supplier, no-show, dan force majeure.
 - Siapa memegang dana pelanggan sebelum tur terlaksana dan bagaimana laporan settlement dibuat.
 
+## Klarifikasi baru dari percakapan 17 Juli 2026
+
+- Partner menyampaikan melalui teks bahwa harga saat ini sudah oke, tetapi price sheet final per produk tetap perlu dibuat dan diberi tanggal versi.
+- Partner membuka diskon manual maksimal 15% untuk permintaan pelanggan, khususnya lebih dari dua orang atau grup. Ini belum menjadi promo publik dan harus dikonfirmasi per booking.
+- Perlu dipastikan apakah booking fee 20% yang diterima Erland adalah bagian/komisi yang langsung earned atau DP pelanggan yang tetap tunduk pada rekonsiliasi dan refund.
+- Jika bagian Erland adalah 20%, basis yang disarankan ialah harga pelanggan setelah diskon. Setiap penyimpangan perlu disetujui tertulis agar diskon tidak dibebankan sepihak kepada salah satu partner.
+- Sisa pembayaran saat pelanggan tiba perlu dikunci sebagai nominal USD pada booking, meskipun pembayaran aktual kepada partner dilakukan dalam USD atau IDR. Kurs dan fee aktual dicatat terpisah.
+- Detail alignment dan pertanyaan konfirmasi ada di `docs/session-alignment-2026-07-17.md`.
+- Arahan pemilik 17 Juli 2026: 20% merupakan bagian Erland, sedangkan harga net Partner Operasional Bali adalah 80% dari harga pelanggan yang benar-benar dibayar. Karena itu diskon tambahan tidak dapat mempertahankan kedua nominal tersebut kecuali harga jual reguler memang dinaikkan secara nyata terlebih dahulu.
+- Harga coret atau diskon fiktif tidak digunakan. Promo harus memiliki harga reguler, periode, syarat, dan bukti penerapan yang jujur.
+
 ## Hipotesis pembayaran RUB-IDR
 
 Pembayaran pelanggan dalam rubel dan settlement operasional dalam rupiah mungkin menciptakan selisih 5-10% dibanding kurs exchange yang dilihat pelanggan. Angka tersebut belum tervalidasi dan tidak boleh dimasukkan sebagai keuntungan tetap. Sebelum digunakan, perlu diverifikasi:

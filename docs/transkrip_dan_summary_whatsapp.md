@@ -1,5 +1,22 @@
 # Dokumen Transkrip & Analisis Percakapan WhatsApp Business
 
+> Pembaruan 17 Juli 2026: sepuluh voice note baru telah dipindahkan ke `docs/audio/`, ditranskripsikan otomatis, dan dirangkum di `docs/session-alignment-2026-07-17.md`. Bagian yang kurang jelas tetap perlu dikonfirmasi kepada pengirim.
+
+## Transkrip audio 17 Juli 2026
+
+Transkrip dinormalisasi ringan dari model lokal. Kata yang terdengar janggal tidak dijadikan dasar keputusan tanpa dukungan konteks.
+
+- **08.56.26** — “Itu tamu-tamu yang sudah seperti saudara, dan mereka dari Moskow. Yevgeni ini sudah menunggu Erland telepon.”
+- **09.18.28** — “Yang nomor teratas itu sudah menunggu. Dia mau disuruh tugas apa, bagaimana untuk kamu; nanti suruh dia telepon saya.”
+- **10.53.02** — “Bikin sebagus mungkin pelan-pelan dulu, harga di-fix, dibagusin, sehingga sekali running sudah oke. Yang pasti gencar jual Penida dan water sport.”
+- **11.01.17** — Partner meminta ongkos USD 65 dinaikkan 20% dan dibulatkan ke angka yang mudah disampaikan. Sebagian angka pada audio tidak tertangkap jelas.
+- **11.01.50** — Partner menanyakan nama website/domain.
+- **11.13.56** — Nama brand harus diperjelas; partner membayangkan identitas kaos berbeda untuk tim penjemput/tur agar tamu mudah mengenali petugas di bandara.
+- **14.12.51** — Partner menyerahkan pengaturan promosi kepada Erland; pembulatan tidak wajib, dan bila tamu menganggap mahal dapat ditawarkan diskon 5% atau 10% karena pelanggan Rusia menyukai diskon.
+- **14.13.07** — “Bagus itu namanya Bali Blizhe, Bali Closer. Bagus itu.”
+- **14.15.30** — DP 20% diterima Erland; sisa pembayaran diserahkan melalui sopir atau pihak yang menjemput pelanggan di Bali. Ada satu frasa di tengah audio yang tidak tertangkap jelas.
+- **14.21.24** — Website sebaiknya juga berbahasa Inggris agar dapat menjangkau pelanggan Inggris dan pasar internasional, selain Rusia.
+
 ## 1. Transkrip Pesan Teks & Gambar
 
 ### Gambar 1: `image_ddff8a.jpg` (Alur Diskusi Awal)

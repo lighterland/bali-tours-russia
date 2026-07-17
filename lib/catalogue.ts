@@ -17,6 +17,7 @@ export type TourPackage = {
   includedLabel: LocalizedText;
   priceDetail: LocalizedText;
   priceDetailLabel: LocalizedText;
+  promotion?: { badge: LocalizedText; note: LocalizedText; code?: string; spotlight?: boolean };
 };
 
 const img = (name: string): MediaAsset => ({ url: `/media/incoming/${encodeURIComponent(name)}`, role: "atmosphere" });
@@ -151,4 +152,11 @@ export const packages: TourPackage[] = basePackages.map((item) => ({
     };
   })(),
   experience: stories[item.id] || item.experience,
-}));
+  promotion: item.id === "nusa-penida"
+    ? { badge: local("Главный выбор", "Featured pick"), note: local("Спросите о предложении для группы 3+ гостей", "Ask about the group offer for 3+ guests"), code: "PENIDA-GROUP", spotlight: true }
+    : item.id === "water-sports"
+      ? { badge: local("Горячее предложение", "Hot pick"), note: local("Запросите специальное предложение на комбинацию активностей", "Ask for a special combination offer"), code: "WATER-HOT", spotlight: true }
+      : item.id === "kintamani"
+        ? { badge: local("Популярный маршрут", "Popular choice"), note: local("Частный маршрут с фиксированной базовой ценой", "Private journey with a fixed base price") }
+        : undefined,
+})).sort((a, b) => Number(Boolean(b.promotion?.spotlight)) - Number(Boolean(a.promotion?.spotlight)));

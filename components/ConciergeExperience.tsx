@@ -59,7 +59,7 @@ const curatedMedia: Record<string, string> = {
 const ui = {
   ru: {
     brand: "BALI · БЛИЖЕ", navLabel: "Главная навигация", openMenu: "Открыть меню", closeMenu: "Закрыть меню",
-    photo: "Атмосферное фото", priceNote: "фиксированная цена · наличие подтверждается", request: "Запросить",
+    photo: "Атмосферное фото", priceNote: "USD — базовая цена · RUB подтверждается в предложении", request: "Запросить",
     teamPhoto: "Атмосферное фото · реальная команда будет добавлена после письменного разрешения",
     fillForm: "Заполнить форму", openWhatsApp: "Открыть WhatsApp", otherChannels: "Другие каналы:",
     formEyebrow: "Заявка", chooseRoute: "Выберите маршрут или услугу", formIntro: "Укажите даты и детали запроса. Мы свяжемся с вами, уточним условия и поможем со следующим шагом.",
@@ -68,11 +68,11 @@ const ui = {
     guests: "Количество гостей *", serviceGuests: "Количество человек (необязательно)", route: "Что вас интересует?", journeysGroup: "Маршруты", servicesGroup: "Услуги на Бали · наличие по запросу", channel: "Как связаться *", optional: "необязательно", pickup: "Отель или район",
     pickupPlaceholder: "Можно сообщить позже", language: "Язык общения *", wishes: "Пожелания", wishesPlaceholder: "Темп, интересы, особые потребности",
     consent: "Я согласен(-на) на обработку данных заявки и обратную связь.", details: "Подробнее", sending: "Отправляем…", send: "Отправить заявку",
-    footerRoutes: "Маршруты", footerContact: "Контакты", footerPrivacy: "Данные заявки", errorMessage: "Не удалось отправить запрос.", detailsLabel: "Подробнее", includedLabel: "Что включено", routeLabel: "Маршрут и остановки", priceLabel: "Условия цены",
+    footerRoutes: "Маршруты", footerContact: "Контакты", footerPrivacy: "Данные заявки", footerTerms: "Бронирование и оплата", offerCode: "Код предложения", errorMessage: "Не удалось отправить запрос.", detailsLabel: "Подробнее", includedLabel: "Что включено", routeLabel: "Маршрут и остановки", priceLabel: "Условия цены",
   },
   en: {
     brand: "BALI · CLOSER", navLabel: "Main navigation", openMenu: "Open menu", closeMenu: "Close menu",
-    photo: "Atmospheric image", priceNote: "fixed price · availability confirmed", request: "Request",
+    photo: "Atmospheric image", priceNote: "USD base price · RUB confirmed in your quote", request: "Request",
     teamPhoto: "Atmospheric image · the real team will be added after written permission",
     fillForm: "Complete the form", openWhatsApp: "Open WhatsApp", otherChannels: "Other channels:",
     formEyebrow: "Enquiry", chooseRoute: "Choose a journey or service", formIntro: "Share your dates and request details. We will contact you, confirm the arrangements, and help with the next step.",
@@ -81,7 +81,7 @@ const ui = {
     guests: "Number of guests *", serviceGuests: "People or group size (optional)", route: "What are you interested in?", journeysGroup: "Journeys", servicesGroup: "Bali services · availability on request", channel: "Preferred contact *", optional: "optional", pickup: "Hotel or area",
     pickupPlaceholder: "You can tell us later", language: "Communication language *", wishes: "Your wishes", wishesPlaceholder: "Pace, interests, special requirements",
     consent: "I agree to the processing of my enquiry data and to being contacted.", details: "Learn more", sending: "Sending…", send: "Send enquiry",
-    footerRoutes: "Journeys", footerContact: "Contact", footerPrivacy: "Enquiry data", errorMessage: "Unable to send the enquiry.", detailsLabel: "View details", includedLabel: "What's included", routeLabel: "Route and stops", priceLabel: "Price terms",
+    footerRoutes: "Journeys", footerContact: "Contact", footerPrivacy: "Enquiry data", footerTerms: "Booking & payment", offerCode: "Offer code", errorMessage: "Unable to send the enquiry.", detailsLabel: "View details", includedLabel: "What's included", routeLabel: "Route and stops", priceLabel: "Price terms",
   },
 } as const;
 
@@ -203,6 +203,10 @@ export function ConciergeExperience({
 
   function choosePackage(id: string) {
     selectInterest(id);
+    const offerCode = packages.find((item) => item.id === id)?.promotion?.code;
+    if (offerCode) {
+      setWhatsAppDraft((value) => ({ ...value, notes: value.notes || `${labels.offerCode}: ${offerCode}` }));
+    }
     document.getElementById("request")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -354,14 +358,17 @@ export function ConciergeExperience({
           <p>{copy.routes.body}</p>
         </div>
         <div className="route-grid">
-          {packages.map((tour, index) => {
+          {packages.map((tour) => {
             const secondaryPrice = tour.price.secondaryLabel ? text(tour.price.secondaryLabel) : undefined;
-            return <article className={`route-card ${index === 0 || index === 4 ? "featured" : ""}`} key={tour.id} data-reveal>
-              <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`} style={curatedMedia[tour.id] ? { backgroundImage: `url(${resolveAssetUrl(curatedMedia[tour.id])})` } : undefined} role="img" aria-label={text(tour.title)} />
+            return <article className={`route-card ${tour.promotion?.spotlight ? "featured" : ""}`} key={tour.id} data-reveal>
+              <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`} style={curatedMedia[tour.id] ? { backgroundImage: `url(${resolveAssetUrl(curatedMedia[tour.id])})` } : undefined} role="img" aria-label={text(tour.title)}>
+                {tour.promotion && <span className="offer-badge">{text(tour.promotion.badge)}</span>}
+              </div>
               <div className="route-body">
                 <div className="route-kicker"><span>{text(tour.family)}</span><span>{text(tour.duration)}</span></div>
                 <h3>{text(tour.title)}</h3>
                 <p>{text(tour.summary)}</p>
+                {tour.promotion && <div className="route-offer"><strong>{text(tour.promotion.note)}</strong>{tour.promotion.code && <small>{labels.offerCode}: {tour.promotion.code}</small>}</div>}
                 <div className="route-tags">{tour.highlights.map((item) => <span key={item.ru}>{text(item)}</span>)}</div>
                 <details className="route-details">
                   <summary>{labels.detailsLabel}</summary>
@@ -469,6 +476,7 @@ export function ConciergeExperience({
         <div className="brand"><span className="brand-mark">B</span><span>{labels.brand}</span></div>
         <p>{copy.footer.body}</p>
         <div className="footer-actions"><nav className="footer-links" aria-label={labels.navLabel}><a href="#routes">{labels.footerRoutes}</a><a href="#request">{labels.footerContact}</a></nav><div className="footer-socials"><a className="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a><a className="social-link" href="https://vk.com/" target="_blank" rel="noreferrer" aria-label="VK"><SocialIcon name="vk" /></a>{telegramUrl ? <a className="social-link" href={telegramUrl} target="_blank" rel="noreferrer" aria-label="Telegram"><SocialIcon name="telegram" /></a> : null}<a className="social-link" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a></div></div>
+        <nav className="footer-links" aria-label={labels.footerTerms}><Link href="/terms">{labels.footerTerms}</Link><Link href="/privacy">{labels.footerPrivacy}</Link></nav>
         <small>© {new Date().getFullYear()} · {copy.footer.copyrightSuffix}</small>
       </footer>
       <a className="whatsapp-fab" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label={labels.openWhatsApp} title={labels.openWhatsApp}>
