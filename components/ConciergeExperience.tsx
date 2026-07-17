@@ -95,7 +95,7 @@ const bookingFaq = {
     eyebrow: "Оплата и условия", title: "Простая схема бронирования.", body: "Суммы и валюта каждого платежа фиксируются в подтверждении до оплаты.", terms: "Полные условия бронирования",
     items: [
       ["Как подтвердить бронирование?", "После проверки даты вы оплачиваете 20% booking fee. Сумма может быть оплачена в RUB по фиксированному предложению, действующему 24 часа."],
-      ["Как рассчитывается сумма в рублях?", "Базовая цена указана в USD. Booking fee переводится в RUB по курсу предложения и округляется до ближайших 100 ₽, чтобы сумма была удобной для оплаты."],
+      ["Как рассчитывается сумма в рублях?", "Базовая цена указана в USD. Booking fee переводится в RUB по курсу предложения и округляется вверх до следующих 100 ₽. Итоговая сумма фиксируется на 24 часа."],
       ["Как оплатить оставшиеся 80%?", "Остаток оплачивается по прибытии на Бали в согласованной валюте и эквиваленте, указанном в подтверждении бронирования."],
       ["Есть ли скидки и промокоды?", "Для сочетания двух туров или активностей можно запросить специальную цену. Код предложения добавляется в заявку, а итоговая цена подтверждается письменно."],
       ["Что произойдёт при отмене?", "При отмене гостем применяются сроки и подтверждённые невозвратные расходы. Если подтверждённую услугу отменяет организатор, полученная сумма возвращается полностью."],
@@ -105,7 +105,7 @@ const bookingFaq = {
     eyebrow: "Payment & terms", title: "A simple booking arrangement.", body: "The amount and currency of every payment are recorded in your confirmation before you pay.", terms: "Full booking terms",
     items: [
       ["How is a booking confirmed?", "Once the date is checked, you pay a 20% booking fee. It may be paid in RUB using a fixed quote valid for 24 hours."],
-      ["How is the RUB amount calculated?", "USD is the base price. The booking fee is converted using the quoted rate and rounded to the nearest ₽100 for a simpler payment amount."],
+      ["How is the RUB amount calculated?", "USD is the base price. The booking fee is converted using the quoted rate and rounded up to the next ₽100. The final amount is fixed for 24 hours."],
       ["How do I pay the remaining 80%?", "The balance is paid after arrival in Bali in the agreed currency and equivalent recorded in your booking confirmation."],
       ["Are offers or vouchers available?", "Ask for a special rate when combining two tours or activities. The offer code is added to your enquiry and the final price is confirmed in writing."],
       ["What happens if the booking is cancelled?", "Guest cancellations follow the stated timing and documented non-refundable costs. If the organiser cancels a confirmed service, the amount received is refunded in full."],

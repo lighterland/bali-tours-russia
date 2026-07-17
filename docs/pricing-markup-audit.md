@@ -12,7 +12,7 @@ Status: nominal website memakai **harga acuan USD**; booking fee dalam RUB, avai
 - Harga `on request` tidak diubah.
 - Harga tanpa dasar OpenBali atau referensi partner yang dapat diverifikasi tidak ditebak dan tidak dinaikkan otomatis.
 - Pengecualian berdasarkan arahan pemilik: biaya tamu tambahan Kintamani tetap USD 10/orang dan tidak mengikuti hasil USD 6 dari rumus markup 20%. Harga utama Kintamani tetap mengikuti rumus.
-- RUB tidak lagi menjadi harga jual tetap kedua pada kartu paket. Booking fee 20% dikonversi melalui quote 24 jam dan dibulatkan ke kelipatan RUB 100 terdekat; saldo partner tetap 80% dari harga acuan USD.
+- RUB tidak lagi menjadi harga jual tetap kedua pada kartu paket. Booking fee 20% dikonversi melalui quote 24 jam dan dibulatkan ke atas ke kelipatan RUB 100 berikutnya; saldo partner tetap 80% dari harga acuan USD.
 
 ## Sumber
 
