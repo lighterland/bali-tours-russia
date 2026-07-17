@@ -82,9 +82,9 @@ _Hindari_: Lempar booking, forward WhatsApp
 
 ## Ekonomi bisnis
 
-**Bagian bersih Partner Pasar Rusia**:
-Target penerimaan Erland sebesar 20-25% dari harga pelanggan setelah biaya akuisisi, domain, pembayaran, dan konversi mata uang yang menjadi tanggungan Partner Operasional Bali. Definisi ini adalah posisi negosiasi dan belum menjadi kesepakatan partner.
-_Hindari_: Komisi 20-25% tanpa basis, margin pasti
+**Bagian Partner Pasar Rusia**:
+Keputusan pemilik per 17 Juli 2026 menetapkan bagian Erland sebesar 20% dari harga pelanggan yang dikonfirmasi. Dalam alur pelanggan, nilai ini diterima sebagai booking fee 20%; dalam rekonsiliasi internal, nilai tersebut merupakan bagian Erland dan saldo 80% merupakan bagian Partner Operasional Bali. Refund, pembatalan operator, biaya pihak ketiga, dan promo tetap mengikuti ketentuan booking yang diinformasikan sebelum pembayaran.
+_Hindari_: Komisi tanpa basis, menganggap booking fee selalu hangus, mencampur harga pelanggan dengan harga net partner
 
 **Kontribusi operasional sukarela**:
 Bagian dari penerimaan Erland yang dapat dialokasikan untuk kebutuhan operasional tertentu hanya setelah tujuan, batas nominal, periode, dan pertanggungjawabannya disepakati secara terpisah.

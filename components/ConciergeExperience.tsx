@@ -90,6 +90,29 @@ const services = {
   en: { eyebrow: "Bali services", title: "Everything you need for the journey—and life on the island.", body: "Arrange transport for a single day or your whole stay, and get practical support for relocating or establishing life in Bali.", cta: "Send a request" },
 } as const;
 
+const bookingFaq = {
+  ru: {
+    eyebrow: "Оплата и условия", title: "Простая схема бронирования.", body: "Суммы и валюта каждого платежа фиксируются в подтверждении до оплаты.", terms: "Полные условия бронирования",
+    items: [
+      ["Как подтвердить бронирование?", "После проверки даты вы оплачиваете 20% booking fee. Сумма может быть оплачена в RUB по фиксированному предложению, действующему 24 часа."],
+      ["Как рассчитывается сумма в рублях?", "Базовая цена указана в USD. Booking fee переводится в RUB по курсу предложения и округляется до ближайших 100 ₽, чтобы сумма была удобной для оплаты."],
+      ["Как оплатить оставшиеся 80%?", "Остаток оплачивается по прибытии на Бали в согласованной валюте и эквиваленте, указанном в подтверждении бронирования."],
+      ["Есть ли скидки и промокоды?", "Для сочетания двух туров или активностей можно запросить специальную цену. Код предложения добавляется в заявку, а итоговая цена подтверждается письменно."],
+      ["Что произойдёт при отмене?", "При отмене гостем применяются сроки и подтверждённые невозвратные расходы. Если подтверждённую услугу отменяет организатор, полученная сумма возвращается полностью."],
+    ],
+  },
+  en: {
+    eyebrow: "Payment & terms", title: "A simple booking arrangement.", body: "The amount and currency of every payment are recorded in your confirmation before you pay.", terms: "Full booking terms",
+    items: [
+      ["How is a booking confirmed?", "Once the date is checked, you pay a 20% booking fee. It may be paid in RUB using a fixed quote valid for 24 hours."],
+      ["How is the RUB amount calculated?", "USD is the base price. The booking fee is converted using the quoted rate and rounded to the nearest ₽100 for a simpler payment amount."],
+      ["How do I pay the remaining 80%?", "The balance is paid after arrival in Bali in the agreed currency and equivalent recorded in your booking confirmation."],
+      ["Are offers or vouchers available?", "Ask for a special rate when combining two tours or activities. The offer code is added to your enquiry and the final price is confirmed in writing."],
+      ["What happens if the booking is cancelled?", "Guest cancellations follow the stated timing and documented non-refundable costs. If the organiser cancels a confirmed service, the amount received is refunded in full."],
+    ],
+  },
+} as const;
+
 function ArrowIcon() {
   return <span aria-hidden="true">↗</span>;
 }
@@ -405,6 +428,23 @@ export function ConciergeExperience({
         </div>
       </section>
 
+      <section className="booking-faq section" id="booking-terms">
+        <div className="faq-intro" data-reveal>
+          <p className="eyebrow dark">{bookingFaq[locale].eyebrow}</p>
+          <h2>{bookingFaq[locale].title}</h2>
+          <p>{bookingFaq[locale].body}</p>
+          <Link className="text-link" href={`/terms#${locale}`}>{bookingFaq[locale].terms} <ArrowIcon /></Link>
+        </div>
+        <div className="faq-list">
+          {bookingFaq[locale].items.map(([question, answer]) => (
+            <details className="faq-item" key={question} data-reveal>
+              <summary>{question}<span aria-hidden="true">+</span></summary>
+              <p>{answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
       <section className="trust section" id="trust">
         <div className="trust-image" style={{ backgroundImage: `url(${resolveAssetUrl('/media/incoming/Bali%20local%20hospitality%20hands%20detail.jpg')})` }} data-reveal />
         <div className="trust-copy" data-reveal>
@@ -476,7 +516,7 @@ export function ConciergeExperience({
         <div className="brand"><span className="brand-mark">B</span><span>{labels.brand}</span></div>
         <p>{copy.footer.body}</p>
         <div className="footer-actions"><nav className="footer-links" aria-label={labels.navLabel}><a href="#routes">{labels.footerRoutes}</a><a href="#request">{labels.footerContact}</a></nav><div className="footer-socials"><a className="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a><a className="social-link" href="https://vk.com/" target="_blank" rel="noreferrer" aria-label="VK"><SocialIcon name="vk" /></a>{telegramUrl ? <a className="social-link" href={telegramUrl} target="_blank" rel="noreferrer" aria-label="Telegram"><SocialIcon name="telegram" /></a> : null}<a className="social-link" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a></div></div>
-        <nav className="footer-links" aria-label={labels.footerTerms}><Link href="/terms">{labels.footerTerms}</Link><Link href="/privacy">{labels.footerPrivacy}</Link></nav>
+        <nav className="footer-links" aria-label={labels.footerTerms}><Link href={`/terms#${locale}`}>{labels.footerTerms}</Link><Link href="/privacy">{labels.footerPrivacy}</Link></nav>
         <small>© {new Date().getFullYear()} · {copy.footer.copyrightSuffix}</small>
       </footer>
       <a className="whatsapp-fab" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label={labels.openWhatsApp} title={labels.openWhatsApp}>

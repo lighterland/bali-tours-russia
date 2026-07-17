@@ -26,10 +26,10 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
     statement: {
       eyebrow: "Не просто список экскурсий",
       title: "Сначала понимаем поездку. Потом собираем маршрут.",
-      body: "Для пары, семьи или небольшой компании — без ощущения конвейера. Вы заранее видите формат, фиксированную цену в RUB и USD и то, что потребует отдельного подтверждения.",
+      body: "Для пары, семьи или небольшой компании — без ощущения конвейера. Вы заранее видите базовую цену в USD и то, что потребует отдельного подтверждения.",
       link: "Посмотреть процесс",
     },
-    routes: { eyebrow: "Маршруты", title: "Отправная точка для вашего Бали.", body: "Цены указаны как фиксированные суммы в RUB и USD. Наличие и точный состав подтверждаются лично перед бронированием." },
+    routes: { eyebrow: "Маршруты", title: "Отправная точка для вашего Бали.", body: "Базовые цены указаны в USD. Сумма booking fee в RUB, наличие и точный состав подтверждаются лично перед бронированием." },
     process: {
       eyebrow: "Путь клиента",
       title: "От выбора маршрута до дня поездки.",
@@ -70,10 +70,10 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
     statement: {
       eyebrow: "More than a list of tours",
       title: "First we understand your trip. Then we shape the journey.",
-      body: "For couples, families, or small groups—without the conveyor-belt feeling. You see the format, fixed prices in RUB and USD, and anything requiring confirmation in advance.",
+      body: "For couples, families, or small groups—without the conveyor-belt feeling. You see the USD base price and anything requiring confirmation in advance.",
       link: "See how it works",
     },
-    routes: { eyebrow: "Journeys", title: "A starting point for your Bali.", body: "Prices are fixed amounts in RUB and USD. We confirm availability and exact inclusions personally before booking." },
+    routes: { eyebrow: "Journeys", title: "A starting point for your Bali.", body: "Base prices are shown in USD. We confirm the RUB booking-fee quote, availability, and exact inclusions personally before booking." },
     process: {
       eyebrow: "Your journey",
       title: "From choosing a journey to the day you travel.",

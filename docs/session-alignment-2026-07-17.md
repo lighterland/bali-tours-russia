@@ -39,6 +39,8 @@ Contoh ledger sederhana:
 
 Ini masih memerlukan konfirmasi partner dan pemeriksaan jalur pembayaran yang legal; penerimaan RUB pribadi berulang tidak dijadikan metode publik website.
 
+Keputusan tampilan/pembulatan: booking fee 20% boleh dibayar dalam RUB berdasarkan quote 24 jam dan dibulatkan ke kelipatan RUB 100 terdekat. Saldo 80% tetap dicatat terhadap harga acuan USD dan mata uang aktualnya disepakati pada konfirmasi booking. Promo difokuskan pada harga khusus kombinasi dua paket/aktivitas, bukan harga coret fiktif.
+
 ## Keputusan tampilan mata uang
 
 - USD menjadi harga acuan dan paling menonjol.

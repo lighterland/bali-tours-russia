@@ -119,43 +119,14 @@ const auditedPriceAdjustments: Partial<Record<string, TourPackage["price"]>> = {
   "nusa-penida": { status: "fixed", currencies: ["USD"], label: local("$96 / гость", "$96 / guest") },
 };
 
-const fixedRubPriceLabels: Partial<Record<string, LocalizedText>> = {
-  kintamani: local("5 500 ₽ / авто", "5,500 ₽ / car"),
-  "northwest-bali": local("6 500 ₽ / авто", "6,500 ₽ / car"),
-  "east-bali": local("6 500 ₽ / авто", "6,500 ₽ / car"),
-  "temple-tour": local("5 500 ₽ / авто", "5,500 ₽ / car"),
-  "beach-tour": local("5 000 ₽ / авто", "5,000 ₽ / car"),
-  rafting: local("от 4 000 ₽ / гость", "from 4,000 ₽ / guest"),
-  fishing: local("32 000 ₽ / 4 гостя", "32,000 ₽ / 4 guests"),
-  "turtle-snorkeling": local("3 500 ₽ / гость", "3,500 ₽ / guest"),
-  surfing: local("6 000 ₽ / гость", "6,000 ₽ / guest"),
-  safari: local("от 6 500 ₽ / гость", "from 6,500 ₽ / guest"),
-  "batur-sunrise": local("7 000 ₽ / гость", "7,000 ₽ / guest"),
-  "water-sports": local("от 2 500 ₽", "from 2,500 ₽"),
-  atv: local("от 5 500 ₽ / гость", "from 5,500 ₽ / guest"),
-  "nusa-penida": local("8 000 ₽ / гость", "8,000 ₽ / guest"),
-  "romantic-dinner": local("от 2 100 ₽ / стол", "from 2,100 ₽ / table"),
-};
-
 export const packages: TourPackage[] = basePackages.map((item) => ({
   ...item,
-  price: (() => {
-    const usdPrice = auditedPriceAdjustments[item.id] || item.price;
-    const rubPrice = fixedRubPriceLabels[item.id];
-    if (!rubPrice) return usdPrice;
-    return {
-      ...usdPrice,
-      status: "fixed" as const,
-      currencies: ["RUB", "USD"] as const,
-      label: local(rubPrice.ru, usdPrice.label.en || usdPrice.label.ru),
-      secondaryLabel: local(usdPrice.label.ru, rubPrice.en || rubPrice.ru),
-    };
-  })(),
+  price: auditedPriceAdjustments[item.id] || item.price,
   experience: stories[item.id] || item.experience,
   promotion: item.id === "nusa-penida"
     ? { badge: local("Главный выбор", "Featured pick"), note: local("Спросите о предложении для группы 3+ гостей", "Ask about the group offer for 3+ guests"), code: "PENIDA-GROUP", spotlight: true }
     : item.id === "water-sports"
-      ? { badge: local("Горячее предложение", "Hot pick"), note: local("Запросите специальное предложение на комбинацию активностей", "Ask for a special combination offer"), code: "WATER-HOT", spotlight: true }
+      ? { badge: local("Горячее предложение", "Hot pick"), note: local("Специальная цена при сочетании с другим туром или активностью", "Special rate when combined with another tour or activity"), code: "BALI-COMBO", spotlight: true }
       : item.id === "kintamani"
         ? { badge: local("Популярный маршрут", "Popular choice"), note: local("Частный маршрут с фиксированной базовой ценой", "Private journey with a fixed base price") }
         : undefined,

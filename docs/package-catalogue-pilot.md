@@ -91,9 +91,9 @@ Placeholder exclusions:
 - Unit asli tetap dipertahankan: per mobil, per orang, per grup, atau `mulai dari`.
 - Paket `on request` tetap `on request`. Paket tanpa harga dasar terverifikasi tidak dinaikkan otomatis dan harus masuk daftar konfirmasi.
 - Pengecualian model sementara berdasarkan arahan pemilik: biaya tamu tambahan Kintamani dipertahankan USD 10/orang; markup 20% tetap berlaku untuk harga utama paketnya.
-- Untuk pasar Rusia, katalog memakai dua harga jual tetap: RUB ditampilkan lebih dahulu pada halaman Rusia dan USD lebih dahulu pada halaman Inggris. Harga RUB memakai acuan internal 82 RUB/USD lalu dibulatkan ke nominal komersial; harga ini bukan estimasi kurs dan tidak memakai simbol `~`.
-- Pelanggan dapat memilih nominal harga tetap dalam RUB atau USD yang ditampilkan. Kanal pembayaran dikonfirmasi manual sampai checkout resmi tersedia; perubahan kurs harian tidak mengubah price list sampai bisnis memperbaruinya.
-- Nominal katalog dalam RUB dan USD merupakan harga jual tetap; availability dan inclusions dikonfirmasi manual sebelum booking.
+- Katalog memakai USD sebagai harga acuan untuk pasar Rusia maupun internasional.
+- Booking fee 20% dapat dikutip dalam RUB menggunakan quote yang berlaku 24 jam dan dibulatkan ke kelipatan RUB 100 terdekat. Nominal RUB tidak menjadi price list permanen di kartu paket.
+- Saldo tetap dicatat sebagai 80% harga acuan USD; availability, inclusions, mata uang pembayaran aktual, dan nilai quote dikonfirmasi manual sebelum booking.
 - Audit penerapan per 16 Juli 2026 tercatat di [`pricing-markup-audit.md`](pricing-markup-audit.md).
 
 ## Opsi availability pilot
