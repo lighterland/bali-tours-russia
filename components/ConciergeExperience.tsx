@@ -69,7 +69,7 @@ const ui = {
     pickupPlaceholder: "Можно сообщить позже", language: "Язык общения *", wishes: "Пожелания", wishesPlaceholder: "Темп, интересы, особые потребности",
     consent: "Я согласен(-на) на обработку данных заявки и обратную связь.", details: "Подробнее", sending: "Отправляем…", send: "Отправить заявку",
     footerRoutes: "Маршруты", footerContact: "Контакты", footerPrivacy: "Данные заявки", footerTerms: "Бронирование и оплата", offerCode: "Код предложения", errorMessage: "Не удалось отправить запрос.", detailsLabel: "Подробнее", includedLabel: "Что включено", routeLabel: "Маршрут и остановки", priceLabel: "Условия цены",
-    add: "Добавить в план", added: "В плане", remove: "Удалить", plannerEyebrow: "Ваш план", plannerTitle: "Соберите поездку", plannerEmpty: "Добавляйте маршруты — расчёт появится здесь.", subtotal: "Стоимость", saving: "Выгода комбинации", estimate: "Ориентировочный итог", bookingFee: "Для бронирования · 20%", balance: "Остаток на Бали · 80%", bundle: "Цена комбинации", bundleManual: "6+ впечатлений: запросите индивидуальную цену до 15%", guestsShort: "Гостей", rentalDays: "Дней аренды", vehicleChoice: "Вариант транспорта", estimateNote: "Итог подтверждается после проверки дат и выбранных опций.", free: "Бесплатно",
+    add: "Добавить в план", added: "В плане", remove: "Удалить", plannerEyebrow: "Ваш план", plannerTitle: "Соберите поездку", plannerEmpty: "Добавляйте маршруты — расчёт появится здесь.", subtotal: "Стоимость", saving: "Возможная выгода до", estimate: "Ориентировочный итог", bookingFee: "Для бронирования · 20%", balance: "Остаток на Бали · 80%", bundle: "Доступна цена комбинации", bundleManual: "6+ впечатлений: запросите индивидуальную цену до 15%", guestsShort: "Гостей", rentalDays: "Дней аренды", vehicleChoice: "Вариант транспорта", estimateNote: "Выгода комбинации применяется только после подтверждения специальной цены; до этого расчёт сохраняет полную стоимость.", free: "Бесплатно",
   },
   en: {
     brand: "BALI · CLOSER", navLabel: "Main navigation", openMenu: "Open menu", closeMenu: "Close menu",
@@ -83,7 +83,7 @@ const ui = {
     pickupPlaceholder: "You can tell us later", language: "Communication language *", wishes: "Your wishes", wishesPlaceholder: "Pace, interests, special requirements",
     consent: "I agree to the processing of my enquiry data and to being contacted.", details: "Learn more", sending: "Sending…", send: "Send enquiry",
     footerRoutes: "Journeys", footerContact: "Contact", footerPrivacy: "Enquiry data", footerTerms: "Booking & payment", offerCode: "Offer code", errorMessage: "Unable to send the enquiry.", detailsLabel: "View details", includedLabel: "What's included", routeLabel: "Route and stops", priceLabel: "Price terms",
-    add: "Add to trip", added: "In your plan", remove: "Remove", plannerEyebrow: "Your plan", plannerTitle: "Build your Bali trip", plannerEmpty: "Add journeys and your estimate will appear here.", subtotal: "Trip value", saving: "Combination saving", estimate: "Estimated total", bookingFee: "To reserve · 20%", balance: "Balance in Bali · 80%", bundle: "Combination price", bundleManual: "6+ experiences: ask for a tailored rate up to 15%", guestsShort: "Guests", rentalDays: "Rental days", vehicleChoice: "Vehicle option", estimateNote: "Your total is confirmed after dates and selected options are checked.", free: "Free",
+    add: "Add to trip", added: "In your plan", remove: "Remove", plannerEyebrow: "Your plan", plannerTitle: "Build your Bali trip", plannerEmpty: "Add journeys and your estimate will appear here.", subtotal: "Trip value", saving: "Potential saving up to", estimate: "Estimated total", bookingFee: "To reserve · 20%", balance: "Balance in Bali · 80%", bundle: "Combination pricing available", bundleManual: "6+ experiences: ask for a tailored rate up to 15%", guestsShort: "Guests", rentalDays: "Rental days", vehicleChoice: "Vehicle option", estimateNote: "A combination saving is applied only after the special rate is confirmed; until then, the estimate keeps the full trip value.", free: "Free",
   },
 } as const;
 
@@ -99,7 +99,7 @@ const bookingFaq = {
       ["Как подтвердить бронирование?", "После согласования программы и даты вносится невозвратный booking fee 20%. Он закрепляет дату и запускает организацию поездки."],
       ["Можно оплатить booking fee в рублях?", "Да. Доступный способ, сумма и срок оплаты будут указаны в персональном подтверждении."],
       ["Как оплатить оставшиеся 80%?", "Остаток оплачивается на Бали перед началом услуги способом, указанным в подтверждении бронирования."],
-      ["Как работает цена комбинации?", "Для 3–4 подходящих маршрутов расчёт включает 5% выгоды, для 5 — 10%. Для 6 и более мы подготовим индивидуальное предложение до 15%."],
+      ["Как работает цена комбинации?", "Для 3–4 подходящих маршрутов можно запросить выгоду до 5%, для 5 — до 10%. Для 6 и более мы подготовим индивидуальное предложение до 15%. Специальная цена применяется после подтверждения."],
       ["Что произойдёт при отмене?", "Booking fee не возвращается при отмене гостем. Остальные возвраты зависят от срока отмены и уже оплаченных поставщикам расходов. При отмене с нашей стороны полученная сумма возвращается полностью."],
     ],
   },
@@ -109,7 +109,7 @@ const bookingFaq = {
       ["How is a booking confirmed?", "After the programme and date are agreed, a non-refundable 20% booking fee reserves your date and starts the arrangements."],
       ["Can I pay the booking fee in RUB?", "Yes. The available method, amount, and payment window will be included in your personal confirmation."],
       ["How do I pay the remaining 80%?", "The balance is paid in Bali before the service begins using the method stated in your booking confirmation."],
-      ["How does combination pricing work?", "Three or four eligible journeys receive a 5% combination saving; five receive 10%. For six or more, we prepare a tailored offer of up to 15%."],
+      ["How does combination pricing work?", "For three or four eligible journeys, ask for savings of up to 5%; for five, up to 10%. For six or more, we prepare a tailored offer of up to 15%. The special rate applies after confirmation."],
       ["What happens if I cancel?", "The booking fee is non-refundable when the guest cancels. Any other refund depends on timing and supplier costs already paid. If we cancel, the amount received is refunded in full."],
     ],
   },
@@ -183,8 +183,8 @@ export function ConciergeExperience({
   const eligibleCount = eligiblePackages.length;
   const eligibleSubtotal = eligiblePackages.reduce((sum, tour) => sum + lineTotal(tour), 0);
   const discountRate = eligibleCount >= 5 ? 0.1 : eligibleCount >= 3 ? 0.05 : 0;
-  const saving = eligibleCount >= 6 ? 0 : Math.round(eligibleSubtotal * discountRate);
-  const estimatedTotal = subtotal - saving;
+  const potentialSaving = eligibleCount >= 6 ? 0 : Math.round(eligibleSubtotal * discountRate);
+  const estimatedTotal = subtotal;
   const planSummary = selectedPackages.length
     ? locale === "ru"
       ? `${selectedInterestTitle} · гостей: ${guestCount} · ориентировочно: $${estimatedTotal}`
@@ -448,7 +448,7 @@ export function ConciergeExperience({
           {selectedPackages.length ? <>
             <div className="planner-items">{selectedPackages.map((tour) => <div className="planner-item" key={tour.id}><div><strong>{text(tour.title)}</strong><small>{tour.id === "vehicle-rental" && vehicleVariant ? text(vehicleVariant.title) : text(tour.price.label)}</small></div><span>{tour.pricing.model === "free" ? labels.free : `$${lineTotal(tour)}`}</span><button type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.remove}: ${text(tour.title)}`}>×</button></div>)}</div>
             {selectedPackageIds.includes("vehicle-rental") && vehiclePackage?.pricing.variants ? <div className="planner-rental"><label className="planner-vehicle"><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)} · ${variant.amountUsd}/{locale === "ru" ? "день" : "day"}</option>)}</select></label><label className="planner-vehicle"><span>{labels.rentalDays}</span><input type="number" min="1" max="60" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label></div> : null}
-            <div className="planner-totals"><div><span>{labels.subtotal}</span><strong>${subtotal}</strong></div>{saving > 0 ? <div className="planner-saving"><span>{labels.saving} · {discountRate * 100}%</span><strong>−${saving}</strong></div> : null}<div className="planner-grand"><span>{labels.estimate}</span><strong>${estimatedTotal}</strong></div><div><span>{labels.bookingFee}</span><strong>${Math.round(estimatedTotal * 0.2)}</strong></div><div><span>{labels.balance}</span><strong>${Math.round(estimatedTotal * 0.8)}</strong></div></div>
+            <div className="planner-totals"><div><span>{labels.subtotal}</span><strong>${subtotal}</strong></div>{potentialSaving > 0 ? <div className="planner-saving"><span>{labels.saving} · {discountRate * 100}%</span><strong>${potentialSaving}</strong></div> : null}<div className="planner-grand"><span>{labels.estimate}</span><strong>${estimatedTotal}</strong></div><div><span>{labels.bookingFee}</span><strong>${Math.round(estimatedTotal * 0.2)}</strong></div><div><span>{labels.balance}</span><strong>${Math.round(estimatedTotal * 0.8)}</strong></div></div>
             {eligibleCount >= 6 ? <p className="planner-bundle">{labels.bundleManual}</p> : eligibleCount >= 3 ? <p className="planner-bundle">{labels.bundle}: {discountRate * 100}%</p> : null}
             <p className="planner-note">{labels.estimateNote}</p>
             <a className="button primary" href="#request">{labels.fillForm} <ArrowIcon /></a>

@@ -25,7 +25,7 @@ export default function TermsPage() {
         <h3>6. Погода и форс-мажор</h3>
         <p>Безопасность имеет приоритет. Из-за погоды, состояния моря, вулканической активности, ограничений властей или иных обстоятельств вне разумного контроля программа может быть перенесена или изменена. Мы предложим подходящую замену, новую дату или возврат доступной суммы после удержания невозвратных расходов поставщиков.</p>
         <h3>7. Комбинации маршрутов</h3>
-        <p>Для трёх или четырёх подходящих маршрутов может применяться выгода 5%, для пяти — 10%. Для шести и более маршрутов готовится индивидуальное предложение с выгодой до 15%. Комбинационная цена не суммируется с другими специальными предложениями и действует только после письменного подтверждения.</p>
+        <p>Для трёх или четырёх подходящих маршрутов может применяться выгода до 5%, для пяти — до 10%. Для шести и более маршрутов готовится индивидуальное предложение с выгодой до 15%. Комбинационная цена зависит от согласованной программы, не суммируется с другими специальными предложениями и действует только после письменного подтверждения.</p>
         <h3>8. Ответственность гостя и обращения</h3>
         <p>Гость отвечает за действительные документы, соблюдение времени встречи, правила безопасности и своевременное сообщение о медицинских ограничениях или особых потребностях. Вопросы по бронированию и претензии направляются через контактный канал, указанный на сайте; мы подтверждаем получение и рассматриваем обращение по существу.</p>
       </section>
@@ -45,7 +45,7 @@ export default function TermsPage() {
         <h3>6. Weather and force majeure</h3>
         <p>Safety comes first. Weather, sea conditions, volcanic activity, government restrictions, or other events outside reasonable control may require a change or postponement. We will offer a suitable alternative, another date, or the refundable balance after non-refundable supplier costs.</p>
         <h3>7. Journey combinations</h3>
-        <p>Three or four eligible journeys may receive a 5% combination saving; five may receive 10%. Six or more receive a tailored offer with savings of up to 15%. Combination pricing cannot be combined with other special offers and applies only when confirmed in writing.</p>
+        <p>Three or four eligible journeys may receive savings of up to 5%; five may receive up to 10%. Six or more receive a tailored offer with savings of up to 15%. Combination pricing depends on the agreed programme, cannot be combined with other special offers, and applies only when confirmed in writing.</p>
         <h3>8. Guest responsibilities and concerns</h3>
         <p>Guests are responsible for valid travel documents, meeting times, following safety instructions, and disclosing relevant medical restrictions or special needs in advance. Booking questions or concerns can be sent through the contact channel shown on the website; we will acknowledge and address them on their merits.</p>
       </section>
