@@ -52,6 +52,11 @@ Deploy to Vercel, configure all environment variables separately for Development
 
 ## Launch checklist
 
+- Buy and confirm the final brand domain, with `balicloser.com` as the current candidate.
+- Add the domain to Resend and verify the required SPF and DKIM DNS records.
+- Configure `booking@balicloser.com` as the preferred sender and a reply-capable business inbox or forwarding destination.
+- Set production values for `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ENQUIRY_NOTIFICATION_EMAIL`; never expose the API key in browser code.
+- Because GitHub Pages is static, choose and connect a separate serverless/backend endpoint before enabling Resend-powered form delivery. Until then, retain WhatsApp, Telegram, VK, and email-draft fallbacks.
 - Replace temporary Pexels CDN URLs with locally downloaded assets; follow `docs/media-acquisition-guide.md`.
 - Add the final WhatsApp Business number and fallback channel URLs.
 - Verify at least the packages/prices intended for public sale; otherwise keep copy as indicative/on-request.

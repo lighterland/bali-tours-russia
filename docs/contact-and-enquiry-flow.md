@@ -55,6 +55,16 @@ Email notification kepada tim harus memuat nomor WhatsApp pelanggan, channel pil
 
 ## Provider awal
 
+### Checklist domain email dan Resend
+
+- [ ] Beli dan konfirmasi domain final; kandidat saat ini `balicloser.com`.
+- [ ] Tambahkan domain ke Resend dan verifikasi DNS SPF serta DKIM.
+- [ ] Gunakan `booking@balicloser.com` sebagai kandidat alamat pengirim.
+- [ ] Siapkan inbox atau forwarding yang benar-benar dapat menerima balasan pelanggan.
+- [ ] Isi `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, dan `ENQUIRY_NOTIFICATION_EMAIL` hanya pada environment server-side.
+- [ ] Hubungkan endpoint serverless/backend terpisah karena GitHub Pages tidak dapat menjalankan Resend API secara server-side.
+- [ ] Uji pengiriman, penerimaan balasan, kegagalan delivery, dan fallback WhatsApp sebelum form diaktifkan untuk publik.
+
 - Deployment target: Vercel.
 - Pilihan utama: Resend API untuk mengirim email notifikasi enquiry melalui serverless/API route milik website.
 - Alur: browser mengirim form ke Vercel Function atau framework route handler; endpoint memvalidasi dan membersihkan input, menjalankan proteksi spam/rate limit, lalu memanggil Resend untuk mengirim email ke inbox bisnis.
