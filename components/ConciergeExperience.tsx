@@ -59,7 +59,7 @@ const curatedMedia: Record<string, string> = {
 const ui = {
   ru: {
     brand: "BALI · БЛИЖЕ", navLabel: "Главная навигация", openMenu: "Открыть меню", closeMenu: "Закрыть меню",
-    photo: "Атмосферное фото", priceNote: "USD — базовая цена · RUB подтверждается в предложении", request: "Запросить",
+    photo: "Атмосферное фото", priceNote: "", request: "Добавить",
     teamPhoto: "Атмосферное фото · реальная команда будет добавлена после письменного разрешения",
     fillForm: "Заполнить форму", openWhatsApp: "Открыть WhatsApp", otherChannels: "Другие каналы:",
     formEyebrow: "Заявка", chooseRoute: "Выберите маршрут или услугу", formIntro: "Укажите даты и детали запроса. Мы свяжемся с вами, уточним условия и поможем со следующим шагом.",
@@ -69,10 +69,11 @@ const ui = {
     pickupPlaceholder: "Можно сообщить позже", language: "Язык общения *", wishes: "Пожелания", wishesPlaceholder: "Темп, интересы, особые потребности",
     consent: "Я согласен(-на) на обработку данных заявки и обратную связь.", details: "Подробнее", sending: "Отправляем…", send: "Отправить заявку",
     footerRoutes: "Маршруты", footerContact: "Контакты", footerPrivacy: "Данные заявки", footerTerms: "Бронирование и оплата", offerCode: "Код предложения", errorMessage: "Не удалось отправить запрос.", detailsLabel: "Подробнее", includedLabel: "Что включено", routeLabel: "Маршрут и остановки", priceLabel: "Условия цены",
+    add: "Добавить в план", added: "В плане", remove: "Удалить", plannerEyebrow: "Ваш план", plannerTitle: "Соберите поездку", plannerEmpty: "Добавляйте маршруты — расчёт появится здесь.", subtotal: "Стоимость", saving: "Выгода комбинации", estimate: "Ориентировочный итог", bookingFee: "Для бронирования · 20%", balance: "Остаток на Бали · 80%", bundle: "Цена комбинации", bundleManual: "6+ впечатлений: запросите индивидуальную цену до 15%", guestsShort: "Гостей", rentalDays: "Дней аренды", vehicleChoice: "Вариант транспорта", estimateNote: "Итог подтверждается после проверки дат и выбранных опций.", free: "Бесплатно",
   },
   en: {
     brand: "BALI · CLOSER", navLabel: "Main navigation", openMenu: "Open menu", closeMenu: "Close menu",
-    photo: "Atmospheric image", priceNote: "USD base price · RUB confirmed in your quote", request: "Request",
+    photo: "Atmospheric image", priceNote: "", request: "Add",
     teamPhoto: "Atmospheric image · the real team will be added after written permission",
     fillForm: "Complete the form", openWhatsApp: "Open WhatsApp", otherChannels: "Other channels:",
     formEyebrow: "Enquiry", chooseRoute: "Choose a journey or service", formIntro: "Share your dates and request details. We will contact you, confirm the arrangements, and help with the next step.",
@@ -82,6 +83,7 @@ const ui = {
     pickupPlaceholder: "You can tell us later", language: "Communication language *", wishes: "Your wishes", wishesPlaceholder: "Pace, interests, special requirements",
     consent: "I agree to the processing of my enquiry data and to being contacted.", details: "Learn more", sending: "Sending…", send: "Send enquiry",
     footerRoutes: "Journeys", footerContact: "Contact", footerPrivacy: "Enquiry data", footerTerms: "Booking & payment", offerCode: "Offer code", errorMessage: "Unable to send the enquiry.", detailsLabel: "View details", includedLabel: "What's included", routeLabel: "Route and stops", priceLabel: "Price terms",
+    add: "Add to trip", added: "In your plan", remove: "Remove", plannerEyebrow: "Your plan", plannerTitle: "Build your Bali trip", plannerEmpty: "Add journeys and your estimate will appear here.", subtotal: "Trip value", saving: "Combination saving", estimate: "Estimated total", bookingFee: "To reserve · 20%", balance: "Balance in Bali · 80%", bundle: "Combination price", bundleManual: "6+ experiences: ask for a tailored rate up to 15%", guestsShort: "Guests", rentalDays: "Rental days", vehicleChoice: "Vehicle option", estimateNote: "Your total is confirmed after dates and selected options are checked.", free: "Free",
   },
 } as const;
 
@@ -92,23 +94,23 @@ const services = {
 
 const bookingFaq = {
   ru: {
-    eyebrow: "Оплата и условия", title: "Простая схема бронирования.", body: "Суммы и валюта каждого платежа фиксируются в подтверждении до оплаты.", terms: "Полные условия бронирования",
+    eyebrow: "Оплата и условия", title: "Понятно до бронирования.", body: "Вы получаете программу, итоговую стоимость и порядок оплаты в одном подтверждении.", terms: "Полные условия бронирования",
     items: [
-      ["Как подтвердить бронирование?", "После проверки даты вы оплачиваете 20% booking fee. Сумма может быть оплачена в RUB по фиксированному предложению, действующему 24 часа."],
-      ["Как рассчитывается сумма в рублях?", "Базовая цена указана в USD. Booking fee переводится в RUB по курсу предложения и округляется вверх до следующих 100 ₽. Итоговая сумма фиксируется на 24 часа."],
-      ["Как оплатить оставшиеся 80%?", "Остаток оплачивается по прибытии на Бали в согласованной валюте и эквиваленте, указанном в подтверждении бронирования."],
-      ["Есть ли скидки и промокоды?", "Для сочетания двух туров или активностей можно запросить специальную цену. Код предложения добавляется в заявку, а итоговая цена подтверждается письменно."],
-      ["Что произойдёт при отмене?", "При отмене гостем применяются сроки и подтверждённые невозвратные расходы. Если подтверждённую услугу отменяет организатор, полученная сумма возвращается полностью."],
+      ["Как подтвердить бронирование?", "После согласования программы и даты вносится невозвратный booking fee 20%. Он закрепляет дату и запускает организацию поездки."],
+      ["Можно оплатить booking fee в рублях?", "Да. Доступный способ, сумма и срок оплаты будут указаны в персональном подтверждении."],
+      ["Как оплатить оставшиеся 80%?", "Остаток оплачивается на Бали перед началом услуги способом, указанным в подтверждении бронирования."],
+      ["Как работает цена комбинации?", "Для 3–4 подходящих маршрутов расчёт включает 5% выгоды, для 5 — 10%. Для 6 и более мы подготовим индивидуальное предложение до 15%."],
+      ["Что произойдёт при отмене?", "Booking fee не возвращается при отмене гостем. Остальные возвраты зависят от срока отмены и уже оплаченных поставщикам расходов. При отмене с нашей стороны полученная сумма возвращается полностью."],
     ],
   },
   en: {
-    eyebrow: "Payment & terms", title: "A simple booking arrangement.", body: "The amount and currency of every payment are recorded in your confirmation before you pay.", terms: "Full booking terms",
+    eyebrow: "Payment & terms", title: "Clear before you reserve.", body: "Your programme, final total, and payment steps are recorded in one confirmation.", terms: "Full booking terms",
     items: [
-      ["How is a booking confirmed?", "Once the date is checked, you pay a 20% booking fee. It may be paid in RUB using a fixed quote valid for 24 hours."],
-      ["How is the RUB amount calculated?", "USD is the base price. The booking fee is converted using the quoted rate and rounded up to the next ₽100. The final amount is fixed for 24 hours."],
-      ["How do I pay the remaining 80%?", "The balance is paid after arrival in Bali in the agreed currency and equivalent recorded in your booking confirmation."],
-      ["Are offers or vouchers available?", "Ask for a special rate when combining two tours or activities. The offer code is added to your enquiry and the final price is confirmed in writing."],
-      ["What happens if the booking is cancelled?", "Guest cancellations follow the stated timing and documented non-refundable costs. If the organiser cancels a confirmed service, the amount received is refunded in full."],
+      ["How is a booking confirmed?", "After the programme and date are agreed, a non-refundable 20% booking fee reserves your date and starts the arrangements."],
+      ["Can I pay the booking fee in RUB?", "Yes. The available method, amount, and payment window will be included in your personal confirmation."],
+      ["How do I pay the remaining 80%?", "The balance is paid in Bali before the service begins using the method stated in your booking confirmation."],
+      ["How does combination pricing work?", "Three or four eligible journeys receive a 5% combination saving; five receive 10%. For six or more, we prepare a tailored offer of up to 15%."],
+      ["What happens if I cancel?", "The booking fee is non-refundable when the guest cancels. Any other refund depends on timing and supplier costs already paid. If we cancel, the amount received is refunded in full."],
     ],
   },
 } as const;
@@ -140,7 +142,10 @@ export function ConciergeExperience({
   businessEmail,
 }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedPackageId, setSelectedPackageId] = useState(packages[0]?.id || "");
+  const [selectedPackageIds, setSelectedPackageIds] = useState<string[]>([]);
+  const [selectedServiceId, setSelectedServiceId] = useState("");
+  const [vehicleVariantId, setVehicleVariantId] = useState("scooter-city");
+  const [rentalDays, setRentalDays] = useState(1);
   const [preferredChannel, setPreferredChannel] = useState<(typeof contactChannels)[number]>("WhatsApp");
   const language: SupportedLanguage = locale;
   const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", guests: "2", pickup: "", notes: "" });
@@ -150,18 +155,43 @@ export function ConciergeExperience({
   const labels = ui[locale];
   const text = (value: Parameters<typeof localized>[0]) => localized(value, locale);
 
-  const selectedPackage = useMemo(
-    () => packages.find((tour) => tour.id === selectedPackageId),
-    [packages, selectedPackageId],
+  const selectedPackages = useMemo(
+    () => selectedPackageIds.map((id) => packages.find((tour) => tour.id === id)).filter((item): item is TourPackage => Boolean(item)),
+    [packages, selectedPackageIds],
   );
-  const selectedService = findBaliService(selectedPackageId);
-  const selectedInterestTitle = selectedPackage
-    ? text(selectedPackage.title)
+  const selectedService = findBaliService(selectedServiceId);
+  const selectedInterestTitle = selectedPackages.length
+    ? selectedPackages.map((item) => text(item.title)).join(", ")
     : selectedService
       ? text(selectedService.title)
       : labels.chooseRoute;
+  const guestCount = Math.max(1, Number.parseInt(whatsAppDraft.guests, 10) || 1);
+  const vehiclePackage = packages.find((item) => item.id === "vehicle-rental");
+  const vehicleVariant = vehiclePackage?.pricing.variants?.find((item) => item.id === vehicleVariantId) || vehiclePackage?.pricing.variants?.[0];
+  const lineTotal = (tour: TourPackage) => {
+    if (tour.pricing.model === "free") return 0;
+    if (tour.id === "vehicle-rental" && vehicleVariant) return vehicleVariant.amountUsd * rentalDays;
+    if (tour.pricing.model === "per_guest") return tour.pricing.amountUsd * guestCount;
+    if (tour.pricing.model === "per_group") {
+      const extraGuests = Math.max(0, guestCount - (tour.pricing.includedGuests || guestCount));
+      return tour.pricing.amountUsd + extraGuests * (tour.pricing.extraGuestUsd || 0);
+    }
+    return tour.pricing.amountUsd;
+  };
+  const subtotal = selectedPackages.reduce((sum, tour) => sum + lineTotal(tour), 0);
+  const eligiblePackages = selectedPackages.filter((tour) => tour.pricing.discountEligible);
+  const eligibleCount = eligiblePackages.length;
+  const eligibleSubtotal = eligiblePackages.reduce((sum, tour) => sum + lineTotal(tour), 0);
+  const discountRate = eligibleCount >= 5 ? 0.1 : eligibleCount >= 3 ? 0.05 : 0;
+  const saving = eligibleCount >= 6 ? 0 : Math.round(eligibleSubtotal * discountRate);
+  const estimatedTotal = subtotal - saving;
+  const planSummary = selectedPackages.length
+    ? locale === "ru"
+      ? `${selectedInterestTitle} · гостей: ${guestCount} · ориентировочно: $${estimatedTotal}`
+      : `${selectedInterestTitle} · guests: ${guestCount} · estimated: $${estimatedTotal}`
+    : selectedInterestTitle;
   const directWhatsApp = buildWhatsAppLink(whatsappNumber, {
-    packageTitle: selectedInterestTitle,
+    packageTitle: planSummary,
     language: locale,
     ...whatsAppDraft,
   });
@@ -217,7 +247,8 @@ export function ConciergeExperience({
   }, [locale]);
 
   function selectInterest(id: string) {
-    setSelectedPackageId(id);
+    setSelectedServiceId(id);
+    if (id.startsWith("service-")) setSelectedPackageIds([]);
     setWhatsAppDraft((value) => ({
       ...value,
       guests: id.startsWith("service-") ? "" : value.guests || "2",
@@ -225,12 +256,9 @@ export function ConciergeExperience({
   }
 
   function choosePackage(id: string) {
-    selectInterest(id);
-    const offerCode = packages.find((item) => item.id === id)?.promotion?.code;
-    if (offerCode) {
-      setWhatsAppDraft((value) => ({ ...value, notes: value.notes || `${labels.offerCode}: ${offerCode}` }));
-    }
-    document.getElementById("request")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setSelectedServiceId("");
+    setWhatsAppDraft((value) => ({ ...value, guests: value.guests || "2" }));
+    setSelectedPackageIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   }
 
   async function submitEnquiry(event: FormEvent<HTMLFormElement>) {
@@ -247,7 +275,8 @@ export function ConciergeExperience({
       preferredChannel: data.get("preferredChannel"),
       date: [data.get("date"), data.get("endDate")].filter(Boolean).join(" — "),
       guests: data.get("guests"),
-      packageId: data.get("packageId"),
+      packageIds: selectedPackageIds,
+      serviceId: selectedPackages.length ? "" : selectedServiceId || generalBaliService.id,
       pickup: data.get("pickup"),
       notes: data.get("notes"),
       language: data.get("language"),
@@ -258,7 +287,7 @@ export function ConciergeExperience({
     };
     const selectedChannel = String(data.get("preferredChannel"));
     const bookingDraft = {
-      packageTitle: selectedInterestTitle,
+      packageTitle: planSummary,
       date: [data.get("date"), data.get("endDate")].filter(Boolean).join(" — "),
       guests: String(data.get("guests") || ""), pickup: String(data.get("pickup") || ""), notes: String(data.get("notes") || ""), language: locale,
     } as const;
@@ -383,7 +412,8 @@ export function ConciergeExperience({
         <div className="route-grid">
           {packages.map((tour) => {
             const secondaryPrice = tour.price.secondaryLabel ? text(tour.price.secondaryLabel) : undefined;
-            return <article className={`route-card ${tour.promotion?.spotlight ? "featured" : ""}`} key={tour.id} data-reveal>
+            const isSelected = selectedPackageIds.includes(tour.id);
+            return <article className={`route-card ${tour.promotion?.spotlight ? "featured" : ""} ${isSelected ? "selected" : ""}`} key={tour.id} data-reveal>
               <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`} style={curatedMedia[tour.id] ? { backgroundImage: `url(${resolveAssetUrl(curatedMedia[tour.id])})` } : undefined} role="img" aria-label={text(tour.title)}>
                 {tour.promotion && <span className="offer-badge">{text(tour.promotion.badge)}</span>}
               </div>
@@ -391,27 +421,39 @@ export function ConciergeExperience({
                 <div className="route-kicker"><span>{text(tour.family)}</span><span>{text(tour.duration)}</span></div>
                 <h3>{text(tour.title)}</h3>
                 <p>{text(tour.summary)}</p>
-                {tour.promotion && <div className="route-offer"><strong>{text(tour.promotion.note)}</strong>{tour.promotion.code && <small>{labels.offerCode}: {tour.promotion.code}</small>}</div>}
+                {tour.promotion && <div className="route-offer"><strong>{text(tour.promotion.note)}</strong></div>}
                 <div className="route-tags">{tour.highlights.map((item) => <span key={item.ru}>{text(item)}</span>)}</div>
                 <details className="route-details">
                   <summary>{labels.detailsLabel}</summary>
                   <p className="experience-copy">{text(tour.experience)}</p>
                   <div><strong>{text(tour.itineraryLabel)}</strong><ul>{tour.itinerary.map((item) => <li key={item.ru}>{text(item)}</li>)}</ul></div>
                   <div><strong>{text(tour.includedLabel)}</strong><p>{text(tour.included)}</p></div>
-                  <div><strong>{text(tour.priceDetailLabel)}</strong><p>{text(tour.priceDetail)}</p></div>
-                </details>
+                   <div><strong>{text(tour.priceDetailLabel)}</strong><p>{text(tour.priceDetail)}</p></div>
+                   {tour.pricing.variants ? <div><strong>{labels.vehicleChoice}</strong><ul>{tour.pricing.variants.map((variant) => <li key={variant.id}>{text(variant.title)} — ${variant.amountUsd} / {locale === "ru" ? "день" : "day"}</li>)}</ul></div> : null}
+                 </details>
                 <div className="route-bottom">
                   <div className="route-price">
                     <strong className="route-price-primary">{text(tour.price.label)}</strong>
                     {secondaryPrice && <span className="route-price-secondary">{secondaryPrice}</span>}
-                    {tour.price.status === "fixed" && <small>{labels.priceNote}</small>}
                   </div>
-                  <button className="circle-button" type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.request}: ${text(tour.title)}`}>↗</button>
+                  <button className={`plan-toggle ${isSelected ? "is-added" : ""}`} type="button" onClick={() => choosePackage(tour.id)} aria-pressed={isSelected}>{isSelected ? labels.added : labels.add}</button>
                 </div>
               </div>
             </article>;
           })}
-        </div>
+         </div>
+        <aside className="trip-planner" id="trip-planner" data-reveal>
+          <div className="planner-heading"><p className="eyebrow dark">{labels.plannerEyebrow}</p><h3>{labels.plannerTitle}</h3></div>
+          <label className="planner-guests"><span>{labels.guestsShort}</span><select value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))}>{["1", "2", "3", "4", "5", "6+"].map((value) => <option key={value}>{value}</option>)}</select></label>
+          {selectedPackages.length ? <>
+            <div className="planner-items">{selectedPackages.map((tour) => <div className="planner-item" key={tour.id}><div><strong>{text(tour.title)}</strong><small>{tour.id === "vehicle-rental" && vehicleVariant ? text(vehicleVariant.title) : text(tour.price.label)}</small></div><span>{tour.pricing.model === "free" ? labels.free : `$${lineTotal(tour)}`}</span><button type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.remove}: ${text(tour.title)}`}>×</button></div>)}</div>
+            {selectedPackageIds.includes("vehicle-rental") && vehiclePackage?.pricing.variants ? <div className="planner-rental"><label className="planner-vehicle"><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)} · ${variant.amountUsd}/{locale === "ru" ? "день" : "day"}</option>)}</select></label><label className="planner-vehicle"><span>{labels.rentalDays}</span><input type="number" min="1" max="60" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label></div> : null}
+            <div className="planner-totals"><div><span>{labels.subtotal}</span><strong>${subtotal}</strong></div>{saving > 0 ? <div className="planner-saving"><span>{labels.saving} · {discountRate * 100}%</span><strong>−${saving}</strong></div> : null}<div className="planner-grand"><span>{labels.estimate}</span><strong>${estimatedTotal}</strong></div><div><span>{labels.bookingFee}</span><strong>${Math.round(estimatedTotal * 0.2)}</strong></div><div><span>{labels.balance}</span><strong>${Math.round(estimatedTotal * 0.8)}</strong></div></div>
+            {eligibleCount >= 6 ? <p className="planner-bundle">{labels.bundleManual}</p> : eligibleCount >= 3 ? <p className="planner-bundle">{labels.bundle}: {discountRate * 100}%</p> : null}
+            <p className="planner-note">{labels.estimateNote}</p>
+            <a className="button primary" href="#request">{labels.fillForm} <ArrowIcon /></a>
+          </> : <p className="planner-empty">{labels.plannerEmpty}</p>}
+        </aside>
       </section>
 
       <section className="process section" id="process">
@@ -487,12 +529,12 @@ export function ConciergeExperience({
             <label><span>{labels.whatsapp}</span><input name="whatsapp" autoComplete="tel" inputMode="tel" placeholder="+7 …" required pattern="\+?[1-9][0-9]{7,14}" /></label>
           </div>
           <div className="form-grid two">
-            <label><span>{selectedService ? labels.serviceDate : labels.date}</span><input name="date" type="date" value={whatsAppDraft.date} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, date: event.target.value }))} required={!selectedService} /></label>
+            <label><span>{selectedPackages.length ? labels.date : labels.serviceDate}</span><input name="date" type="date" value={whatsAppDraft.date} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, date: event.target.value }))} required={selectedPackages.length > 0} /></label>
             <label><span>{labels.endDate}</span><input name="endDate" type="date" min={whatsAppDraft.date || undefined} /></label>
           </div>
           <div className="form-grid two">
-            <label><span>{selectedService ? labels.serviceGuests : labels.guests}</span><select name="guests" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required={!selectedService}>{selectedService ? <option value="">—</option> : null}{["1", "2", "3", "4", "5", "6+"].map((value) => <option key={value}>{value}</option>)}</select></label>
-            <label><span>{labels.route}</span><select name="packageId" value={selectedPackageId} onChange={(event) => selectInterest(event.target.value)}><optgroup label={labels.journeysGroup}>{packages.map((tour) => <option value={tour.id} key={tour.id}>{text(tour.title)}</option>)}</optgroup><optgroup label={labels.servicesGroup}><option value={generalBaliService.id}>{text(generalBaliService.title)}</option>{baliServiceOptions.map((service) => <option value={service.id} key={service.id}>{text(service.title)}</option>)}</optgroup></select></label>
+            <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><select name="guests" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required={selectedPackages.length > 0}>{selectedPackages.length ? null : <option value="">—</option>}{["1", "2", "3", "4", "5", "6+"].map((value) => <option key={value}>{value}</option>)}</select></label>
+            {selectedPackages.length ? <div className="form-plan-summary"><span>{labels.route}</span><strong>{selectedPackages.length} · {selectedInterestTitle}</strong><a href="#trip-planner">{labels.detailsLabel}</a></div> : <label><span>{labels.route}</span><select value={selectedServiceId || generalBaliService.id} onChange={(event) => selectInterest(event.target.value)}><option value={generalBaliService.id}>{text(generalBaliService.title)}</option>{baliServiceOptions.map((service) => <option value={service.id} key={service.id}>{text(service.title)}</option>)}</select></label>}
           </div>
           <div className="form-grid two">
             <label><span>{labels.channel}</span><select name="preferredChannel" value={preferredChannel} onChange={(event) => setPreferredChannel(event.target.value as (typeof contactChannels)[number])}>{contactChannels.map((channel) => <option key={channel}>{channel}</option>)}</select></label>

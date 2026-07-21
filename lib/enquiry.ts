@@ -16,7 +16,8 @@ export const enquirySchema = z
     preferredChannel: z.enum(contactChannels),
     date: z.string().trim().max(100),
     guests: z.string().trim().max(20),
-    packageId: z.string().trim().min(1).max(100),
+    packageIds: z.array(z.string().trim().min(1).max(100)).max(20).default([]),
+    serviceId: z.string().trim().max(100).default(""),
     pickup: z.string().trim().max(200),
     notes: z.string().trim().max(1500),
     language: z.enum(supportedLanguages).default("ru"),
@@ -26,10 +27,10 @@ export const enquirySchema = z
     website: z.string().max(0),
   })
   .superRefine((value, context) => {
-    const service = findBaliService(value.packageId);
+    const service = value.serviceId ? findBaliService(value.serviceId) : undefined;
     const isServiceEnquiry = Boolean(service);
-    if (value.packageId.startsWith("service-") && !service) {
-      context.addIssue({ code: "custom", message: "Unknown Bali service", path: ["packageId"] });
+    if (!value.packageIds.length && value.serviceId.startsWith("service-") && !service) {
+      context.addIssue({ code: "custom", message: "Unknown Bali service", path: ["serviceId"] });
     }
     if (!isServiceEnquiry && !value.date) {
       context.addIssue({ code: "custom", message: "Date is required for journeys", path: ["date"] });

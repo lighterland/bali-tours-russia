@@ -20,15 +20,16 @@ function escapeHtml(value: string) {
 }
 
 function renderEmail(enquiry: EnquiryPayload) {
-  const tour = packages.find((item) => item.id === enquiry.packageId);
-  const service = findBaliService(enquiry.packageId);
+  const tours = enquiry.packageIds.map((id) => packages.find((item) => item.id === id)).filter((item): item is (typeof packages)[number] => Boolean(item));
+  const service = findBaliService(enquiry.serviceId);
+  const interestTitle = tours.length ? tours.map((tour) => russian(tour.title)).join(" · ") : service ? russian(service.title) : "General Bali enquiry";
   const row = (label: string, value: string) =>
     `<tr><td style="padding:8px 12px;color:#667085;border-bottom:1px solid #eee">${label}</td><td style="padding:8px 12px;border-bottom:1px solid #eee"><strong>${escapeHtml(value || "—")}</strong></td></tr>`;
 
   return `
     <div style="font-family:Arial,sans-serif;color:#172019;max-width:720px;margin:auto">
       <p style="font-size:12px;letter-spacing:.08em;color:#876b3c">NEW RUSSIAN-MARKET ENQUIRY</p>
-      <h1 style="font-size:28px">${escapeHtml(tour ? russian(tour.title) : service ? russian(service.title) : enquiry.packageId)}</h1>
+      <h1 style="font-size:28px">${escapeHtml(interestTitle)}</h1>
       <table style="width:100%;border-collapse:collapse">
         ${row("Enquiry ID", enquiry.enquiryId)}
         ${row("Name", enquiry.name)}
@@ -44,7 +45,7 @@ function renderEmail(enquiry: EnquiryPayload) {
       </table>
       <h2 style="margin-top:24px">Notes</h2>
       <p style="white-space:pre-wrap;padding:16px;background:#f5f3ed;border-radius:12px">${escapeHtml(enquiry.notes || "—")}</p>
-      <p style="font-size:12px;color:#667085">Availability and price remain subject to manual confirmation. Move qualified enquiries into the structured booking summary; do not treat this email as the booking source of truth.</p>
+      <p style="font-size:12px;color:#667085">Follow up through the guest's preferred channel and record the confirmed programme in the booking summary.</p>
     </div>`;
 }
 

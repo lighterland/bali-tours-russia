@@ -18,6 +18,15 @@ export type TourPackage = {
   priceDetail: LocalizedText;
   priceDetailLabel: LocalizedText;
   promotion?: { badge: LocalizedText; note: LocalizedText; code?: string; spotlight?: boolean };
+  pricing: {
+    model: "per_guest" | "per_group" | "per_day" | "free";
+    amountUsd: number;
+    includedGuests?: number;
+    extraGuestUsd?: number;
+    estimateOnly?: boolean;
+    discountEligible?: boolean;
+    variants?: Array<{ id: string; title: LocalizedText; amountUsd: number }>;
+  };
 };
 
 const img = (name: string): MediaAsset => ({ url: `/media/incoming/${encodeURIComponent(name)}`, role: "atmosphere" });
@@ -55,6 +64,7 @@ function tour(data: {
     includedLabel: data.includedLabelRu && data.includedLabelEn ? local(data.includedLabelRu, data.includedLabelEn) : includedLabel,
     priceDetail: local(data.priceRuDetail || "Финальная стоимость зависит от даты, количества гостей и выбранных опций.", data.priceEnDetail || "Final price depends on date, group size, and selected options."),
     priceDetailLabel: data.priceLabelRu && data.priceLabelEn ? local(data.priceLabelRu, data.priceLabelEn) : priceDetailLabel,
+    pricing: { model: "per_group", amountUsd: 0, estimateOnly: true },
   };
 }
 
@@ -117,16 +127,56 @@ const auditedPriceAdjustments: Partial<Record<string, TourPackage["price"]>> = {
   "east-bali": { status: "fixed", currencies: ["USD"], label: local("$78 / авто", "$78 / car") },
   "batur-sunrise": { status: "fixed", currencies: ["USD"], label: local("$84 / гость", "$84 / guest") },
   "nusa-penida": { status: "fixed", currencies: ["USD"], label: local("$96 / гость", "$96 / guest") },
+  "craft-jewellery": { status: "fixed", currencies: ["USD"], label: local("Бесплатный трансфер", "Free transfer") },
+  "vehicle-rental": { status: "fixed", currencies: ["USD"], label: local("от $7 / день", "from $7 / day") },
+  "java-bromo-ijen": { status: "fixed", currencies: ["USD"], label: local("от $375 / гость", "from $375 / guest") },
+  "java-yogyakarta": { status: "fixed", currencies: ["USD"], label: local("от $450 / гость", "from $450 / guest") },
+};
+
+const pricingByPackage: Record<string, TourPackage["pricing"]> = {
+  kintamani: { model: "per_group", amountUsd: 66, includedGuests: 4, extraGuestUsd: 10, discountEligible: true },
+  "northwest-bali": { model: "per_group", amountUsd: 78, includedGuests: 4, extraGuestUsd: 10, discountEligible: true },
+  "east-bali": { model: "per_group", amountUsd: 78, includedGuests: 4, extraGuestUsd: 10, discountEligible: true },
+  "temple-tour": { model: "per_group", amountUsd: 65, includedGuests: 4, extraGuestUsd: 10, discountEligible: true },
+  "beach-tour": { model: "per_group", amountUsd: 60, includedGuests: 4, extraGuestUsd: 6, discountEligible: true },
+  rafting: { model: "per_guest", amountUsd: 45, estimateOnly: true, discountEligible: true },
+  fishing: { model: "per_group", amountUsd: 390, includedGuests: 4, estimateOnly: true, discountEligible: true },
+  "turtle-snorkeling": { model: "per_guest", amountUsd: 38, discountEligible: true },
+  surfing: { model: "per_guest", amountUsd: 70, discountEligible: true },
+  safari: { model: "per_guest", amountUsd: 75, estimateOnly: true, discountEligible: true },
+  "batur-sunrise": { model: "per_guest", amountUsd: 84, discountEligible: true },
+  "water-sports": { model: "per_guest", amountUsd: 30, estimateOnly: true, discountEligible: true },
+  atv: { model: "per_guest", amountUsd: 65, estimateOnly: true, discountEligible: true },
+  "nusa-penida": { model: "per_guest", amountUsd: 96, discountEligible: true },
+  "craft-jewellery": { model: "free", amountUsd: 0 },
+  "romantic-dinner": { model: "per_group", amountUsd: 25, estimateOnly: true, discountEligible: true },
+  "vehicle-rental": {
+    model: "per_day", amountUsd: 7, estimateOnly: true,
+    variants: [
+      { id: "scooter-city", title: local("Beat / Scoopy", "Beat / Scoopy"), amountUsd: 7 },
+      { id: "scooter-premium", title: local("NMAX / ADV", "NMAX / ADV"), amountUsd: 10 },
+      { id: "scooter-xmax", title: local("XMAX", "XMAX"), amountUsd: 22 },
+      { id: "car-economy", title: local("Компактное авто без водителя", "Economy car, self-drive"), amountUsd: 22 },
+      { id: "car-family", title: local("Семейный автомобиль без водителя", "Family car, self-drive"), amountUsd: 30 },
+      { id: "avanza-driver", title: local("Avanza с водителем", "Avanza with driver"), amountUsd: 50 },
+      { id: "innova-driver", title: local("Innova с водителем", "Innova with driver"), amountUsd: 60 },
+      { id: "hiace-driver", title: local("Hiace с водителем", "Hiace with driver"), amountUsd: 75 },
+      { id: "vip-driver", title: local("VIP-автомобиль с водителем", "VIP car with driver"), amountUsd: 150 },
+    ],
+  },
+  "java-bromo-ijen": { model: "per_guest", amountUsd: 375, estimateOnly: true },
+  "java-yogyakarta": { model: "per_guest", amountUsd: 450, estimateOnly: true },
 };
 
 export const packages: TourPackage[] = basePackages.map((item) => ({
   ...item,
   price: auditedPriceAdjustments[item.id] || item.price,
+  pricing: pricingByPackage[item.id] || item.pricing,
   experience: stories[item.id] || item.experience,
   promotion: item.id === "nusa-penida"
-    ? { badge: local("Главный выбор", "Featured pick"), note: local("Спросите о предложении для группы 3+ гостей", "Ask about the group offer for 3+ guests"), code: "PENIDA-GROUP", spotlight: true }
+    ? { badge: local("Главный выбор", "Top pick"), note: local("Один из самых впечатляющих дней поездки — особенно для компаний от трёх гостей", "One of Bali's standout days—especially good for groups of three or more"), spotlight: true }
     : item.id === "water-sports"
-      ? { badge: local("Горячее предложение", "Hot pick"), note: local("Специальная цена при сочетании с другим туром или активностью", "Special rate when combined with another tour or activity"), code: "BALI-COMBO", spotlight: true }
+      ? { badge: local("Горячий выбор", "Hot pick"), note: local("Добавьте к другому маршруту и получите цену комбинации", "Combine it with another journey for a special package rate"), spotlight: true }
       : item.id === "kintamani"
         ? { badge: local("Популярный маршрут", "Popular choice"), note: local("Частный маршрут с фиксированной базовой ценой", "Private journey with a fixed base price") }
         : undefined,

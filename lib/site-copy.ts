@@ -26,10 +26,10 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
     statement: {
       eyebrow: "Не просто список экскурсий",
       title: "Сначала понимаем поездку. Потом собираем маршрут.",
-      body: "Для пары, семьи или небольшой компании — без ощущения конвейера. Вы заранее видите базовую цену в USD и то, что потребует отдельного подтверждения.",
+      body: "Для пары, семьи или небольшой компании — в вашем ритме, с продуманным маршрутом и поддержкой от первого сообщения до возвращения в отель.",
       link: "Посмотреть процесс",
     },
-    routes: { eyebrow: "Маршруты", title: "Отправная точка для вашего Бали.", body: "Базовые цены указаны в USD. Сумма booking fee в RUB, наличие и точный состав подтверждаются лично перед бронированием." },
+    routes: { eyebrow: "Маршруты", title: "Соберите свой Бали.", body: "Выберите один маршрут или объедините несколько впечатлений. Мы поможем выстроить программу под ваши даты, компанию и темп." },
     process: {
       eyebrow: "Путь клиента",
       title: "От выбора маршрута до дня поездки.",
@@ -54,7 +54,7 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
       directTitle: "Написать напрямую",
       directBody: "Напишите нам в WhatsApp, чтобы выбрать маршрут, проверить дату и оформить бронирование.",
     },
-    footer: { body: "Частные маршруты и живая консультация для путешественников из России.", copyrightSuffix: "Русский текст и операционные условия проверяются перед публикацией." },
+    footer: { body: "Частные маршруты и личная поддержка для путешественников из России.", copyrightSuffix: "Bali Closer · путешествия в вашем ритме." },
   },
   en: {
     nav: { routes: "Journeys", process: "How it works", trust: "Why us", contact: "Contact", cta: "Plan your trip" },
@@ -70,10 +70,10 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
     statement: {
       eyebrow: "More than a list of tours",
       title: "First we understand your trip. Then we shape the journey.",
-      body: "For couples, families, or small groups—without the conveyor-belt feeling. You see the USD base price and anything requiring confirmation in advance.",
+      body: "For couples, families, and small groups—planned around your pace, with thoughtful support from the first message until you return to your hotel.",
       link: "See how it works",
     },
-    routes: { eyebrow: "Journeys", title: "A starting point for your Bali.", body: "Base prices are shown in USD. We confirm the RUB booking-fee quote, availability, and exact inclusions personally before booking." },
+    routes: { eyebrow: "Journeys", title: "Shape your own Bali.", body: "Choose one signature journey or combine several experiences. We will help build a plan around your dates, group, and pace." },
     process: {
       eyebrow: "Your journey",
       title: "From choosing a journey to the day you travel.",
@@ -98,6 +98,6 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
       directTitle: "Message us directly",
       directBody: "Message us on WhatsApp to choose a journey, check your date, and complete your booking.",
     },
-    footer: { body: "Private Bali journeys with local planning and personal support.", copyrightSuffix: "Prices and operating conditions are confirmed before booking." },
+    footer: { body: "Private Bali journeys with local planning and personal support.", copyrightSuffix: "Bali Closer · travel at your own pace." },
   },
 };
