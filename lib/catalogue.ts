@@ -127,7 +127,7 @@ const auditedPriceAdjustments: Partial<Record<string, TourPackage["price"]>> = {
   "east-bali": { status: "fixed", currencies: ["USD"], label: local("$78 / авто", "$78 / car") },
   "batur-sunrise": { status: "fixed", currencies: ["USD"], label: local("$84 / гость", "$84 / guest") },
   "nusa-penida": { status: "fixed", currencies: ["USD"], label: local("$96 / гость", "$96 / guest") },
-  "craft-jewellery": { status: "fixed", currencies: ["USD"], label: local("Бесплатный трансфер", "Free transfer") },
+  "craft-jewellery": { status: "fixed", currencies: ["USD"], label: local("По запросу · трансфер бесплатно", "By request · free transfer") },
   "vehicle-rental": { status: "fixed", currencies: ["USD"], label: local("от $7 / день", "from $7 / day") },
   "java-bromo-ijen": { status: "fixed", currencies: ["USD"], label: local("от $375 / гость", "from $375 / guest") },
   "java-yogyakarta": { status: "fixed", currencies: ["USD"], label: local("от $450 / гость", "from $450 / guest") },
@@ -174,10 +174,10 @@ export const packages: TourPackage[] = basePackages.map((item) => ({
   pricing: pricingByPackage[item.id] || item.pricing,
   experience: stories[item.id] || item.experience,
   promotion: item.id === "nusa-penida"
-    ? { badge: local("Главный выбор", "Top pick"), note: local("Один из самых впечатляющих дней поездки — особенно для компаний от трёх гостей", "One of Bali's standout days—especially good for groups of three or more"), spotlight: true }
+    ? { badge: local("Лучшее предложение", "Best deal"), note: local("Островной маршрут с личной координацией", "A signature island day with personal coordination"), spotlight: true }
     : item.id === "water-sports"
-      ? { badge: local("Горячий выбор", "Hot pick"), note: local("Добавьте к другому маршруту и получите цену комбинации", "Combine it with another journey for a special package rate"), spotlight: true }
+      ? { badge: local("Лучшее предложение", "Best deal"), note: local("Выберите любимые активности в Беноа", "Choose the Benoa activities that suit your pace"), spotlight: true }
       : item.id === "kintamani"
-        ? { badge: local("Популярный маршрут", "Popular choice"), note: local("Частный маршрут с фиксированной базовой ценой", "Private journey with a fixed base price") }
+        ? { badge: local("Лучшее предложение", "Best deal"), note: local("Вулкан, Убуд и рисовые террасы за один день", "Volcano views, Ubud, and rice terraces in one day") }
         : undefined,
 })).sort((a, b) => Number(Boolean(b.promotion?.spotlight)) - Number(Boolean(a.promotion?.spotlight)));

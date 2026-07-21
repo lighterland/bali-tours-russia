@@ -21,8 +21,8 @@ function escapeHtml(value: string) {
 
 function renderEmail(enquiry: EnquiryPayload) {
   const tours = enquiry.packageIds.map((id) => packages.find((item) => item.id === id)).filter((item): item is (typeof packages)[number] => Boolean(item));
-  const service = findBaliService(enquiry.serviceId);
-  const interestTitle = tours.length ? tours.map((tour) => russian(tour.title)).join(" · ") : service ? russian(service.title) : "General Bali enquiry";
+  const services = enquiry.serviceIds.map(findBaliService).filter((item): item is NonNullable<ReturnType<typeof findBaliService>> => Boolean(item));
+  const interestTitle = [...tours.map((tour) => russian(tour.title)), ...services.map((service) => russian(service.title))].join(" · ") || "General Bali enquiry";
   const row = (label: string, value: string) =>
     `<tr><td style="padding:8px 12px;color:#667085;border-bottom:1px solid #eee">${label}</td><td style="padding:8px 12px;border-bottom:1px solid #eee"><strong>${escapeHtml(value || "—")}</strong></td></tr>`;
 

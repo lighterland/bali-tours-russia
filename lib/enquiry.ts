@@ -17,7 +17,7 @@ export const enquirySchema = z
     date: z.string().trim().max(100),
     guests: z.string().trim().max(20),
     packageIds: z.array(z.string().trim().min(1).max(100)).max(20).default([]),
-    serviceId: z.string().trim().max(100).default(""),
+    serviceIds: z.array(z.string().trim().min(1).max(100)).max(20).default([]),
     pickup: z.string().trim().max(200),
     notes: z.string().trim().max(1500),
     language: z.enum(supportedLanguages).default("ru"),
@@ -27,10 +27,10 @@ export const enquirySchema = z
     website: z.string().max(0),
   })
   .superRefine((value, context) => {
-    const service = value.serviceId ? findBaliService(value.serviceId) : undefined;
-    const isServiceEnquiry = Boolean(service);
-    if (!value.packageIds.length && value.serviceId.startsWith("service-") && !service) {
-      context.addIssue({ code: "custom", message: "Unknown Bali service", path: ["serviceId"] });
+    const services = value.serviceIds.map(findBaliService).filter(Boolean);
+    const isServiceEnquiry = services.length > 0 && value.packageIds.length === 0;
+    if (services.length !== value.serviceIds.length) {
+      context.addIssue({ code: "custom", message: "Unknown Bali service", path: ["serviceIds"] });
     }
     if (!isServiceEnquiry && !value.date) {
       context.addIssue({ code: "custom", message: "Date is required for journeys", path: ["date"] });
