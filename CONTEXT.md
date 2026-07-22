@@ -135,12 +135,12 @@ _Hindari_: Pembatalan pelanggan
 ## Layanan pelanggan
 
 **Kartu Bali Services**:
-Satu kartu optional di grid utama `#services` yang memungkinkan pelanggan memilih satu atau beberapa request type—Visa, Land matters, dan Other documents—lalu mengirim semuanya sebagai satu item on-request dalam unified cart.
+Satu kartu optional di grid utama `#services` yang memungkinkan pelanggan memilih Visa & immigration, Land & property documentation, Other documents, Villa construction & renovation, Business setup, dan Local bank account assistance, lalu mengirim semuanya sebagai satu item on-request dalam unified cart.
 _Hindari_: Section layanan kedua, satu kartu per request type
 
 **Ready-made collection**:
-Kombinasi journeys siap pilih yang menggantikan journeys aktif saat dipilih, tanpa menghapus Bali Services yang sudah dipilih pelanggan.
-_Hindari_: Menambahkan paket di atas journeys lama, menghapus optional services
+Rekomendasi kurasi berbasis cerita yang menambahkan journey belum terpilih secara deduplicated. Beberapa collection dapat digabungkan sebagai union tanpa menghapus journey manual atau Bali Services.
+_Hindari_: Target diskon, menduplikasi journey, mengganti seluruh plan
 
 **Layanan satu pintu**:
 Model komunikasi ketika pelanggan menggunakan satu nomor WhatsApp bisnis, sementara Partner Pasar Rusia meneruskan masalah kepada penanggung jawab internal yang tepat tanpa meminta pelanggan mengoordinasikan banyak pihak.

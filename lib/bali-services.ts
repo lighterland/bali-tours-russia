@@ -19,9 +19,12 @@ export const baliServicesCard = {
     title: { ru: "Сервисы на Бали", en: "Bali Services" },
     prompt: { ru: "Выберите один или несколько типов запроса", en: "Choose one or more request types" },
     options: [
-      { id: "visa", title: { ru: "Виза", en: "Visa" } },
-      { id: "land", title: { ru: "Земельные вопросы", en: "Land matters" } },
+      { id: "visa", title: { ru: "Визы и иммиграция", en: "Visa & immigration" } },
+      { id: "land", title: { ru: "Земля и документы на недвижимость", en: "Land & property documentation" } },
       { id: "documents", title: { ru: "Другие документы", en: "Other documents" } },
+      { id: "villa", title: { ru: "Строительство и ремонт вилл", en: "Villa construction & renovation" } },
+      { id: "business", title: { ru: "Открытие бизнеса", en: "Business setup" } },
+      { id: "bank", title: { ru: "Помощь с местным банковским счётом", en: "Local bank account assistance" } },
     ],
 } as const satisfies BaliService;
 
