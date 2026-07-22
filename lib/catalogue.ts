@@ -25,7 +25,7 @@ export type TourPackage = {
     extraGuestUsd?: number;
     estimateOnly?: boolean;
     discountEligible?: boolean;
-    variants?: Array<{ id: string; title: LocalizedText; amountUsd: number }>;
+    variants?: Array<{ id: string; title: LocalizedText; status: "fixed" | "on_request"; amountUsd?: number }>;
   };
 };
 
@@ -94,7 +94,7 @@ const basePackages: TourPackage[] = [
   tour({id:"nusa-penida",ru:"Нуса-Пенида",en:"Nusa Penida",familyRu:"Остров",familyEn:"Island",summaryRu:"Панорамы, пляжи и выбор западного, восточного или комбинированного маршрута.",summaryEn:"Clifftop views, beaches, and west, east, or combination itineraries.",priceRu:"$90 / гость",priceEn:"$90 / guest",durationRu:"06:00–18:00",durationEn:"06:00–18:00",image:penida,tags:[["Kelingking","Kelingking"],["Diamond Beach","Diamond Beach"],["Океан","Ocean"]],stops:[["Скоростной катер","Fast boat"],["Маршрут по острову","Island itinerary"],["Возвращение на Бали","Return to Bali"]]}),
   tour({id:"craft-jewellery",ru:"Мастерские и украшения",en:"Craft & Jewellery Studios",familyRu:"Культура",familyEn:"Culture",summaryRu:"Знакомство с балийским мастерством, кожей, серебром и авторскими изделиями.",summaryEn:"Discover Balinese craftsmanship, leather, silver, and artisan pieces.",priceRu:"по запросу",priceEn:"on request",durationRu:"3–5 часов",durationEn:"3–5 hours",image:carving,tags:[["Ремесло","Craft"],["Серебро","Silver"],["Дизайн","Design"]],stops:[["Выбранные мастерские","Selected workshops"],["Знакомство с процессом","Meet the makers"],["Время для выбора изделий","Time to browse"]]}),
   tour({id:"romantic-dinner",ru:"Ужин у океана",en:"Romantic Ocean Dinner",familyRu:"Для двоих",familyEn:"For two",summaryRu:"Закат и ужин с морепродуктами на берегу океана в Джимбаране.",summaryEn:"Sunset and a seafood dinner by the ocean in Jimbaran.",priceRu:"от $25 / стол",priceEn:"from $25 / table",durationRu:"2–3 часа",durationEn:"2–3 hours",image:uluwatu,tags:[["Закат","Sunset"],["Джимбаран","Jimbaran"],["Ужин","Dinner"]],stops:[["Трансфер в Джимбаран","Transfer to Jimbaran"],["Стол у океана","Oceanfront table"],["Ужин на закате","Sunset dinner"]]}),
-  tour({id:"vehicle-rental",ru:"Автомобили и байки",en:"Cars & Scooters",familyRu:"Транспорт",familyEn:"Transport",summaryRu:"Подберём автомобиль, байк или транспорт с водителем под ваш маршрут.",summaryEn:"Choose a car, scooter, or chauffeured vehicle for your plans.",priceRu:"по запросу",priceEn:"on request",durationRu:"от 1 дня",durationEn:"from 1 day",image:road,tags:[["Авто","Car"],["Байк","Scooter"],["С водителем","With driver"]],stops:[["Скутеры 110–160 cc для ежедневных поездок","110–160cc scooters for everyday travel"],["Компактные и семейные автомобили с кондиционером","Air-conditioned compact and family cars"],["Автомобиль или минивэн с водителем","Car or minivan with a driver"],["Доставка к отелю или вилле по согласованию","Delivery to your hotel or villa by arrangement"]],itineraryLabelRu:"Варианты транспорта",itineraryLabelEn:"Vehicle options",includedLabelRu:"Сервис аренды",includedLabelEn:"Rental service",includedRu:"Подбор подходящей категории, проверка наличия, согласование доставки или получения и контакт для поддержки в период аренды.",includedEn:"Vehicle matching, availability confirmation, arranged delivery or collection, and a support contact throughout the rental period.",priceLabelRu:"Как рассчитывается аренда",priceLabelEn:"How rental pricing works",priceRuDetail:"Стоимость рассчитывается за сутки и зависит от категории, срока аренды, сезона, района доставки и выбора автомобиля с водителем или без. Депозит, документы и страховка подтверждаются до оплаты.",priceEnDetail:"Rates are calculated per day and depend on vehicle class, rental length, season, delivery area, and whether a driver is included. Deposit, licence requirements, and insurance are confirmed before payment."}),
+  tour({id:"vehicle-rental",ru:"Транспорт и аренда",en:"Transport & Rentals",familyRu:"Транспорт",familyEn:"Transport",summaryRu:"Скутер, автомобиль, минивэн, водитель или трансфер — в одной понятной карточке.",summaryEn:"Scooters, cars, minivans, chauffeured rides, and transfers in one clear choice.",priceRu:"по запросу",priceEn:"on request",durationRu:"от 1 дня",durationEn:"from 1 day",image:road,tags:[["Аренда","Rental"],["Трансфер","Transfer"],["С водителем","With driver"]],stops:[["Скутеры 110–160 cc для ежедневных поездок","110–160cc scooters for everyday travel"],["Компактные и семейные автомобили с кондиционером","Air-conditioned compact and family cars"],["Автомобиль или минивэн с водителем","Car or minivan with a driver"],["Индивидуальные и групповые трансферы","Private and group transfers"]],itineraryLabelRu:"Варианты транспорта",itineraryLabelEn:"Transport options",includedLabelRu:"Сервис транспорта",includedLabelEn:"Transport service",includedRu:"Подбор подходящей категории, проверка наличия и согласование доставки, получения или маршрута трансфера.",includedEn:"Transport matching, availability confirmation, and arranged delivery, collection, or transfer route.",priceLabelRu:"Как рассчитывается стоимость",priceLabelEn:"How transport pricing works",priceRuDetail:"Выберите вариант перед добавлением в план. Стоимость аренды рассчитывается за сутки; трансферы и специальные маршруты подтверждаются по запросу.",priceEnDetail:"Choose an option before adding it to your plan. Rentals are calculated per day; transfers and special routes are confirmed on request."}),
   tour({id:"java-bromo-ijen",ru:"Ява: Бромо и Иджен",en:"Java: Bromo & Ijen",familyRu:"Экспедиция",familyEn:"Expedition",summaryRu:"Многодневное путешествие к двум легендарным вулканам Восточной Явы.",summaryEn:"A multi-day journey to two legendary volcanoes in East Java.",priceRu:"по запросу",priceEn:"on request",durationRu:"3 дня / 2 ночи",durationEn:"3 days / 2 nights",image:terrace,tags:[["Бромо","Bromo"],["Иджен","Ijen"],["Ява","Java"]],stops:[["Переезд на Яву","Transfer to Java"],["Рассвет на Бромо","Bromo sunrise"],["Кратер Иджен","Ijen crater"]]}),
   tour({id:"java-yogyakarta",ru:"Ява: Джокьякарта",en:"Java: Yogyakarta",familyRu:"Культура",familyEn:"Culture",summaryRu:"Боробудур, Прамбанан и культурная столица Явы в одной поездке.",summaryEn:"Borobudur, Prambanan, and Java's cultural capital in one journey.",priceRu:"по запросу",priceEn:"on request",durationRu:"3 дня / 2 ночи",durationEn:"3 days / 2 nights",image:carving,tags:[["Боробудур","Borobudur"],["Прамбанан","Prambanan"],["Джокьякарта","Yogyakarta"]],stops:[["Перелёт или переезд","Flight or transfer"],["Боробудур","Borobudur"],["Прамбанан и город","Prambanan and city"]]}),
 ];
@@ -127,7 +127,7 @@ const auditedPriceAdjustments: Partial<Record<string, TourPackage["price"]>> = {
   "east-bali": { status: "fixed", currencies: ["USD"], label: local("$78 / авто", "$78 / car") },
   "batur-sunrise": { status: "fixed", currencies: ["USD"], label: local("$84 / гость", "$84 / guest") },
   "nusa-penida": { status: "fixed", currencies: ["USD"], label: local("$96 / гость", "$96 / guest") },
-  "craft-jewellery": { status: "fixed", currencies: ["USD"], label: local("По запросу · трансфер бесплатно", "By request · free transfer") },
+  "craft-jewellery": { status: "fixed", currencies: ["USD"], label: local("По запросу · трансфер $0–10", "By request · transfer $0–10") },
   "vehicle-rental": { status: "fixed", currencies: ["USD"], label: local("от $7 / день", "from $7 / day") },
   "java-bromo-ijen": { status: "fixed", currencies: ["USD"], label: local("от $375 / гость", "from $375 / guest") },
   "java-yogyakarta": { status: "fixed", currencies: ["USD"], label: local("от $450 / гость", "from $450 / guest") },
@@ -153,15 +153,17 @@ const pricingByPackage: Record<string, TourPackage["pricing"]> = {
   "vehicle-rental": {
     model: "per_day", amountUsd: 7, estimateOnly: true,
     variants: [
-      { id: "scooter-city", title: local("Beat / Scoopy", "Beat / Scoopy"), amountUsd: 7 },
-      { id: "scooter-premium", title: local("NMAX / ADV", "NMAX / ADV"), amountUsd: 10 },
-      { id: "scooter-xmax", title: local("XMAX", "XMAX"), amountUsd: 22 },
-      { id: "car-economy", title: local("Компактное авто без водителя", "Economy car, self-drive"), amountUsd: 22 },
-      { id: "car-family", title: local("Семейный автомобиль без водителя", "Family car, self-drive"), amountUsd: 30 },
-      { id: "avanza-driver", title: local("Avanza с водителем", "Avanza with driver"), amountUsd: 50 },
-      { id: "innova-driver", title: local("Innova с водителем", "Innova with driver"), amountUsd: 60 },
-      { id: "hiace-driver", title: local("Hiace с водителем", "Hiace with driver"), amountUsd: 75 },
-      { id: "vip-driver", title: local("VIP-автомобиль с водителем", "VIP car with driver"), amountUsd: 150 },
+      { id: "scooter-city", title: local("Beat / Scoopy", "Beat / Scoopy"), status: "fixed", amountUsd: 7 },
+      { id: "scooter-premium", title: local("NMAX / ADV", "NMAX / ADV"), status: "fixed", amountUsd: 10 },
+      { id: "scooter-xmax", title: local("XMAX", "XMAX"), status: "fixed", amountUsd: 22 },
+      { id: "car-economy", title: local("Компактное авто без водителя", "Economy car, self-drive"), status: "fixed", amountUsd: 22 },
+      { id: "car-family", title: local("Семейный автомобиль без водителя", "Family car, self-drive"), status: "fixed", amountUsd: 30 },
+      { id: "avanza-driver", title: local("Avanza с водителем", "Avanza with driver"), status: "fixed", amountUsd: 50 },
+      { id: "innova-driver", title: local("Innova с водителем", "Innova with driver"), status: "fixed", amountUsd: 60 },
+      { id: "hiace-driver", title: local("Hiace с водителем", "Hiace with driver"), status: "fixed", amountUsd: 75 },
+      { id: "vip-driver", title: local("VIP-автомобиль с водителем", "VIP car with driver"), status: "fixed", amountUsd: 150 },
+      { id: "private-transfer", title: local("Индивидуальный трансфер", "Private transfer"), status: "on_request" },
+      { id: "group-transfer", title: local("Групповой трансфер", "Group transfer"), status: "on_request" },
     ],
   },
   "java-bromo-ijen": { model: "per_guest", amountUsd: 375, estimateOnly: true },

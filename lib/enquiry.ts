@@ -16,8 +16,8 @@ export const enquirySchema = z
     preferredChannel: z.enum(contactChannels),
     date: z.string().trim().max(100),
     guests: z.string().trim().max(20),
-    packageIds: z.array(z.string().trim().min(1).max(100)).max(20).default([]),
-    serviceIds: z.array(z.string().trim().min(1).max(100)).max(20).default([]),
+    packageSelections: z.array(z.object({ packageId: z.string().trim().min(1).max(100), optionId: z.string().trim().max(100).optional(), quantity: z.number().int().min(1).max(365).optional() })).max(20).default([]),
+    serviceSelections: z.array(z.object({ serviceId: z.string().trim().min(1).max(100), optionId: z.string().trim().min(1).max(100) })).max(20).default([]),
     pickup: z.string().trim().max(200),
     notes: z.string().trim().max(1500),
     language: z.enum(supportedLanguages).default("ru"),
@@ -27,10 +27,10 @@ export const enquirySchema = z
     website: z.string().max(0),
   })
   .superRefine((value, context) => {
-    const services = value.serviceIds.map(findBaliService).filter(Boolean);
-    const isServiceEnquiry = services.length > 0 && value.packageIds.length === 0;
-    if (services.length !== value.serviceIds.length) {
-      context.addIssue({ code: "custom", message: "Unknown Bali service", path: ["serviceIds"] });
+    const services = value.serviceSelections.map((selection) => findBaliService(selection.serviceId)).filter(Boolean);
+    const isServiceEnquiry = services.length > 0 && value.packageSelections.length === 0;
+    if (services.length !== value.serviceSelections.length) {
+      context.addIssue({ code: "custom", message: "Unknown Bali service", path: ["serviceSelections"] });
     }
     if (!isServiceEnquiry && !value.date) {
       context.addIssue({ code: "custom", message: "Date is required for journeys", path: ["date"] });

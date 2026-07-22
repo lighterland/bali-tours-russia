@@ -1,6 +1,11 @@
 import type { TourPackage } from "@/lib/catalogue";
 
 export const TRAVEL_SERVICE_VAT_RATE = 0.011;
+export const CRAFT_FREE_TRANSFER_PACKAGE_IDS = ["water-sports", "romantic-dinner", "turtle-snorkeling"] as const;
+
+export function craftTransferUsdFor(packageIds: readonly string[]) {
+  return packageIds.some((id) => (CRAFT_FREE_TRANSFER_PACKAGE_IDS as readonly string[]).includes(id)) ? 0 : 10;
+}
 
 export type TripEstimate = {
   lines: Array<{ id: string; totalUsd: number; guestSavingUsd: number }>;
@@ -40,11 +45,13 @@ export function calculateTripEstimate(
   guests: number,
   rentalDays: number,
   vehicleAmountUsd?: number,
+  craftTransferUsd = 0,
 ): TripEstimate {
   const safeGuests = Math.max(1, Math.floor(guests));
   const lines = selectedPackages.map((tour) => {
+    if (tour.id === "craft-jewellery") return { id: tour.id, totalUsd: craftTransferUsd, guestSavingUsd: 0 };
     if (tour.pricing.model === "free") return { id: tour.id, totalUsd: 0, guestSavingUsd: 0 };
-    if (tour.id === "vehicle-rental" && vehicleAmountUsd) {
+    if (tour.id === "vehicle-rental" && vehicleAmountUsd !== undefined) {
       return { id: tour.id, totalUsd: vehicleAmountUsd * Math.max(1, rentalDays), guestSavingUsd: 0 };
     }
     if (tour.pricing.model === "per_guest") {
