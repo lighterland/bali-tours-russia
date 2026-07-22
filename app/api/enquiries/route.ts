@@ -22,7 +22,13 @@ function escapeHtml(value: string) {
 function renderEmail(enquiry: EnquiryPayload) {
   const tours = enquiry.packageSelections.map(({ packageId }) => packages.find((item) => item.id === packageId)).filter((item): item is (typeof packages)[number] => Boolean(item));
   const services = enquiry.serviceSelections.map(({ serviceId }) => findBaliService(serviceId)).filter((item): item is NonNullable<ReturnType<typeof findBaliService>> => Boolean(item));
-  const interestTitle = [...tours.map((tour) => russian(tour.title)), ...services.map((service) => russian(service.title))].join(" · ") || "General Bali enquiry";
+  const uniqueServices = [...new Map(services.map((service) => [service.id, service])).values()];
+  const interestTitle = [...tours.map((tour) => russian(tour.title)), ...uniqueServices.map((service) => russian(service.title))].join(" · ") || "General Bali enquiry";
+  const serviceConfiguration = enquiry.serviceSelections.map((selection) => {
+    const service = findBaliService(selection.serviceId);
+    const options = selection.optionIds.map((optionId) => service?.options.find((item) => item.id === optionId)).filter(Boolean).map((option) => russian(option!.title));
+    return [service ? russian(service.title) : selection.serviceId, options.join(", ")].join(" / ");
+  }).join(" · ");
   const row = (label: string, value: string) =>
     `<tr><td style="padding:8px 12px;color:#667085;border-bottom:1px solid #eee">${label}</td><td style="padding:8px 12px;border-bottom:1px solid #eee"><strong>${escapeHtml(value || "—")}</strong></td></tr>`;
 
@@ -39,7 +45,7 @@ function renderEmail(enquiry: EnquiryPayload) {
         ${row("Date / period", enquiry.date)}
         ${row("Guests", enquiry.guests)}
         ${row("Journey configuration", enquiry.packageSelections.map((item) => [item.packageId, item.optionId, item.quantity ? `x${item.quantity}` : ""].filter(Boolean).join(" / ")).join(" · "))}
-        ${row("Service configuration", enquiry.serviceSelections.map((item) => `${item.serviceId} / ${item.optionId}`).join(" · "))}
+        ${row("Service configuration", serviceConfiguration)}
         ${row("Pickup", enquiry.pickup)}
         ${row("Language", enquiry.language)}
         ${row("Source", enquiry.source)}

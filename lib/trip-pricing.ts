@@ -1,10 +1,9 @@
 import type { TourPackage } from "@/lib/catalogue";
 
 export const TRAVEL_SERVICE_VAT_RATE = 0.011;
-export const CRAFT_FREE_TRANSFER_PACKAGE_IDS = ["water-sports", "romantic-dinner", "turtle-snorkeling"] as const;
-
-export function craftTransferUsdFor(packageIds: readonly string[]) {
-  return packageIds.some((id) => (CRAFT_FREE_TRANSFER_PACKAGE_IDS as readonly string[]).includes(id)) ? 0 : 10;
+export function conditionalTransferUsdFor(tour: TourPackage, packageIds: readonly string[]) {
+  if (tour.pricing.model !== "conditional_transfer") return tour.pricing.amountUsd;
+  return packageIds.some((id) => tour.pricing.freeWhenPackageIds?.includes(id)) ? 0 : tour.pricing.amountUsd;
 }
 
 export type TripEstimate = {
@@ -45,11 +44,10 @@ export function calculateTripEstimate(
   guests: number,
   rentalDays: number,
   vehicleAmountUsd?: number,
-  craftTransferUsd = 0,
 ): TripEstimate {
   const safeGuests = Math.max(1, Math.floor(guests));
   const lines = selectedPackages.map((tour) => {
-    if (tour.id === "craft-jewellery") return { id: tour.id, totalUsd: craftTransferUsd, guestSavingUsd: 0 };
+    if (tour.pricing.model === "conditional_transfer") return { id: tour.id, totalUsd: conditionalTransferUsdFor(tour, selectedPackages.map((item) => item.id)), guestSavingUsd: 0 };
     if (tour.pricing.model === "free") return { id: tour.id, totalUsd: 0, guestSavingUsd: 0 };
     if (tour.id === "vehicle-rental" && vehicleAmountUsd !== undefined) {
       return { id: tour.id, totalUsd: vehicleAmountUsd * Math.max(1, rentalDays), guestSavingUsd: 0 };

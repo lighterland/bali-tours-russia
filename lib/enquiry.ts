@@ -17,7 +17,7 @@ export const enquirySchema = z
     date: z.string().trim().max(100),
     guests: z.string().trim().max(20),
     packageSelections: z.array(z.object({ packageId: z.string().trim().min(1).max(100), optionId: z.string().trim().max(100).optional(), quantity: z.number().int().min(1).max(365).optional() })).max(20).default([]),
-    serviceSelections: z.array(z.object({ serviceId: z.string().trim().min(1).max(100), optionId: z.string().trim().min(1).max(100) })).max(20).default([]),
+    serviceSelections: z.array(z.object({ serviceId: z.string().trim().min(1).max(100), optionIds: z.array(z.string().trim().min(1).max(100)).min(1).max(10) })).max(20).default([]),
     pickup: z.string().trim().max(200),
     notes: z.string().trim().max(1500),
     language: z.enum(supportedLanguages).default("ru"),
@@ -31,6 +31,17 @@ export const enquirySchema = z
     const isServiceEnquiry = services.length > 0 && value.packageSelections.length === 0;
     if (services.length !== value.serviceSelections.length) {
       context.addIssue({ code: "custom", message: "Unknown Bali service", path: ["serviceSelections"] });
+    }
+    value.serviceSelections.forEach((selection, index) => {
+      const service = findBaliService(selection.serviceId);
+      if (service && selection.optionIds.some((optionId) => !service.options.some((option) => option.id === optionId))) {
+        context.addIssue({ code: "custom", message: "Unknown Bali service option", path: ["serviceSelections", index, "optionIds"] });
+      }
+      if (new Set(selection.optionIds).size !== selection.optionIds.length) context.addIssue({ code: "custom", message: "Duplicate Bali service option", path: ["serviceSelections", index, "optionIds"] });
+    });
+    const serviceIds = value.serviceSelections.map((selection) => selection.serviceId);
+    if (new Set(serviceIds).size !== serviceIds.length) {
+      context.addIssue({ code: "custom", message: "Duplicate Bali service", path: ["serviceSelections"] });
     }
     if (!isServiceEnquiry && !value.date) {
       context.addIssue({ code: "custom", message: "Date is required for journeys", path: ["date"] });

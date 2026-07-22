@@ -19,12 +19,13 @@ export type TourPackage = {
   priceDetailLabel: LocalizedText;
   promotion?: { badge: LocalizedText; note: LocalizedText; code?: string; spotlight?: boolean };
   pricing: {
-    model: "per_guest" | "per_group" | "per_day" | "free";
+    model: "per_guest" | "per_group" | "per_day" | "free" | "conditional_transfer";
     amountUsd: number;
     includedGuests?: number;
     extraGuestUsd?: number;
     estimateOnly?: boolean;
     discountEligible?: boolean;
+    freeWhenPackageIds?: readonly string[];
     variants?: Array<{ id: string; title: LocalizedText; status: "fixed" | "on_request"; amountUsd?: number }>;
   };
 };
@@ -92,7 +93,7 @@ const basePackages: TourPackage[] = [
   tour({id:"water-sports",ru:"Водные развлечения",en:"Bali Water Sports",familyRu:"Активность",familyEn:"Activity",summaryRu:"Парасейлинг, гидроцикл, флайборд, дайвинг и другие активности в Беноа.",summaryEn:"Parasailing, jet ski, flyboard, diving, and more in Benoa Bay.",priceRu:"от $30",priceEn:"from $30",durationRu:"2–5 часов",durationEn:"2–5 hours",image:penida,tags:[["Парасейлинг","Parasailing"],["Jet ski","Jet ski"],["Дайвинг","Diving"]],stops:[["Трансфер в Беноа","Transfer to Benoa"],["Выбранные активности","Selected activities"],["Возвращение","Return transfer"]]}),
   tour({id:"atv",ru:"ATV по джунглям",en:"Bali ATV Adventure",familyRu:"Приключение",familyEn:"Adventure",summaryRu:"Маршрут через поля, реку, джунгли и участки с вулканическим песком.",summaryEn:"Ride through fields, river tracks, jungle, and volcanic-sand terrain.",priceRu:"от $65 / гость",priceEn:"from $65 / guest",durationRu:"4–6 часов",durationEn:"4–6 hours",image:road,tags:[["ATV","ATV"],["Джунгли","Jungle"],["Грязевой маршрут","Off-road"]],stops:[["Трансфер на базу","Transfer to base"],["Инструктаж","Safety briefing"],["Маршрут на ATV","ATV trail"]]}),
   tour({id:"nusa-penida",ru:"Нуса-Пенида",en:"Nusa Penida",familyRu:"Остров",familyEn:"Island",summaryRu:"Панорамы, пляжи и выбор западного, восточного или комбинированного маршрута.",summaryEn:"Clifftop views, beaches, and west, east, or combination itineraries.",priceRu:"$90 / гость",priceEn:"$90 / guest",durationRu:"06:00–18:00",durationEn:"06:00–18:00",image:penida,tags:[["Kelingking","Kelingking"],["Diamond Beach","Diamond Beach"],["Океан","Ocean"]],stops:[["Скоростной катер","Fast boat"],["Маршрут по острову","Island itinerary"],["Возвращение на Бали","Return to Bali"]]}),
-  tour({id:"craft-jewellery",ru:"Мастерские и украшения",en:"Craft & Jewellery Studios",familyRu:"Культура",familyEn:"Culture",summaryRu:"Знакомство с балийским мастерством, кожей, серебром и авторскими изделиями.",summaryEn:"Discover Balinese craftsmanship, leather, silver, and artisan pieces.",priceRu:"по запросу",priceEn:"on request",durationRu:"3–5 часов",durationEn:"3–5 hours",image:carving,tags:[["Ремесло","Craft"],["Серебро","Silver"],["Дизайн","Design"]],stops:[["Выбранные мастерские","Selected workshops"],["Знакомство с процессом","Meet the makers"],["Время для выбора изделий","Time to browse"]]}),
+  tour({id:"craft-jewellery",ru:"Мастерские и украшения",en:"Craft & Jewellery Studios",familyRu:"Культура",familyEn:"Culture",summaryRu:"Знакомство с балийским мастерством, кожей, серебром и авторскими изделиями.",summaryEn:"Discover Balinese craftsmanship, leather, silver, and artisan pieces.",priceRu:"$10 / авто",priceEn:"$10 / car",durationRu:"3–5 часов",durationEn:"3–5 hours",image:carving,tags:[["Ремесло","Craft"],["Серебро","Silver"],["Дизайн","Design"]],stops:[["Выбранные мастерские","Selected workshops"],["Знакомство с процессом","Meet the makers"],["Время для выбора изделий","Time to browse"]]}),
   tour({id:"romantic-dinner",ru:"Ужин у океана",en:"Romantic Ocean Dinner",familyRu:"Для двоих",familyEn:"For two",summaryRu:"Закат и ужин с морепродуктами на берегу океана в Джимбаране.",summaryEn:"Sunset and a seafood dinner by the ocean in Jimbaran.",priceRu:"от $25 / стол",priceEn:"from $25 / table",durationRu:"2–3 часа",durationEn:"2–3 hours",image:uluwatu,tags:[["Закат","Sunset"],["Джимбаран","Jimbaran"],["Ужин","Dinner"]],stops:[["Трансфер в Джимбаран","Transfer to Jimbaran"],["Стол у океана","Oceanfront table"],["Ужин на закате","Sunset dinner"]]}),
   tour({id:"vehicle-rental",ru:"Транспорт и аренда",en:"Transport & Rentals",familyRu:"Транспорт",familyEn:"Transport",summaryRu:"Скутер, автомобиль, минивэн, водитель или трансфер — в одной понятной карточке.",summaryEn:"Scooters, cars, minivans, chauffeured rides, and transfers in one clear choice.",priceRu:"по запросу",priceEn:"on request",durationRu:"от 1 дня",durationEn:"from 1 day",image:road,tags:[["Аренда","Rental"],["Трансфер","Transfer"],["С водителем","With driver"]],stops:[["Скутеры 110–160 cc для ежедневных поездок","110–160cc scooters for everyday travel"],["Компактные и семейные автомобили с кондиционером","Air-conditioned compact and family cars"],["Автомобиль или минивэн с водителем","Car or minivan with a driver"],["Индивидуальные и групповые трансферы","Private and group transfers"]],itineraryLabelRu:"Варианты транспорта",itineraryLabelEn:"Transport options",includedLabelRu:"Сервис транспорта",includedLabelEn:"Transport service",includedRu:"Подбор подходящей категории, проверка наличия и согласование доставки, получения или маршрута трансфера.",includedEn:"Transport matching, availability confirmation, and arranged delivery, collection, or transfer route.",priceLabelRu:"Как рассчитывается стоимость",priceLabelEn:"How transport pricing works",priceRuDetail:"Выберите вариант перед добавлением в план. Стоимость аренды рассчитывается за сутки; трансферы и специальные маршруты подтверждаются по запросу.",priceEnDetail:"Choose an option before adding it to your plan. Rentals are calculated per day; transfers and special routes are confirmed on request."}),
   tour({id:"java-bromo-ijen",ru:"Ява: Бромо и Иджен",en:"Java: Bromo & Ijen",familyRu:"Экспедиция",familyEn:"Expedition",summaryRu:"Многодневное путешествие к двум легендарным вулканам Восточной Явы.",summaryEn:"A multi-day journey to two legendary volcanoes in East Java.",priceRu:"по запросу",priceEn:"on request",durationRu:"3 дня / 2 ночи",durationEn:"3 days / 2 nights",image:terrace,tags:[["Бромо","Bromo"],["Иджен","Ijen"],["Ява","Java"]],stops:[["Переезд на Яву","Transfer to Java"],["Рассвет на Бромо","Bromo sunrise"],["Кратер Иджен","Ijen crater"]]}),
@@ -127,7 +128,7 @@ const auditedPriceAdjustments: Partial<Record<string, TourPackage["price"]>> = {
   "east-bali": { status: "fixed", currencies: ["USD"], label: local("$78 / авто", "$78 / car") },
   "batur-sunrise": { status: "fixed", currencies: ["USD"], label: local("$84 / гость", "$84 / guest") },
   "nusa-penida": { status: "fixed", currencies: ["USD"], label: local("$96 / гость", "$96 / guest") },
-  "craft-jewellery": { status: "fixed", currencies: ["USD"], label: local("По запросу · трансфер $0–10", "By request · transfer $0–10") },
+  "craft-jewellery": { status: "fixed", currencies: ["USD"], label: local("$10 / авто", "$10 / car") },
   "vehicle-rental": { status: "fixed", currencies: ["USD"], label: local("от $7 / день", "from $7 / day") },
   "java-bromo-ijen": { status: "fixed", currencies: ["USD"], label: local("от $375 / гость", "from $375 / guest") },
   "java-yogyakarta": { status: "fixed", currencies: ["USD"], label: local("от $450 / гость", "from $450 / guest") },
@@ -148,7 +149,7 @@ const pricingByPackage: Record<string, TourPackage["pricing"]> = {
   "water-sports": { model: "per_guest", amountUsd: 30, estimateOnly: true, discountEligible: true },
   atv: { model: "per_guest", amountUsd: 65, estimateOnly: true, discountEligible: true },
   "nusa-penida": { model: "per_guest", amountUsd: 96, discountEligible: true },
-  "craft-jewellery": { model: "free", amountUsd: 0 },
+  "craft-jewellery": { model: "conditional_transfer", amountUsd: 10, freeWhenPackageIds: ["water-sports", "romantic-dinner", "turtle-snorkeling"] },
   "romantic-dinner": { model: "per_group", amountUsd: 25, estimateOnly: true, discountEligible: true },
   "vehicle-rental": {
     model: "per_day", amountUsd: 7, estimateOnly: true,
