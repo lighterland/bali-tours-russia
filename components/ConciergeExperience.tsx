@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import type { TourPackage } from "@/lib/catalogue";
 import { contactChannels } from "@/lib/enquiry";
 import { localized, type SupportedLanguage } from "@/lib/i18n";
@@ -35,6 +35,13 @@ const resolveAssetUrl = (url: string) => {
 };
 
 const heroFallback = resolveAssetUrl(mediaAssets.riceTerraces.url);
+
+function localIsoDate(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
 const curatedMedia: Record<string, string> = {
   kintamani: "/media/incoming/ubud-rice-terraces.webp",
@@ -168,7 +175,9 @@ export function ConciergeExperience({
   const [rentalDays, setRentalDays] = useState(1);
   const [preferredChannel, setPreferredChannel] = useState<(typeof contactChannels)[number]>("WhatsApp");
   const language: SupportedLanguage = locale;
-  const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", guests: "2", pickup: "", notes: "" });
+  const startDateRef = useRef<HTMLInputElement>(null);
+  const endDateRef = useRef<HTMLInputElement>(null);
+  const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", endDate: "", guests: "2", pickup: "", notes: "" });
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
   const [showHeroVideo, setShowHeroVideo] = useState(false);
   const copy = siteCopy[locale];
@@ -226,6 +235,9 @@ export function ConciergeExperience({
   });
 
   useEffect(() => {
+    const minimumBookingDate = localIsoDate(new Date());
+    if (startDateRef.current) startDateRef.current.min = minimumBookingDate;
+    if (endDateRef.current) endDateRef.current.min = minimumBookingDate;
     document.documentElement.lang = locale;
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const connection = (navigator as Navigator & {
@@ -373,7 +385,7 @@ export function ConciergeExperience({
         setSubmitState({ status: "idle" });
         form.reset();
         setPreferredChannel("WhatsApp");
-        setWhatsAppDraft({ date: "", guests: "2", pickup: "", notes: "" });
+        setWhatsAppDraft({ date: "", endDate: "", guests: "2", pickup: "", notes: "" });
         return;
       }
       const response = await fetch("/api/enquiries", {
@@ -395,7 +407,7 @@ export function ConciergeExperience({
       }
       form.reset();
       setPreferredChannel("WhatsApp");
-      setWhatsAppDraft({ date: "", guests: "2", pickup: "", notes: "" });
+      setWhatsAppDraft({ date: "", endDate: "", guests: "2", pickup: "", notes: "" });
     } catch (error) {
       setSubmitState({
         status: "error",
@@ -592,8 +604,8 @@ export function ConciergeExperience({
             <label><span>{labels.whatsapp}</span><input name="whatsapp" autoComplete="tel" inputMode="tel" placeholder="+7 …" required pattern="\+?[1-9][0-9]{7,14}" /></label>
           </div>
           <div className="form-grid two">
-            <label><span>{selectedPackages.length ? labels.date : labels.serviceDate}</span><input name="date" type="date" value={whatsAppDraft.date} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, date: event.target.value }))} required={selectedPackages.length > 0} /></label>
-            <label><span>{labels.endDate}</span><input name="endDate" type="date" min={whatsAppDraft.date || undefined} /></label>
+            <label><span>{selectedPackages.length ? labels.date : labels.serviceDate}</span><input ref={startDateRef} name="date" type="date" value={whatsAppDraft.date} onChange={(event) => { const date = event.target.value; if (endDateRef.current) endDateRef.current.min = date || localIsoDate(new Date()); setWhatsAppDraft((value) => ({ ...value, date, endDate: value.endDate && value.endDate < date ? "" : value.endDate })); }} required={selectedPackages.length > 0} /></label>
+            <label><span>{labels.endDate}</span><input ref={endDateRef} name="endDate" type="date" min={whatsAppDraft.date || undefined} value={whatsAppDraft.endDate} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, endDate: event.target.value }))} /></label>
           </div>
           <div className="form-grid two">
             <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><input name="guests" type="number" min="1" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required={selectedPackages.length > 0} /></label>
