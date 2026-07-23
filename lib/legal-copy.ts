@@ -41,7 +41,7 @@ export const privacyCopy = {
     sections: [
       { title: "1. Кто обрабатывает данные", paragraphs: ["Bali Closer обрабатывает данные, отправленные через этот сайт, чтобы ответить на запрос и организовать выбранные услуги."] },
       { title: "2. Какие данные мы собираем", paragraphs: ["Мы можем получить имя, контакт WhatsApp, email, даты поездки, количество гостей, район проживания, выбранные маршруты и сервисы, язык общения и пожелания, которые вы сообщаете добровольно."] },
-      { title: "3. Для чего используются данные", paragraphs: ["Данные используются для ответа на запрос, проверки доступности, расчёта стоимости, подтверждения бронирования, координации с выбранными поставщиками и поддержки во время поездки."] },
+      { title: "3. Для чего используются данные", paragraphs: ["Данные используются для ответа на запрос, подготовки итоговой программы и стоимости, подтверждения бронирования, координации с выбранными поставщиками и поддержки во время поездки."] },
       { title: "4. Передача данных", paragraphs: ["Мы передаём только необходимые данные email-провайдеру и местным поставщикам, участвующим в вашем бронировании. Мы не продаём персональные данные и не используем их для чужой рекламы."] },
       { title: "5. Хранение и безопасность", paragraphs: ["Данные заявки хранятся не дольше 24 месяцев после последнего контакта, если более длительный срок не требуется для исполнения бронирования, бухгалтерского учёта или закона. Доступ ограничен людьми и сервисами, которым он нужен для работы."] },
       { title: "6. Ваши права", paragraphs: ["Вы можете запросить доступ, исправление или удаление данных, а также отозвать согласие на дальнейшую связь. Некоторые сведения могут сохраняться, если этого требует закон или защита законных требований."] },
@@ -56,7 +56,7 @@ export const privacyCopy = {
     sections: [
       { title: "1. Who handles your data", paragraphs: ["Bali Closer handles information submitted through this website so we can answer your enquiry and arrange the selected services."] },
       { title: "2. Information we collect", paragraphs: ["We may receive your name, WhatsApp number, email, travel dates, guest count, hotel area, selected journeys and services, communication language, and any requests you choose to share."] },
-      { title: "3. How we use it", paragraphs: ["We use the information to answer your enquiry, check availability, calculate the total, confirm the booking, coordinate relevant suppliers, and support your trip."] },
+      { title: "3. How we use it", paragraphs: ["We use the information to answer your enquiry, prepare the final itinerary and total, confirm the booking, coordinate relevant suppliers, and support your trip."] },
       { title: "4. When information is shared", paragraphs: ["We share only the information needed with our email provider and local suppliers involved in your booking. We do not sell personal data or use it for third-party advertising."] },
       { title: "5. Retention and security", paragraphs: ["Enquiry data is kept for no longer than 24 months after the last contact unless a longer period is needed to complete a booking, keep accounting records, or comply with law. Access is limited to people and services that need it for their work."] },
       { title: "6. Your choices and rights", paragraphs: ["You may ask to access, correct, or delete your information, or withdraw consent to further contact. Some records may be retained where required by law or to protect legitimate claims."] },

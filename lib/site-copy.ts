@@ -36,8 +36,8 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
       steps: [
         { number: "01", title: "Расскажите о поездке", body: "Дата, количество гостей, район отеля, интересы и особые пожелания." },
         { number: "02", title: "Получите предложение", body: "Подходящий маршрут, понятная стоимость и всё, что входит в программу." },
-        { number: "03", title: "Подтвердите детали", body: "Мы вручную проверяем наличие и фиксируем согласованный состав." },
-        { number: "04", title: "Отправляйтесь на Бали", body: "Перед поездкой вы получаете подтверждённую сводку и контакт для дня тура." },
+        { number: "03", title: "Подтвердите бронирование", body: "Получите итоговую программу и сумму, затем внесите 20% для подтверждения." },
+        { number: "04", title: "Отправляйтесь на Бали", body: "После оплаты бронирование подтверждено; вы получаете сводку и контакт на день тура." },
       ],
     },
     trust: {
@@ -80,8 +80,8 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
       steps: [
         { number: "01", title: "Tell us about your trip", body: "Dates, number of guests, hotel area, interests, and special requests." },
         { number: "02", title: "Receive your trip plan", body: "A suitable journey, clear price, and everything included in the experience." },
-        { number: "03", title: "Confirm the details", body: "We check availability personally and record the agreed inclusions." },
-        { number: "04", title: "Experience Bali", body: "Before the tour, you receive a confirmed summary and a day-of-tour contact." },
+        { number: "03", title: "Confirm your booking", body: "Receive the final itinerary and total, then pay 20% to confirm." },
+        { number: "04", title: "Experience Bali", body: "After payment, your booking is confirmed and you receive the trip summary and day-of-tour contact." },
       ],
     },
     trust: {

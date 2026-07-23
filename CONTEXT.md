@@ -97,7 +97,7 @@ _Hindari_: Keuntungan kurs pasti, kurs murah tanpa sumber
 ## Perjalanan booking
 
 **Enquiry terbantu**:
-Alur awal ketika pelanggan menghubungi bisnis dan Partner Pasar Rusia membantu memilih paket, memeriksa kebutuhan, mengonfirmasi ketersediaan, serta menyiapkan penawaran dan instruksi pembayaran secara manual.
+Alur awal ketika pelanggan menghubungi bisnis, menyampaikan kebutuhan, lalu menerima itinerary dan total final beserta instruksi booking fee secara manual. Setelah booking fee 20% diterima, booking dikonfirmasi secara tertulis tanpa tahap availability check terpisah.
 _Hindari_: Checkout otomatis, booking instan
 
 **Kapabilitas konversi komunitas**:

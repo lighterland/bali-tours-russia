@@ -2,7 +2,7 @@
 
 Status: ready-for-human
 
-Revision implemented and automatically verified on 23 July 2026. Revised Russian customer-facing copy remains gated on fluent review before publication.
+Revision implemented and automatically verified on 24 July 2026. Revised Russian customer-facing copy remains gated on fluent review before publication.
 
 ## Goal
 
@@ -80,6 +80,12 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 62. Detail lengkap pilihan tetap dibawa dalam payload dan template channel, tetapi tidak memenuhi heading atau area awal form.
 63. Seluruh kolom footer desktop dimulai dari garis atas yang sama; blok Brand tidak diberi offset vertikal berbeda dari Explore, Support, atau Connect.
 64. Collection filter hanya menyaring journey cards. Card Bali Services tetap terlihat karena bersifat optional dan berada di luar kategori collection.
+65. Journey partner dianggap selalu dapat dipenuhi; customer flow tidak memakai tahap atau janji **availability check**.
+66. Angka pada cart dan enquiry berlabel **estimated trip total** sampai itinerary dan total final dikirimkan secara tertulis.
+67. Alur konfirmasi adalah: pelanggan mengirim plan, operator mengirim itinerary dan total final, pelanggan membayar booking fee 20%, lalu booking dinyatakan confirmed.
+68. WhatsApp hanya wajib jika channel pilihan adalah WhatsApp; email hanya wajib jika channel pilihan adalah Email. Channel lain tidak mewajibkan keduanya karena percakapan dilanjutkan dari akun pengirim.
+69. Konfigurasi plan disimpan lokal agar pilihan tidak hilang saat refresh, tetapi nama, nomor telepon, email, tanggal, hotel, dan catatan tidak disimpan.
+70. Start dan end date berarti periode pelanggan berada di Bali; tanggal pasti tiap journey ditentukan dalam itinerary final.
 
 ## Customer flow
 
@@ -93,6 +99,9 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 8. Pelanggan dapat memakai Ready-made collection sebagai filter rekomendasi, lalu memilih journey satu per satu. Tombol **All journeys** memulihkan seluruh katalog.
 9. Pada rental, pelanggan memilih kendaraan dan jumlah hari sebelum menambahkan item; konfigurasi dan subtotal dapat ditinjau serta diedit kembali di cart.
 10. Saat melanjutkan ke enquiry, pelanggan melihat heading singkat dan compact summary; detail plan tetap tersedia melalui floating cart.
+11. Form menyesuaikan field kontak wajib dengan channel yang dipilih dan menjelaskan bahwa date range adalah periode perjalanan.
+12. Setelah plan dikirim, operator langsung menyusun itinerary dan total final tanpa meminta pelanggan menunggu pemeriksaan availability.
+13. Setelah booking fee 20% diterima, operator mengirim konfirmasi booking tertulis.
 
 ## Edge cases
 
@@ -111,6 +120,9 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 - Bali Services tetap terlihat ketika collection filter aktif.
 - Rental fixed-price tanpa vehicle option atau jumlah hari valid tidak dapat ditambahkan.
 - Rental on-request membawa jumlah hari tetapi tidak menampilkan subtotal seolah sudah final.
+- Browser yang memblokir local storage tetap dapat menggunakan cart; persistence hanya enhancement.
+- Data identitas dan detail perjalanan yang diketik di form tidak pernah dimasukkan ke penyimpanan plan lokal.
+- Perubahan itinerary setelah booking dapat tetap memerlukan penyesuaian operasional, tetapi hal itu bukan availability gate pada flow awal.
 
 ## Acceptance criteria
 
@@ -128,6 +140,11 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 - Payload enquiry mempertahankan journey, opsi transport, Craft, service on-request, dan detail pengguna sebagai data terstruktur.
 - Card, cart, WhatsApp, email, dan payload admin menampilkan vehicle serta rental duration secara konsisten; subtotal hanya final untuk opsi fixed-price.
 - Heading enquiry tidak pernah berubah menjadi daftar panjang; compact summary menggantikan daftar tersebut tanpa CTA yang menduplikasi floating cart.
+- Cart dan enquiry secara konsisten menyebut harga sebagai estimasi sebelum itinerary final.
+- Contact field wajib mengikuti preferred channel dan tidak memaksa WhatsApp untuk pengguna Email, Telegram, atau VK.
+- Plan pilihan bertahan setelah refresh tanpa menyimpan informasi pribadi atau isi form enquiry.
+- Website menampilkan tiga langkah konfirmasi ringkas dan tidak menyebut availability check dalam customer flow.
+- Date range dijelaskan sebagai travel period; exact journey dates ditempatkan di itinerary final.
 - Copy RU dan EN memiliki perilaku serta hirarki yang sama; copy Rusia melewati review penutur fasih sebelum publikasi.
 
 ## Definition of done

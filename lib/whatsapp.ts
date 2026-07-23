@@ -18,8 +18,8 @@ export function buildBookingMessage(draft: WhatsAppDraft) {
     : [`Транспорт: ${draft.vehicle}`, `Срок аренды: ${draft.rentalDays || 1} дн.`, `Сумма аренды: ${draft.rentalSubtotalUsd === undefined ? "По запросу" : `$${draft.rentalSubtotalUsd}`}`]
     : [];
   return draft.language === "en"
-    ? ["Hello! I would like to plan a Bali trip.", "", `Selected plan: ${lineValue(draft.packageTitle)}`, ...rentalLines, `Date: ${lineValue(draft.date)}`, `Guests: ${lineValue(draft.guests)}`, `Hotel or area: ${lineValue(draft.pickup)}`, `Requests: ${lineValue(draft.notes)}`, "", "Please check availability and confirm the plan."].join("\n")
-    : ["Здравствуйте! Я хочу спланировать поездку на Бали.", "", `Выбранный план: ${lineValue(draft.packageTitle)}`, ...rentalLines, `Дата: ${lineValue(draft.date)}`, `Количество гостей: ${lineValue(draft.guests)}`, `Отель или район: ${lineValue(draft.pickup)}`, `Пожелания: ${lineValue(draft.notes)}`, "", "Пожалуйста, проверьте доступность и подтвердите программу."].join("\n");
+    ? ["Hello! I would like to plan a Bali trip.", "", `Selected plan: ${lineValue(draft.packageTitle)}`, ...rentalLines, `Travel period: ${lineValue(draft.date)}`, `Guests: ${lineValue(draft.guests)}`, `Hotel or area: ${lineValue(draft.pickup)}`, `Requests: ${lineValue(draft.notes)}`, "", "Please send the final itinerary, total, and 20% booking fee details."].join("\n")
+    : ["Здравствуйте! Я хочу спланировать поездку на Бали.", "", `Выбранный план: ${lineValue(draft.packageTitle)}`, ...rentalLines, `Период поездки: ${lineValue(draft.date)}`, `Количество гостей: ${lineValue(draft.guests)}`, `Отель или район: ${lineValue(draft.pickup)}`, `Пожелания: ${lineValue(draft.notes)}`, "", "Пожалуйста, отправьте итоговую программу, стоимость и реквизиты для взноса 20%."].join("\n");
 }
 
 export function buildWhatsAppLink(number: string, draft: WhatsAppDraft) {

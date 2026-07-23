@@ -99,3 +99,7 @@
 .site-footer{grid-template-columns:minmax(270px,1.25fr) repeat(3,minmax(145px,.62fr));column-gap:clamp(56px,6vw,112px);row-gap:48px}.site-footer>.footer-brand{display:grid!important;grid-template-columns:1fr;align-content:start;justify-content:start!important;gap:26px!important}.footer-brand p{max-width:270px}.site-footer>.footer-column{min-width:0}
 @media(max-width:900px){.site-footer{column-gap:48px;row-gap:38px}}
 @media(max-width:720px){.site-footer{row-gap:30px}.site-footer>.footer-brand{gap:18px!important}}
+
+/* Booking confirmation guidance */
+.date-guidance{margin:-8px 0 6px;padding:11px 13px;border-radius:12px;background:#f3eee2;color:var(--muted);font-size:11px;line-height:1.5}.confirmation-flow{display:grid;gap:10px;padding:16px 18px;border:1px solid #d8cfbd;border-radius:16px;background:#fbf8f1}.confirmation-flow>strong{font-family:Georgia,serif;font-size:18px;font-weight:500}.confirmation-flow ol{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0;padding:0;counter-reset:booking-step;list-style:none}.confirmation-flow li{position:relative;padding:10px 10px 10px 34px;border-radius:11px;background:#fff;color:var(--muted);font-size:11px;line-height:1.45;counter-increment:booking-step}.confirmation-flow li:before{position:absolute;top:9px;left:10px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--forest);color:#fff;font-size:9px;font-weight:850;content:counter(booking-step)}
+@media(max-width:720px){.confirmation-flow ol{grid-template-columns:1fr}}

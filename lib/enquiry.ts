@@ -8,10 +8,10 @@ export const enquirySchema = z
   .object({
     enquiryId: z.string().uuid(),
     name: z.string().trim().min(2).max(100),
-    whatsapp: z
-      .string()
-      .trim()
-      .regex(/^\+?[1-9]\d{7,14}$/, "Use an international WhatsApp number"),
+    whatsapp: z.union([
+      z.string().trim().regex(/^\+?[1-9]\d{7,14}$/, "Use an international WhatsApp number"),
+      z.literal(""),
+    ]),
     email: z.union([z.string().trim().email(), z.literal("")]),
     preferredChannel: z.enum(contactChannels),
     date: z.string().trim().max(100),
@@ -55,6 +55,9 @@ export const enquirySchema = z
         message: "Email is required when it is the preferred channel",
         path: ["email"],
       });
+    }
+    if (value.preferredChannel === "WhatsApp" && !value.whatsapp) {
+      context.addIssue({ code: "custom", message: "WhatsApp is required when it is the preferred channel", path: ["whatsapp"] });
     }
   });
 

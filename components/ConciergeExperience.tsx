@@ -10,6 +10,7 @@ import { buildBookingMessage, buildWhatsAppLink } from "@/lib/whatsapp";
 import { baliServicesCard, generalBaliService, type BaliService } from "@/lib/bali-services";
 import { calculateTripEstimate, conditionalTransferUsdFor, nextBundleTarget } from "@/lib/trip-pricing";
 import { readyMadeCollections } from "@/lib/ready-made-collections";
+import { parseStoredTripPlan, serializeTripPlan, tripPlanStorageKey } from "@/lib/trip-plan-storage";
 import Link from "next/link";
 
 type Props = {
@@ -73,12 +74,12 @@ const ui = {
     fillForm: "Заполнить форму", openWhatsApp: "Открыть WhatsApp", otherChannels: "Другие каналы:",
     formEyebrow: "Заявка", chooseRoute: "Выберите маршрут или услугу", formIntro: "Укажите даты и детали запроса. Мы свяжемся с вами, уточним условия и поможем со следующим шагом.",
     sent: "Заявка отправлена.", sentDetail: "Ориентир ответа: в течение рабочего дня. Номер:", sendError: "Не получилось отправить.",
-    name: "Имя *", whatsapp: "WhatsApp с кодом страны *", date: "Дата начала *", serviceDate: "Предпочтительная дата (необязательно)", datePlaceholder: "", endDate: "Дата окончания (необязательно)",
-    guests: "Количество гостей *", serviceGuests: "Количество человек (необязательно)", route: "Что вас интересует?", journeysGroup: "Маршруты", servicesGroup: "Услуги на Бали · наличие по запросу", channel: "Как связаться *", optional: "необязательно", pickup: "Отель или район",
+    name: "Имя *", whatsapp: "WhatsApp с кодом страны", date: "Дата начала *", serviceDate: "Предпочтительная дата (необязательно)", datePlaceholder: "", endDate: "Дата окончания (необязательно)",
+    guests: "Количество гостей *", serviceGuests: "Количество человек (необязательно)", route: "Что вас интересует?", journeysGroup: "Маршруты", servicesGroup: "Услуги на Бали · индивидуальный расчёт", channel: "Как связаться *", optional: "необязательно", pickup: "Отель или район",
     pickupPlaceholder: "Можно сообщить позже", language: "Язык общения *", wishes: "Пожелания", wishesPlaceholder: "Темп, интересы, особые потребности",
     consent: "Я согласен(-на) на обработку данных заявки и обратную связь.", details: "Подробнее", sending: "Отправляем…", send: "Отправить заявку",
     footerRoutes: "Маршруты", footerContact: "Контакты", footerPrivacy: "Данные заявки", footerTerms: "Бронирование и оплата", offerCode: "Код предложения", errorMessage: "Не удалось отправить запрос.", detailsLabel: "Подробнее", includedLabel: "Что включено", routeLabel: "Маршрут и остановки", priceLabel: "Условия цены",
-    add: "Добавить в план", added: "В плане", remove: "Удалить", plannerEyebrow: "Ваш план", plannerTitle: "Соберите поездку", plannerEmpty: "Добавляйте маршруты — итог появится здесь.", subtotal: "До скидок", saving: "Вы экономите", estimate: "Итого к оплате", bookingFee: "Для бронирования · 20%", balance: "Остаток на Бали · 80%", guestsShort: "Гостей", rentalDays: "Дней аренды", vehicleChoice: "Вариант транспорта", estimateNote: "Итог уже включает скидки и применимые налоги Индонезии.", taxIncluded: "Включая применимый PPN", guestSaving: "Скидка для компании", free: "Бесплатно", expandPlan: "Открыть план", collapsePlan: "Свернуть", selectedCount: "выбрано", craftLocked: "Добавьте любой платный маршрут", chooseServices: "Выберите нужные сервисы", servicesSelected: "Сервисы в заявке", bestDeals: "Готовые подборки", selectDeal: "Выбрать подборку",
+    add: "Добавить в план", added: "В плане", remove: "Удалить", plannerEyebrow: "Ваш план", plannerTitle: "Соберите поездку", plannerEmpty: "Добавляйте маршруты — итог появится здесь.", subtotal: "До скидок", saving: "Вы экономите", estimate: "Ориентировочная стоимость", bookingFee: "Для подтверждения · 20%", balance: "Остаток на Бали · 80%", guestsShort: "Гостей", rentalDays: "Дней аренды", vehicleChoice: "Вариант транспорта", estimateNote: "Скидки и применимые налоги уже учтены. Итоговую программу и сумму вы получите до оплаты.", taxIncluded: "Включая применимый PPN", guestSaving: "Скидка для компании", free: "Бесплатно", expandPlan: "Открыть план", collapsePlan: "Свернуть", selectedCount: "выбрано", craftLocked: "Добавьте любой платный маршрут", chooseServices: "Выберите нужные сервисы", servicesSelected: "Сервисы в заявке", bestDeals: "Готовые подборки", selectDeal: "Выбрать подборку",
   },
   en: {
     brand: "BALI · CLOSER", navLabel: "Main navigation", openMenu: "Open menu", closeMenu: "Close menu",
@@ -87,12 +88,12 @@ const ui = {
     fillForm: "Complete the form", openWhatsApp: "Open WhatsApp", otherChannels: "Other channels:",
     formEyebrow: "Enquiry", chooseRoute: "Choose a journey or service", formIntro: "Share your dates and request details. We will contact you, confirm the arrangements, and help with the next step.",
     sent: "Enquiry sent.", sentDetail: "Expected reply: within one business day. Reference:", sendError: "Unable to send.",
-    name: "Name *", whatsapp: "WhatsApp with country code *", date: "Start date *", serviceDate: "Preferred date (optional)", datePlaceholder: "", endDate: "End date (optional)",
-    guests: "Number of guests *", serviceGuests: "People or group size (optional)", route: "What are you interested in?", journeysGroup: "Journeys", servicesGroup: "Bali services · availability on request", channel: "Preferred contact *", optional: "optional", pickup: "Hotel or area",
+    name: "Name *", whatsapp: "WhatsApp with country code", date: "Start date *", serviceDate: "Preferred date (optional)", datePlaceholder: "", endDate: "End date (optional)",
+    guests: "Number of guests *", serviceGuests: "People or group size (optional)", route: "What are you interested in?", journeysGroup: "Journeys", servicesGroup: "Bali services · tailored quotation", channel: "Preferred contact *", optional: "optional", pickup: "Hotel or area",
     pickupPlaceholder: "You can tell us later", language: "Communication language *", wishes: "Your wishes", wishesPlaceholder: "Pace, interests, special requirements",
     consent: "I agree to the processing of my enquiry data and to being contacted.", details: "Learn more", sending: "Sending…", send: "Send enquiry",
     footerRoutes: "Journeys", footerContact: "Contact", footerPrivacy: "Enquiry data", footerTerms: "Booking & payment", offerCode: "Offer code", errorMessage: "Unable to send the enquiry.", detailsLabel: "View details", includedLabel: "What's included", routeLabel: "Route and stops", priceLabel: "Price terms",
-    add: "Add to trip", added: "In your plan", remove: "Remove", plannerEyebrow: "Your plan", plannerTitle: "Build your Bali trip", plannerEmpty: "Add journeys and your total will appear here.", subtotal: "Before discounts", saving: "You save", estimate: "Total to pay", bookingFee: "To reserve · 20%", balance: "Balance in Bali · 80%", guestsShort: "Guests", rentalDays: "Rental days", vehicleChoice: "Vehicle option", estimateNote: "Your total already includes discounts and applicable Indonesian taxes.", taxIncluded: "Including applicable VAT", guestSaving: "Group saving", free: "Free", expandPlan: "Open plan", collapsePlan: "Collapse", selectedCount: "selected", craftLocked: "Add any paid journey first", chooseServices: "Choose the services you need", servicesSelected: "Services in your enquiry", bestDeals: "Ready-made collections", selectDeal: "Select collection",
+    add: "Add to trip", added: "In your plan", remove: "Remove", plannerEyebrow: "Your plan", plannerTitle: "Build your Bali trip", plannerEmpty: "Add journeys and your total will appear here.", subtotal: "Before discounts", saving: "You save", estimate: "Estimated trip total", bookingFee: "To confirm · 20%", balance: "Balance in Bali · 80%", guestsShort: "Guests", rentalDays: "Rental days", vehicleChoice: "Vehicle option", estimateNote: "Discounts and applicable Indonesian taxes are included. Your final itinerary and total are sent before payment.", taxIncluded: "Including applicable VAT", guestSaving: "Group saving", free: "Free", expandPlan: "Open plan", collapsePlan: "Collapse", selectedCount: "selected", craftLocked: "Add any paid journey first", chooseServices: "Choose the services you need", servicesSelected: "Services in your enquiry", bestDeals: "Ready-made collections", selectDeal: "Select collection",
   },
 } as const;
 
@@ -114,6 +115,19 @@ const collectionCopy = {
 const enquiryCopy = {
   ru: { title: "Расскажите нам о вашей поездке на Бали.", journeys: "маршрутов", services: "сервисов", guests: "гостей", total: "Ориентировочно", all: "Все маршруты", view: "Смотреть подборку", viewing: "Показано" },
   en: { title: "Tell us about your Bali plan.", journeys: "journeys", services: "services", guests: "guests", total: "Estimated total", all: "All journeys", view: "View collection", viewing: "Viewing" },
+} as const;
+
+const confirmationCopy = {
+  ru: {
+    dateNote: "Укажите период поездки. Точные даты маршрутов будут зафиксированы в итоговой программе.",
+    title: "Что произойдёт дальше",
+    steps: ["Отправьте выбранный план", "Получите итоговую программу и сумму", "Внесите 20% — бронирование подтверждено"],
+  },
+  en: {
+    dateNote: "Choose your travel period. Exact journey dates will be arranged in your final itinerary.",
+    title: "What happens next",
+    steps: ["Send your selected plan", "Receive the final itinerary and total", "Pay 20% — your booking is confirmed"],
+  },
 } as const;
 
 const bookingFaq = {
@@ -177,6 +191,7 @@ export function ConciergeExperience({
   const language: SupportedLanguage = locale;
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
+  const planStorageReady = useRef(false);
   const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", endDate: "", guests: "2", pickup: "", notes: "" });
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
   const [showHeroVideo, setShowHeroVideo] = useState(false);
@@ -224,8 +239,8 @@ export function ConciergeExperience({
   const lineTotal = (tour: TourPackage) => estimate.lines.find((line) => line.id === tour.id)?.totalUsd || 0;
   const planSummary = selectedPackages.length
     ? locale === "ru"
-      ? `${selectedInterestTitle} · гостей: ${guestCount} · итого: $${estimate.totalUsd}`
-      : `${selectedInterestTitle} · guests: ${guestCount} · total: $${estimate.totalUsd}`
+      ? `${selectedInterestTitle} · гостей: ${guestCount} · ориентировочно: $${estimate.totalUsd}`
+      : `${selectedInterestTitle} · guests: ${guestCount} · estimated total: $${estimate.totalUsd}`
     : selectedInterestTitle;
   const directWhatsApp = buildWhatsAppLink(whatsappNumber, {
     packageTitle: planSummary,
@@ -286,6 +301,45 @@ export function ConciergeExperience({
       cancelAnimationFrame(frame);
     };
   }, [locale]);
+
+  useEffect(() => {
+    const restoreTimer = window.setTimeout(() => {
+      let restored = null;
+      try {
+        restored = parseStoredTripPlan(window.localStorage.getItem(tripPlanStorageKey));
+      } catch {
+        // The plan remains usable when browser storage is unavailable.
+      }
+      if (restored) {
+        setSelectedPackageIds(restored.selectedPackageIds.filter((id) => packages.some((tour) => tour.id === id)));
+        const validServiceOptionIds = restored.selectedServiceOptionIds.filter((id) => baliServicesCard.options.some((option) => option.id === id));
+        setServiceAdded(restored.serviceAdded && validServiceOptionIds.length > 0);
+        setSelectedServiceOptionIds(validServiceOptionIds);
+        const vehicleOptionExists = packages.find((tour) => tour.id === "vehicle-rental")?.pricing.variants?.some((variant) => variant.id === restored.vehicleVariantId);
+        setVehicleVariantId(vehicleOptionExists ? restored.vehicleVariantId : "");
+        setRentalDays(restored.rentalDays);
+        setWhatsAppDraft((value) => ({ ...value, guests: restored.guests }));
+      }
+      planStorageReady.current = true;
+    }, 0);
+    return () => window.clearTimeout(restoreTimer);
+  }, [packages]);
+
+  useEffect(() => {
+    if (!planStorageReady.current) return;
+    try {
+      window.localStorage.setItem(tripPlanStorageKey, serializeTripPlan({
+        selectedPackageIds,
+        serviceAdded,
+        selectedServiceOptionIds,
+        vehicleVariantId,
+        rentalDays,
+        guests: whatsAppDraft.guests || "2",
+      }));
+    } catch {
+      // Storage is a convenience only; booking must not depend on it.
+    }
+  }, [rentalDays, selectedPackageIds, selectedServiceOptionIds, serviceAdded, vehicleVariantId, whatsAppDraft.guests]);
 
   useEffect(() => {
     document.body.classList.toggle("cart-open", cartVisible);
@@ -601,14 +655,15 @@ export function ConciergeExperience({
           ) : null}
           <div className="form-grid two">
             <label><span>{labels.name}</span><input name="name" autoComplete="name" required minLength={2} /></label>
-            <label><span>{labels.whatsapp}</span><input name="whatsapp" autoComplete="tel" inputMode="tel" placeholder="+7 …" required pattern="\+?[1-9][0-9]{7,14}" /></label>
+            <label><span>{labels.whatsapp} {preferredChannel === "WhatsApp" ? "*" : `(${labels.optional})`}</span><input name="whatsapp" autoComplete="tel" inputMode="tel" placeholder="+7 …" required={preferredChannel === "WhatsApp"} pattern="\+?[1-9][0-9]{7,14}" /></label>
           </div>
           <div className="form-grid two">
             <label><span>{selectedPackages.length ? labels.date : labels.serviceDate}</span><input ref={startDateRef} name="date" type="date" value={whatsAppDraft.date} onChange={(event) => { const date = event.target.value; if (endDateRef.current) endDateRef.current.min = date || localIsoDate(new Date()); setWhatsAppDraft((value) => ({ ...value, date, endDate: value.endDate && value.endDate < date ? "" : value.endDate })); }} required={selectedPackages.length > 0} /></label>
             <label><span>{labels.endDate}</span><input ref={endDateRef} name="endDate" type="date" min={whatsAppDraft.date || undefined} value={whatsAppDraft.endDate} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, endDate: event.target.value }))} /></label>
           </div>
+          <p className="date-guidance">{confirmationCopy[locale].dateNote}</p>
           <div className="form-grid two">
-            <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><input name="guests" type="number" min="1" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required={selectedPackages.length > 0} /></label>
+            <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><input name="guests" type="number" min="1" max="999" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required={selectedPackages.length > 0} /></label>
             <div className="form-plan-summary"><span>{labels.route}</span><strong>{cartItemCount ? `${selectedPackages.length} ${enquiryCopy[locale].journeys} · ${selectedServices.length} ${enquiryCopy[locale].services}` : labels.chooseRoute}</strong></div>
           </div>
           <div className="form-grid two">
@@ -621,6 +676,7 @@ export function ConciergeExperience({
           <input type="hidden" name="language" value={language} />
           <label><span>{labels.wishes}</span><textarea name="notes" maxLength={1500} placeholder={labels.wishesPlaceholder} value={whatsAppDraft.notes} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, notes: event.target.value }))} /></label>
           <label className="consent"><input type="checkbox" name="consent" required /><span>{labels.consent} <Link href={`/${locale}/privacy`}>{labels.details}</Link>.</span></label>
+          <div className="confirmation-flow"><strong>{confirmationCopy[locale].title}</strong><ol>{confirmationCopy[locale].steps.map((step) => <li key={step}>{step}</li>)}</ol></div>
           <label className="honeypot" aria-hidden="true"><span>Website</span><input name="website" tabIndex={-1} autoComplete="off" /></label>
           <input type="hidden" name="source" value="website-home" />
           <button className="button submit-button" type="submit" disabled={submitState.status === "submitting"}>
@@ -649,7 +705,7 @@ export function ConciergeExperience({
         {cartVisible ? <div className="cart-layer" role="presentation"><button className="cart-backdrop" type="button" onClick={() => setPlannerOpen(false)} aria-label={cartLabels.close} /><aside className="cart-drawer" id="trip-planner" role="dialog" aria-modal="true" aria-labelledby="cart-title">
           <header className="cart-drawer-header"><div><p className="eyebrow">{labels.plannerEyebrow}</p><h3 id="cart-title">{cartLabels.cart}</h3><span>{cartItemCount} {cartLabels.items}</span></div><button type="button" onClick={() => setPlannerOpen(false)} aria-label={cartLabels.close}>×</button></header>
           <div className="cart-drawer-body">
-            {pricedSelectedPackages.length ? <section className="cart-section"><div className="cart-section-title"><strong>{cartLabels.journeys}</strong><span>{pricedSelectedPackages.length}</span></div><label className="cart-field"><span>{labels.guestsShort}</span><input type="number" min="1" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} /></label>{pricedSelectedPackages.map((tour) => <div className="cart-line" key={tour.id}><div><strong>{text(tour.title)}</strong><small>{tour.id === "vehicle-rental" && vehicleVariant ? `${text(vehicleVariant.title)} · ${rentalDays} ${locale === "ru" ? "дн." : "days"}` : tour.id === "craft-jewellery" ? (craftTransferFree ? cartLabels.craftFree : cartLabels.craftPaid) : text(tour.price.label)}</small></div><span>${lineTotal(tour)}</span><button type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.remove}: ${text(tour.title)}`}>×</button></div>)}{selectedPackageIds.includes("vehicle-rental") && vehiclePackage?.pricing.variants ? <div className="cart-config"><label><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}` : ` · ${cartLabels.quote}`}</option>)}</select></label><label><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label></div> : null}</section> : null}
+            {pricedSelectedPackages.length ? <section className="cart-section"><div className="cart-section-title"><strong>{cartLabels.journeys}</strong><span>{pricedSelectedPackages.length}</span></div><label className="cart-field"><span>{labels.guestsShort}</span><input type="number" min="1" max="999" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} /></label>{pricedSelectedPackages.map((tour) => <div className="cart-line" key={tour.id}><div><strong>{text(tour.title)}</strong><small>{tour.id === "vehicle-rental" && vehicleVariant ? `${text(vehicleVariant.title)} · ${rentalDays} ${locale === "ru" ? "дн." : "days"}` : tour.id === "craft-jewellery" ? (craftTransferFree ? cartLabels.craftFree : cartLabels.craftPaid) : text(tour.price.label)}</small></div><span>${lineTotal(tour)}</span><button type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.remove}: ${text(tour.title)}`}>×</button></div>)}{selectedPackageIds.includes("vehicle-rental") && vehiclePackage?.pricing.variants ? <div className="cart-config"><label><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}` : ` · ${cartLabels.quote}`}</option>)}</select></label><label><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label></div> : null}</section> : null}
             {onRequestItemCount ? <section className="cart-section"><div className="cart-section-title"><strong>{cartLabels.services}</strong><span>{onRequestItemCount}</span></div>{onRequestTransport && vehiclePackage?.pricing.variants ? <div className="cart-line cart-line-service"><div><strong>{text(onRequestTransport.title)}</strong><select className="cart-service-option" value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}` : ` · ${cartLabels.quote}`}</option>)}</select><label className="cart-service-duration"><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label></div><span>{cartLabels.quote}</span><button type="button" onClick={() => choosePackage(onRequestTransport.id)} aria-label={`${labels.remove}: ${text(onRequestTransport.title)}`}>×</button></div> : null}{selectedServices.length ? <div className="cart-line cart-line-service"><div><strong>{text(baliServicesCard.title)}</strong><div className="cart-service-options">{baliServicesCard.options.map((option) => <label key={option.id}><input type="checkbox" checked={selectedServiceOptionIds.includes(option.id)} onChange={() => toggleServiceOption(option.id)} /><span>{text(option.title)}</span></label>)}</div></div><span>{cartLabels.quote}</span><button type="button" onClick={toggleService} aria-label={`${labels.remove}: ${text(baliServicesCard.title)}`}>×</button></div> : null}</section> : null}
             {pricedSelectedPackages.length ? <section className="cart-totals"><div><span>{labels.subtotal}</span><strong>${estimate.subtotalUsd + estimate.guestSavingUsd}</strong></div>{estimate.guestSavingUsd > 0 ? <div className="saving"><span>{labels.guestSaving}</span><strong>−${estimate.guestSavingUsd}</strong></div> : null}{estimate.bundleSavingUsd > 0 ? <div className="saving"><span>{labels.saving} · {estimate.bundleRate * 100}%</span><strong>−${estimate.bundleSavingUsd}</strong></div> : null}<div className="grand"><span>{labels.estimate}</span><strong>${estimate.totalUsd}</strong></div><div><span>{labels.taxIncluded} · 1.1%</span><strong>${estimate.taxIncludedUsd.toFixed(2)}</strong></div><div><span>{labels.bookingFee}</span><strong>${estimate.bookingFeeUsd}</strong></div><div><span>{labels.balance}</span><strong>${estimate.balanceUsd}</strong></div><p>{labels.estimateNote}</p></section> : <p className="cart-quote-note">{cartLabels.services}</p>}
           </div>
