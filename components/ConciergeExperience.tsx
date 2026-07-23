@@ -483,7 +483,7 @@ export function ConciergeExperience({
             const isSelected = selectedPackageIds.includes(tour.id);
             const isCraft = tour.id === "craft-jewellery";
             const isCraftLocked = tour.id === "craft-jewellery" && !hasPaidJourney;
-            return <article className={`route-card ${tour.promotion?.spotlight ? "featured" : ""} ${isSelected ? "selected" : ""}`} key={tour.id} data-reveal>
+            return <article className={`route-card ${tour.promotion?.spotlight ? "featured" : ""} ${isSelected ? "selected" : ""}`} key={tour.id}>
               <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`} style={curatedMedia[tour.id] ? { backgroundImage: `url(${resolveAssetUrl(curatedMedia[tour.id])})` } : undefined} role="img" aria-label={text(tour.title)}>
                 {tour.promotion && <span className="offer-badge">{text(tour.promotion.badge)}</span>}
               </div>
@@ -512,7 +512,7 @@ export function ConciergeExperience({
               </div>
             </article>;
           })}
-          <article className={`route-card service-route-card ${selectedServices.length ? "selected" : ""}`} data-reveal>
+          <article className={`route-card service-route-card ${selectedServices.length ? "selected" : ""}`}>
             <div className="route-body">
               <div className="route-kicker"><span>{services[locale].eyebrow}</span><span>{cartLabels.quote}</span></div>
               <h3>{services[locale].title}</h3>
