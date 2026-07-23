@@ -23,6 +23,11 @@ function renderEmail(enquiry: EnquiryPayload) {
   const tours = enquiry.packageSelections.map(({ packageId }) => packages.find((item) => item.id === packageId)).filter((item): item is (typeof packages)[number] => Boolean(item));
   const services = enquiry.serviceSelections.map(({ serviceId }) => findBaliService(serviceId)).filter((item): item is NonNullable<ReturnType<typeof findBaliService>> => Boolean(item));
   const uniqueServices = [...new Map(services.map((service) => [service.id, service])).values()];
+  const rentalSelection = enquiry.packageSelections.find((selection) => selection.packageId === "vehicle-rental");
+  const rentalTour = packages.find((item) => item.id === "vehicle-rental");
+  const rentalVariant = rentalTour?.pricing.variants?.find((variant) => variant.id === rentalSelection?.optionId);
+  const rentalDays = rentalSelection?.quantity || 1;
+  const rentalSubtotal = rentalVariant?.status === "fixed" ? `$${(rentalVariant.amountUsd || 0) * rentalDays}` : rentalSelection ? "On request" : "";
   const interestTitle = [...tours.map((tour) => russian(tour.title)), ...uniqueServices.map((service) => russian(service.title))].join(" · ") || "General Bali enquiry";
   const serviceConfiguration = enquiry.serviceSelections.map((selection) => {
     const service = findBaliService(selection.serviceId);
@@ -45,6 +50,9 @@ function renderEmail(enquiry: EnquiryPayload) {
         ${row("Date / period", enquiry.date)}
         ${row("Guests", enquiry.guests)}
         ${row("Journey configuration", enquiry.packageSelections.map((item) => [item.packageId, item.optionId, item.quantity ? `x${item.quantity}` : ""].filter(Boolean).join(" / ")).join(" · "))}
+        ${rentalSelection ? row("Vehicle", rentalVariant ? russian(rentalVariant.title) : rentalSelection.optionId || "—") : ""}
+        ${rentalSelection ? row("Rental duration", `${rentalDays} days`) : ""}
+        ${rentalSelection ? row("Rental subtotal", rentalSubtotal) : ""}
         ${row("Service configuration", serviceConfiguration)}
         ${row("Pickup", enquiry.pickup)}
         ${row("Language", enquiry.language)}

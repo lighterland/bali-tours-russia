@@ -139,8 +139,8 @@ Satu kartu optional di grid utama `#services` yang memungkinkan pelanggan memili
 _Hindari_: Section layanan kedua, satu kartu per request type
 
 **Ready-made collection**:
-Rekomendasi kurasi berbasis cerita yang menambahkan journey belum terpilih secara deduplicated. Beberapa collection dapat digabungkan sebagai union tanpa menghapus journey manual atau Bali Services.
-_Hindari_: Target diskon, menduplikasi journey, mengganti seluruh plan
+Rekomendasi kurasi berbasis cerita yang berfungsi sebagai filter journey. Hanya satu collection aktif pada satu waktu; journey tetap ditambahkan sendiri oleh pelanggan dan Bali Services tidak ikut disaring.
+_Hindari_: Target diskon, menambahkan journey otomatis, mengubah cart, menyembunyikan Bali Services
 
 **Layanan satu pintu**:
 Model komunikasi ketika pelanggan menggunakan satu nomor WhatsApp bisnis, sementara Partner Pasar Rusia meneruskan masalah kepada penanggung jawab internal yang tepat tanpa meminta pelanggan mengoordinasikan banyak pihak.

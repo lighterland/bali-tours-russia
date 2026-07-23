@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import type { TourPackage } from "@/lib/catalogue";
 import { contactChannels } from "@/lib/enquiry";
 import { localized, type SupportedLanguage } from "@/lib/i18n";
@@ -9,7 +9,7 @@ import { siteCopy } from "@/lib/site-copy";
 import { buildBookingMessage, buildWhatsAppLink } from "@/lib/whatsapp";
 import { baliServicesCard, generalBaliService, type BaliService } from "@/lib/bali-services";
 import { calculateTripEstimate, conditionalTransferUsdFor, nextBundleTarget } from "@/lib/trip-pricing";
-import { collectionLabelsForPackage, collectionState, mergeCollectionPackages, readyMadeCollections } from "@/lib/ready-made-collections";
+import { readyMadeCollections } from "@/lib/ready-made-collections";
 import Link from "next/link";
 
 type Props = {
@@ -100,8 +100,13 @@ const cartCopy = {
 } as const;
 
 const collectionCopy = {
-  ru: { heading: "Рекомендации для разных путешествий", added: "Добавлено", partial: "Добавлено частично", addedToast: "добавлена в ваш план", alreadyToast: "уже в вашем плане", craftNote: "Бесплатный трансфер из Нуса-Дуа или Джимбарана", craftIncluded: "Включено в выбранный маршрут" },
-  en: { heading: "Curated for different ways to experience Bali", added: "Added", partial: "Partially added", addedToast: "added to your plan", alreadyToast: "is already in your plan", craftNote: "Free transfer from Nusa Dua or Jimbaran", craftIncluded: "Included with your selected itinerary" },
+  ru: { heading: "Рекомендации для разных путешествий", craftNote: "Бесплатный трансфер из Нуса-Дуа или Джимбарана", craftIncluded: "Включено в выбранный маршрут" },
+  en: { heading: "Curated for different ways to experience Bali", craftNote: "Free transfer from Nusa Dua or Jimbaran", craftIncluded: "Included with your selected itinerary" },
+} as const;
+
+const enquiryCopy = {
+  ru: { title: "Расскажите нам о вашей поездке на Бали.", journeys: "маршрутов", services: "сервисов", guests: "гостей", total: "Ориентировочно", all: "Все маршруты", view: "Смотреть подборку", viewing: "Показано" },
+  en: { title: "Tell us about your Bali plan.", journeys: "journeys", services: "services", guests: "guests", total: "Estimated total", all: "All journeys", view: "View collection", viewing: "Viewing" },
 } as const;
 
 const bookingFaq = {
@@ -157,10 +162,7 @@ export function ConciergeExperience({
   const [selectedPackageIds, setSelectedPackageIds] = useState<string[]>([]);
   const [serviceAdded, setServiceAdded] = useState(false);
   const [selectedServiceOptionIds, setSelectedServiceOptionIds] = useState<string[]>([]);
-  const [selectedCollectionIds, setSelectedCollectionIds] = useState<string[]>([]);
-  const [collectionToast, setCollectionToast] = useState<{ id: number; message: string } | null>(null);
-  const collectionToastTimer = useRef<number | undefined>(undefined);
-  const collectionToastSequence = useRef(0);
+  const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
   const [plannerOpen, setPlannerOpen] = useState(false);
   const [vehicleVariantId, setVehicleVariantId] = useState("");
   const [rentalDays, setRentalDays] = useState(1);
@@ -196,6 +198,10 @@ export function ConciergeExperience({
   const craftTransferFree = calculatedCraftTransferUsd === 0;
   const vehicleEstimateUsd = vehicleVariant?.status === "fixed" ? vehicleVariant.amountUsd : 0;
   const estimate = calculateTripEstimate(selectedPackages, guestCount, rentalDays, vehicleEstimateUsd);
+  const rentalSubtotalUsd = vehicleVariant?.status === "fixed" ? (vehicleVariant.amountUsd || 0) * rentalDays : undefined;
+  const rentalMessageDetails = selectedPackageIds.includes("vehicle-rental") && vehicleVariant ? { vehicle: text(vehicleVariant.title), rentalDays, rentalSubtotalUsd } : {};
+  const activeCollection = readyMadeCollections.find((collection) => collection.id === activeCollectionId);
+  const visiblePackages = activeCollection ? packages.filter((tour) => (activeCollection.packageIds as readonly string[]).includes(tour.id)) : packages;
   const eligibleCount = selectedPackages.filter((tour) => tour.pricing.discountEligible).length;
   const nextDeal = nextBundleTarget(eligibleCount);
   const hasPaidJourney = selectedPackages.some((tour) => tour.pricing.model !== "free");
@@ -207,7 +213,6 @@ export function ConciergeExperience({
       : `Add ${nextDeal.remaining} more eligible journeys to unlock ${nextDeal.rate * 100}% off`
     : locale === "ru" ? "Лучшая скидка 8% уже применена" : "Your best 8% deal is applied";
   const lineTotal = (tour: TourPackage) => estimate.lines.find((line) => line.id === tour.id)?.totalUsd || 0;
-  const packageCollectionLabels = (packageId: string) => collectionLabelsForPackage(selectedCollectionIds, packageId);
   const planSummary = selectedPackages.length
     ? locale === "ru"
       ? `${selectedInterestTitle} · гостей: ${guestCount} · итого: $${estimate.totalUsd}`
@@ -216,6 +221,7 @@ export function ConciergeExperience({
   const directWhatsApp = buildWhatsAppLink(whatsappNumber, {
     packageTitle: planSummary,
     language: locale,
+    ...rentalMessageDetails,
     ...whatsAppDraft,
   });
 
@@ -281,8 +287,6 @@ export function ConciergeExperience({
     };
   }, [cartVisible]);
 
-  useEffect(() => () => window.clearTimeout(collectionToastTimer.current), []);
-
   function toggleService() {
     if (!serviceAdded && !selectedServiceOptionIds.length) return;
     const next = !serviceAdded;
@@ -308,10 +312,6 @@ export function ConciergeExperience({
       const withoutItem = selectedPackageIds.filter((item) => item !== id);
       const next = withoutItem.some((item) => item !== "craft-jewellery") ? withoutItem : withoutItem.filter((item) => item !== "craft-jewellery");
       setSelectedPackageIds(next);
-      setSelectedCollectionIds((current) => current.filter((collectionId) => {
-        const collection = readyMadeCollections.find((deal) => deal.id === collectionId);
-        return collection?.packageIds.some((packageId) => next.includes(packageId)) ?? false;
-      }));
       if (!next.length && !serviceAdded) setPlannerOpen(false);
       return;
     }
@@ -320,19 +320,8 @@ export function ConciergeExperience({
     setSelectedPackageIds([...selectedPackageIds, id]);
   }
 
-  function selectDeal(dealId: string, packageIds: readonly string[]) {
-    const alreadyAdded = packageIds.every((id) => selectedPackageIds.includes(id));
-    const collection = readyMadeCollections.find((item) => item.id === dealId);
-    if (!collection) return;
-    setSelectedPackageIds((current) => mergeCollectionPackages(current, collection));
-    setSelectedCollectionIds((current) => current.includes(dealId) ? current : [...current, dealId]);
-    const title = text(collection.title);
-    collectionToastSequence.current += 1;
-    setCollectionToast({ id: collectionToastSequence.current, message: `${title} ${alreadyAdded ? collectionCopy[locale].alreadyToast : collectionCopy[locale].addedToast}` });
-    window.clearTimeout(collectionToastTimer.current);
-    collectionToastTimer.current = window.setTimeout(() => setCollectionToast(null), 2200);
-    setWhatsAppDraft((value) => ({ ...value, guests: value.guests || "2" }));
-    setPlannerOpen(false);
+  function toggleCollectionFilter(dealId: string) {
+    setActiveCollectionId((current) => current === dealId ? null : dealId);
   }
 
   async function submitEnquiry(event: FormEvent<HTMLFormElement>) {
@@ -364,6 +353,7 @@ export function ConciergeExperience({
       packageTitle: planSummary,
       date: [data.get("date"), data.get("endDate")].filter(Boolean).join(" — "),
       guests: String(data.get("guests") || ""), pickup: String(data.get("pickup") || ""), notes: String(data.get("notes") || ""), language: locale,
+      ...rentalMessageDetails,
     } as const;
 
     try {
@@ -378,9 +368,9 @@ export function ConciergeExperience({
           await navigator.clipboard?.writeText(message);
           window.open(vkUrl, "_blank", "noopener,noreferrer");
         } else if (selectedChannel === "Email" && businessEmail) {
-          window.location.href = `mailto:${businessEmail}?subject=${encodeURIComponent(`Booking enquiry · ${bookingDraft.packageTitle}`)}&body=${encodeURIComponent(message)}`;
+          window.location.assign(`mailto:${businessEmail}?subject=${encodeURIComponent(`Booking enquiry · ${bookingDraft.packageTitle}`)}&body=${encodeURIComponent(message)}`);
         }
-        setSubmitState({ status: "success", enquiryId });
+        setSubmitState({ status: "idle" });
         form.reset();
         setPreferredChannel("WhatsApp");
         setWhatsAppDraft({ date: "", guests: "2", pickup: "", notes: "" });
@@ -484,11 +474,11 @@ export function ConciergeExperience({
           <p>{copy.routes.body}</p>
         </div>
         <div className="deal-collections" data-reveal>
-          <div className="deal-collections-heading"><span>{labels.bestDeals}</span><small>{collectionCopy[locale].heading}</small></div>
-          {readyMadeCollections.map((deal) => { const state = collectionState(deal, selectedPackageIds, selectedCollectionIds.includes(deal.id)); const stateLabel = state === "added" ? collectionCopy[locale].added : state === "partial" ? collectionCopy[locale].partial : labels.selectDeal; return <article className={`deal-collection ${state === "added" ? "selected" : ""} ${state === "partial" ? "partial" : ""}`} key={deal.id} role="button" tabIndex={0} aria-pressed={state === "added"} onClick={() => selectDeal(deal.id, deal.packageIds)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectDeal(deal.id, deal.packageIds); } }}><div><strong>{text(deal.title)}</strong><span>{text(deal.note)}</span></div><span className="deal-collection-action">{stateLabel} <ArrowIcon /></span></article>; })}
+          <div className="deal-collections-heading"><span>{labels.bestDeals}</span><small>{collectionCopy[locale].heading}</small><button className={`collection-reset ${activeCollectionId === null ? "selected" : ""}`} type="button" onClick={() => setActiveCollectionId(null)}>{enquiryCopy[locale].all}</button></div>
+          {readyMadeCollections.map((deal) => { const isActive = activeCollectionId === deal.id; return <article className={`deal-collection ${isActive ? "selected" : ""}`} key={deal.id} role="button" tabIndex={0} aria-pressed={isActive} onClick={() => toggleCollectionFilter(deal.id)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggleCollectionFilter(deal.id); } }}><div><strong>{text(deal.title)}</strong><span>{text(deal.note)}</span></div><span className="deal-collection-action">{isActive ? enquiryCopy[locale].viewing : enquiryCopy[locale].view} <ArrowIcon /></span></article>; })}
         </div>
         <div className="route-grid">
-          {packages.map((tour) => {
+          {visiblePackages.map((tour) => {
             const secondaryPrice = tour.price.secondaryLabel ? text(tour.price.secondaryLabel) : undefined;
             const isSelected = selectedPackageIds.includes(tour.id);
             const isCraft = tour.id === "craft-jewellery";
@@ -510,7 +500,7 @@ export function ConciergeExperience({
                    <div><strong>{text(tour.priceDetailLabel)}</strong><p>{text(tour.priceDetail)}</p></div>
                    {tour.pricing.variants ? <div><strong>{labels.vehicleChoice}</strong><ul>{tour.pricing.variants.map((variant) => <li key={variant.id}>{text(variant.title)} — {variant.status === "fixed" ? `$${variant.amountUsd} / ${locale === "ru" ? "день" : "day"}` : cartLabels.quote}</li>)}</ul></div> : null}
                  </details>
-                {tour.id === "vehicle-rental" && vehiclePackage?.pricing.variants ? <label className="route-config"><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}><option value="">{cartLabels.option}</option>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}/${locale === "ru" ? "день" : "day"}` : ` · ${cartLabels.quote}`}</option>)}</select></label> : null}
+                {tour.id === "vehicle-rental" && vehiclePackage?.pricing.variants ? <div className="route-config rental-config"><label><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}><option value="">{cartLabels.option}</option>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}/${locale === "ru" ? "день" : "day"}` : ` · ${cartLabels.quote}`}</option>)}</select></label><label><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label>{vehicleVariant ? <strong className="rental-calculation">{vehicleVariant.status === "fixed" ? `$${vehicleVariant.amountUsd}/${locale === "ru" ? "день" : "day"} × ${rentalDays} = $${rentalSubtotalUsd}` : `${rentalDays} ${locale === "ru" ? "дн. · по запросу" : "days · on request"}`}</strong> : null}</div> : null}
                 <div className="route-bottom">
                   <div className="route-price">
                     {isCraft && craftTransferFree ? <div className="craft-free-price"><span>{text(tour.price.label)}</span><strong>{labels.free}</strong><em>{collectionCopy[locale].craftIncluded}</em></div> : <strong className="route-price-primary">{text(tour.price.label)}</strong>}
@@ -584,13 +574,14 @@ export function ConciergeExperience({
         <form className="contact-form" id="contact-form" onSubmit={submitEnquiry} data-reveal>
           <div className="form-heading">
             <p className="eyebrow dark">{labels.formEyebrow}</p>
-            <h3>{selectedInterestTitle}</h3>
+            <h3>{enquiryCopy[locale].title}</h3>
             <p>{labels.formIntro}</p>
+            <div className="enquiry-summary"><span>{selectedPackages.length} {enquiryCopy[locale].journeys}</span><span>{selectedServices.length} {enquiryCopy[locale].services}</span><span>{guestCount} {enquiryCopy[locale].guests}</span>{pricedSelectedPackages.length ? <strong>{enquiryCopy[locale].total}: ${estimate.totalUsd}</strong> : null}</div>
           </div>
           {submitState.status === "success" ? (
             <div className="form-status success" role="status">
               <strong>{labels.sent}</strong>
-              <span>{labels.sentDetail} {submitState.enquiryId.slice(0, 8)}</span>
+              <span>{locale === "ru" ? "Мы свяжемся с вами в течение рабочего дня." : "We will reply within one business day."}</span>
             </div>
           ) : null}
           {submitState.status === "error" ? (
@@ -606,7 +597,7 @@ export function ConciergeExperience({
           </div>
           <div className="form-grid two">
             <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><input name="guests" type="number" min="1" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required={selectedPackages.length > 0} /></label>
-            <div className="form-plan-summary"><span>{labels.route}</span><strong>{selectedInterestTitle}</strong>{cartItemCount ? <button type="button" onClick={() => setPlannerOpen(true)}>{cartLabels.view}</button> : <a href="#services">{labels.chooseServices}</a>}</div>
+            <div className="form-plan-summary"><span>{labels.route}</span><strong>{cartItemCount ? `${selectedPackages.length} ${enquiryCopy[locale].journeys} · ${selectedServices.length} ${enquiryCopy[locale].services}` : labels.chooseRoute}</strong></div>
           </div>
           <div className="form-grid two">
             <label><span>{labels.channel}</span><select name="preferredChannel" value={preferredChannel} onChange={(event) => setPreferredChannel(event.target.value as (typeof contactChannels)[number])}>{contactChannels.map((channel) => <option key={channel}>{channel}</option>)}</select></label>
@@ -633,7 +624,6 @@ export function ConciergeExperience({
         <div className="footer-column footer-connect"><strong>{cartLabels.connect}</strong><a href={`mailto:${publicEmail}`}>{publicEmail}</a><div className="footer-socials"><a className="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a><a className="social-link" href="https://vk.com/" target="_blank" rel="noreferrer" aria-label="VK"><SocialIcon name="vk" /></a>{telegramUrl ? <a className="social-link" href={telegramUrl} target="_blank" rel="noreferrer" aria-label="Telegram"><SocialIcon name="telegram" /></a> : null}<a className="social-link" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a></div></div>
         <div className="footer-bottom"><small>© {new Date().getFullYear()} · {copy.footer.copyrightSuffix}</small><div><Link href={`/${locale}/privacy`}>{labels.footerPrivacy}</Link><Link href={`/${locale}/terms`}>{labels.footerTerms}</Link></div></div>
       </footer>
-      {collectionToast ? <div className="collection-toast" role="status" key={collectionToast.id}>{collectionToast.message}<span>✓</span></div> : null}
       {cartItemCount ? <>
         <div className="cart-dock" aria-live="polite" key={cartItemCount}>
           <button type="button" onClick={() => setPlannerOpen(true)} aria-label={cartLabels.view}>
@@ -647,8 +637,8 @@ export function ConciergeExperience({
         {cartVisible ? <div className="cart-layer" role="presentation"><button className="cart-backdrop" type="button" onClick={() => setPlannerOpen(false)} aria-label={cartLabels.close} /><aside className="cart-drawer" id="trip-planner" role="dialog" aria-modal="true" aria-labelledby="cart-title">
           <header className="cart-drawer-header"><div><p className="eyebrow">{labels.plannerEyebrow}</p><h3 id="cart-title">{cartLabels.cart}</h3><span>{cartItemCount} {cartLabels.items}</span></div><button type="button" onClick={() => setPlannerOpen(false)} aria-label={cartLabels.close}>×</button></header>
           <div className="cart-drawer-body">
-            {pricedSelectedPackages.length ? <section className="cart-section"><div className="cart-section-title"><strong>{cartLabels.journeys}</strong><span>{pricedSelectedPackages.length}</span></div><label className="cart-field"><span>{labels.guestsShort}</span><input type="number" min="1" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} /></label>{pricedSelectedPackages.map((tour) => { const collectionLabels = packageCollectionLabels(tour.id); return <div className="cart-line" key={tour.id}><div><strong>{text(tour.title)}</strong><small>{tour.id === "vehicle-rental" && vehicleVariant ? text(vehicleVariant.title) : tour.id === "craft-jewellery" ? (craftTransferFree ? cartLabels.craftFree : cartLabels.craftPaid) : text(tour.price.label)}</small>{collectionLabels.length ? <div className="cart-collection-chips">{collectionLabels.map((deal) => <span key={deal.id}>{text(deal.title)}</span>)}</div> : null}</div><span>${lineTotal(tour)}</span><button type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.remove}: ${text(tour.title)}`}>×</button></div>; })}{selectedPackageIds.includes("vehicle-rental") && vehiclePackage?.pricing.variants ? <div className="cart-config"><label><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}` : ` · ${cartLabels.quote}`}</option>)}</select></label>{vehicleVariant?.status === "fixed" ? <label><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label> : null}</div> : null}</section> : null}
-            {onRequestItemCount ? <section className="cart-section"><div className="cart-section-title"><strong>{cartLabels.services}</strong><span>{onRequestItemCount}</span></div>{onRequestTransport && vehiclePackage?.pricing.variants ? <div className="cart-line cart-line-service"><div><strong>{text(onRequestTransport.title)}</strong><select className="cart-service-option" value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}` : ` · ${cartLabels.quote}`}</option>)}</select></div><span>{cartLabels.quote}</span><button type="button" onClick={() => choosePackage(onRequestTransport.id)} aria-label={`${labels.remove}: ${text(onRequestTransport.title)}`}>×</button></div> : null}{selectedServices.length ? <div className="cart-line cart-line-service"><div><strong>{text(baliServicesCard.title)}</strong><div className="cart-service-options">{baliServicesCard.options.map((option) => <label key={option.id}><input type="checkbox" checked={selectedServiceOptionIds.includes(option.id)} onChange={() => toggleServiceOption(option.id)} /><span>{text(option.title)}</span></label>)}</div></div><span>{cartLabels.quote}</span><button type="button" onClick={toggleService} aria-label={`${labels.remove}: ${text(baliServicesCard.title)}`}>×</button></div> : null}</section> : null}
+            {pricedSelectedPackages.length ? <section className="cart-section"><div className="cart-section-title"><strong>{cartLabels.journeys}</strong><span>{pricedSelectedPackages.length}</span></div><label className="cart-field"><span>{labels.guestsShort}</span><input type="number" min="1" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} /></label>{pricedSelectedPackages.map((tour) => <div className="cart-line" key={tour.id}><div><strong>{text(tour.title)}</strong><small>{tour.id === "vehicle-rental" && vehicleVariant ? `${text(vehicleVariant.title)} · ${rentalDays} ${locale === "ru" ? "дн." : "days"}` : tour.id === "craft-jewellery" ? (craftTransferFree ? cartLabels.craftFree : cartLabels.craftPaid) : text(tour.price.label)}</small></div><span>${lineTotal(tour)}</span><button type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.remove}: ${text(tour.title)}`}>×</button></div>)}{selectedPackageIds.includes("vehicle-rental") && vehiclePackage?.pricing.variants ? <div className="cart-config"><label><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}` : ` · ${cartLabels.quote}`}</option>)}</select></label><label><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label></div> : null}</section> : null}
+            {onRequestItemCount ? <section className="cart-section"><div className="cart-section-title"><strong>{cartLabels.services}</strong><span>{onRequestItemCount}</span></div>{onRequestTransport && vehiclePackage?.pricing.variants ? <div className="cart-line cart-line-service"><div><strong>{text(onRequestTransport.title)}</strong><select className="cart-service-option" value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}` : ` · ${cartLabels.quote}`}</option>)}</select><label className="cart-service-duration"><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label></div><span>{cartLabels.quote}</span><button type="button" onClick={() => choosePackage(onRequestTransport.id)} aria-label={`${labels.remove}: ${text(onRequestTransport.title)}`}>×</button></div> : null}{selectedServices.length ? <div className="cart-line cart-line-service"><div><strong>{text(baliServicesCard.title)}</strong><div className="cart-service-options">{baliServicesCard.options.map((option) => <label key={option.id}><input type="checkbox" checked={selectedServiceOptionIds.includes(option.id)} onChange={() => toggleServiceOption(option.id)} /><span>{text(option.title)}</span></label>)}</div></div><span>{cartLabels.quote}</span><button type="button" onClick={toggleService} aria-label={`${labels.remove}: ${text(baliServicesCard.title)}`}>×</button></div> : null}</section> : null}
             {pricedSelectedPackages.length ? <section className="cart-totals"><div><span>{labels.subtotal}</span><strong>${estimate.subtotalUsd + estimate.guestSavingUsd}</strong></div>{estimate.guestSavingUsd > 0 ? <div className="saving"><span>{labels.guestSaving}</span><strong>−${estimate.guestSavingUsd}</strong></div> : null}{estimate.bundleSavingUsd > 0 ? <div className="saving"><span>{labels.saving} · {estimate.bundleRate * 100}%</span><strong>−${estimate.bundleSavingUsd}</strong></div> : null}<div className="grand"><span>{labels.estimate}</span><strong>${estimate.totalUsd}</strong></div><div><span>{labels.taxIncluded} · 1.1%</span><strong>${estimate.taxIncludedUsd.toFixed(2)}</strong></div><div><span>{labels.bookingFee}</span><strong>${estimate.bookingFeeUsd}</strong></div><div><span>{labels.balance}</span><strong>${estimate.balanceUsd}</strong></div><p>{labels.estimateNote}</p></section> : <p className="cart-quote-note">{cartLabels.services}</p>}
           </div>
           <footer className="cart-drawer-footer"><a className="button primary" href="#request" onClick={() => setPlannerOpen(false)}>{cartLabels.continue} <ArrowIcon /></a></footer>

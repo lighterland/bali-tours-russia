@@ -57,15 +57,29 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 39. Card Craft menampilkan harga normal **$10 / car** dan catatan kecil **Free transfer from Nusa Dua or Jimbaran** tepat di bawah harga.
 40. Jika itinerary memenuhi syarat, harga **$10 / car** dicoret, harga baru menjadi **Free**, dan badge **Included with your selected itinerary** tampil; penjelasan teknis pemeriksaan rute/hotel tidak ditampilkan pada card.
 41. Seluruh permukaan card Ready-made collection dapat diklik, memiliki hover/focus state yang kuat, dan dapat diaktifkan dengan keyboard Enter atau Space.
-42. Label "Select collection" tetap boleh tampil sebagai petunjuk visual, tetapi bukan satu-satunya click target.
+42. CTA collection memakai **View collection**, bukan **Select collection** atau tindakan add-to-cart.
 43. Ready-made collection adalah rekomendasi kurasi berbasis cerita, bukan target jumlah journey atau promosi diskon. Tiga tema awal: **First Time in Bali**, **Adventure & Energy**, dan **Bali Beyond the Highlights**.
 44. Collection card tidak menampilkan persentase diskon. Diskon otomatis cart tetap berlaku secara terpisah tetapi bukan pesan utama collection.
-45. Memilih collection bersifat additive: journey yang belum ada ditambahkan, journey yang sudah ada tidak diduplikasi, dan pilihan Bali Services tetap dipertahankan.
-46. Collection lain dapat ditambahkan kemudian; hasil akhirnya adalah union dari seluruh journey yang dipilih secara manual atau melalui collection.
-47. Setelah collection diklik, toast singkat tampil di atas floating cart. Card memiliki state **Added** jika semua journey masih ada dan **Partially added** jika sebagian journey dihapus.
-48. Mengklik collection **Partially added** menambahkan kembali journey yang hilang. Mengklik collection **Added** tidak membuat duplikasi dan menampilkan toast **Already in your plan**.
-49. Cart menampilkan chip asal collection pada journey terkait; satu journey dapat memiliki beberapa chip tanpa dibuat sebagai item ganda.
+45. Ready-made collection berfungsi sebagai filter katalog dan tidak menambahkan journey ke cart.
+46. Hanya satu collection filter dapat aktif. Mengklik collection lain memindahkan filter tanpa mengubah isi cart.
+47. Collection aktif memiliki visual state yang jelas dan grid journey hanya menampilkan card yang termasuk collection tersebut.
+48. Tombol **All journeys** menghapus filter dan menampilkan seluruh card kembali.
+49. Journey hanya masuk atau keluar cart melalui tindakan eksplisit pada journey card atau cart; pilihan yang sudah ada tetap aman saat filter berubah.
 50. Ritme warna halaman: `#services` warm cream, How it works dark forest, Booking & terms warm beige, Why us split image/pale green, Enquiry dark forest, dan footer hijau paling gelap.
+51. ID enquiry disimpan sebagai kebutuhan backend/admin masa depan dan bukan booking code.
+52. Reference enquiry tidak ditampilkan kepada customer dan tidak dimasukkan ke template WhatsApp selama website masih memakai handoff statis.
+53. Submit melalui WhatsApp langsung membuka pesan yang sudah disiapkan tanpa status tambahan seperti **Enquiry sent** atau **Your enquiry is ready**. Booking reference baru relevan setelah itinerary dan booking fee dikonfirmasi.
+54. Untuk rental berharga tetap, pengguna wajib memilih vehicle option dan jumlah hari langsung pada journey card sebelum **Add to trip** aktif.
+55. Jumlah hari rental tetap dapat diedit di cart dan harga ditampilkan sebagai perhitungan eksplisit, misalnya **$35/day × 4 days = $140**.
+56. Ringkasan enquiry memakai format ringkas **Transport & Rentals — [vehicle] — [n] days**.
+57. Template WhatsApp, email, dan data admin memuat vehicle, rental duration, serta rental subtotal sebagai field/baris terpisah.
+58. Untuk pilihan transport berstatus on request, rental duration tetap dibawa ke enquiry tetapi subtotal tidak dinyatakan final.
+59. Heading enquiry tetap singkat dan komersial, misalnya **Tell us about your Bali plan**, dan tidak memuat daftar nama seluruh journey/service.
+60. Di bawah heading tampil compact summary berisi jumlah journey, jumlah Bali Service, jumlah tamu, dan estimated total bila tersedia.
+61. Enquiry tidak menambahkan tombol **View selected plan** karena floating cart sudah menyediakan akses permanen ke detail pilihan.
+62. Detail lengkap pilihan tetap dibawa dalam payload dan template channel, tetapi tidak memenuhi heading atau area awal form.
+63. Seluruh kolom footer desktop dimulai dari garis atas yang sama; blok Brand tidak diberi offset vertikal berbeda dari Explore, Support, atau Connect.
+64. Collection filter hanya menyaring journey cards. Card Bali Services tetap terlihat karena bersifat optional dan berada di luar kategori collection.
 
 ## Customer flow
 
@@ -76,7 +90,9 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 5. Drawer memisahkan priced journeys dari optional services berstatus "Price on request".
 6. Total hanya menghitung journey, diskon, pajak yang berlaku, rental terpilih, serta biaya transfer Craft jika ada. Service on-request tidak masuk total.
 7. Pelanggan dapat menghapus item, mengubah opsi, atau melanjutkan ke satu enquiry yang membawa seluruh pilihan.
-8. Pelanggan juga dapat memilih seluruh Ready-made collection dengan menekan area mana pun pada card; journey baru digabungkan secara deduplicated sementara journey lama dan Bali Services dipertahankan.
+8. Pelanggan dapat memakai Ready-made collection sebagai filter rekomendasi, lalu memilih journey satu per satu. Tombol **All journeys** memulihkan seluruh katalog.
+9. Pada rental, pelanggan memilih kendaraan dan jumlah hari sebelum menambahkan item; konfigurasi dan subtotal dapat ditinjau serta diedit kembali di cart.
+10. Saat melanjutkan ke enquiry, pelanggan melihat heading singkat dan compact summary; detail plan tetap tersedia melalui floating cart.
 
 ## Edge cases
 
@@ -90,8 +106,11 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 - Hanya satu card Transport & Rentals; tidak ada card service scooter, car, atau minivan yang redundan.
 - Hanya satu card Bali Services di grid `#services`; tidak ada section layanan kedua atau card terpisah untuk tiap request type.
 - Memilih beberapa request type tidak membuat beberapa baris service terpisah di cart.
-- Memilih beberapa Ready-made collection menghasilkan union journeys tanpa menghapus pilihan lama atau Bali Services.
-- Menghapus sebagian journey dari sebuah collection mengubah state card menjadi Partially added.
+- Mengganti collection filter tidak menambah, menghapus, atau mengubah item yang sudah berada di cart.
+- Hanya satu filter aktif; **All journeys** mengembalikan katalog penuh.
+- Bali Services tetap terlihat ketika collection filter aktif.
+- Rental fixed-price tanpa vehicle option atau jumlah hari valid tidak dapat ditambahkan.
+- Rental on-request membawa jumlah hari tetapi tidak menampilkan subtotal seolah sudah final.
 
 ## Acceptance criteria
 
@@ -102,9 +121,13 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 - Card katalog memiliki tinggi, alignment, dan posisi CTA yang konsisten.
 - Card Craft beralih dari $10/car menjadi harga dicoret + Free ketika itinerary eligible, dengan note lokasi yang ringkas.
 - Footer mengikuti struktur empat kolom dengan logo dan tagline tersusun sebagai satu blok rapi serta bar bawah copyright/Privacy/Terms.
-- Collection card menjual cerita rekomendasi, menjadi click target yang aksesibel, bersifat additive/deduplicated, dan memiliki toast serta state Added/Partially added.
+- Keempat kolom footer sejajar atas pada desktop tanpa offset khusus pada Brand.
+- Collection card menjual cerita rekomendasi dan menjadi click target yang aksesibel; satu filter aktif menyaring grid tanpa mengubah cart, sedangkan **All journeys** memulihkan katalog penuh.
+- Collection filter tidak menyembunyikan card Bali Services.
 - Pergantian warna antar-section tetap memiliki ritme terang–gelap setelah section Bali Services terpisah dihapus.
 - Payload enquiry mempertahankan journey, opsi transport, Craft, service on-request, dan detail pengguna sebagai data terstruktur.
+- Card, cart, WhatsApp, email, dan payload admin menampilkan vehicle serta rental duration secara konsisten; subtotal hanya final untuk opsi fixed-price.
+- Heading enquiry tidak pernah berubah menjadi daftar panjang; compact summary menggantikan daftar tersebut tanpa CTA yang menduplikasi floating cart.
 - Copy RU dan EN memiliki perilaku serta hirarki yang sama; copy Rusia melewati review penutur fasih sebelum publikasi.
 
 ## Definition of done

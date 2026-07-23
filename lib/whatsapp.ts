@@ -5,14 +5,21 @@ type WhatsAppDraft = {
   pickup?: string;
   notes?: string;
   language?: "ru" | "en";
+  vehicle?: string;
+  rentalDays?: number;
+  rentalSubtotalUsd?: number;
 };
 
 const lineValue = (value?: string) => value?.trim() || "—";
 
 export function buildBookingMessage(draft: WhatsAppDraft) {
+  const rentalLines = draft.vehicle ? draft.language === "en"
+    ? [`Vehicle: ${draft.vehicle}`, `Rental duration: ${draft.rentalDays || 1} days`, `Rental subtotal: ${draft.rentalSubtotalUsd === undefined ? "On request" : `$${draft.rentalSubtotalUsd}`}`]
+    : [`Транспорт: ${draft.vehicle}`, `Срок аренды: ${draft.rentalDays || 1} дн.`, `Сумма аренды: ${draft.rentalSubtotalUsd === undefined ? "По запросу" : `$${draft.rentalSubtotalUsd}`}`]
+    : [];
   return draft.language === "en"
-    ? ["Hello! I would like to plan a Bali trip.", "", `Selected plan: ${lineValue(draft.packageTitle)}`, `Date: ${lineValue(draft.date)}`, `Guests: ${lineValue(draft.guests)}`, `Hotel or area: ${lineValue(draft.pickup)}`, `Requests: ${lineValue(draft.notes)}`, "", "Please check availability and confirm the plan."].join("\n")
-    : ["Здравствуйте! Я хочу спланировать поездку на Бали.", "", `Выбранный план: ${lineValue(draft.packageTitle)}`, `Дата: ${lineValue(draft.date)}`, `Количество гостей: ${lineValue(draft.guests)}`, `Отель или район: ${lineValue(draft.pickup)}`, `Пожелания: ${lineValue(draft.notes)}`, "", "Пожалуйста, проверьте доступность и подтвердите программу."].join("\n");
+    ? ["Hello! I would like to plan a Bali trip.", "", `Selected plan: ${lineValue(draft.packageTitle)}`, ...rentalLines, `Date: ${lineValue(draft.date)}`, `Guests: ${lineValue(draft.guests)}`, `Hotel or area: ${lineValue(draft.pickup)}`, `Requests: ${lineValue(draft.notes)}`, "", "Please check availability and confirm the plan."].join("\n")
+    : ["Здравствуйте! Я хочу спланировать поездку на Бали.", "", `Выбранный план: ${lineValue(draft.packageTitle)}`, ...rentalLines, `Дата: ${lineValue(draft.date)}`, `Количество гостей: ${lineValue(draft.guests)}`, `Отель или район: ${lineValue(draft.pickup)}`, `Пожелания: ${lineValue(draft.notes)}`, "", "Пожалуйста, проверьте доступность и подтвердите программу."].join("\n");
 }
 
 export function buildWhatsAppLink(number: string, draft: WhatsAppDraft) {
