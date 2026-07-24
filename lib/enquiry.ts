@@ -13,10 +13,11 @@ export const enquirySchema = z
       z.literal(""),
     ]),
     email: z.union([z.string().trim().email(), z.literal("")]),
+    contactHandle: z.string().trim().max(200).default(""),
     preferredChannel: z.enum(contactChannels),
     requestType: z.enum(["planned", "open"]).default("planned"),
     date: z.string().trim().max(100),
-    guests: z.string().trim().max(20),
+    guests: z.string().trim().regex(/^[1-9]\d{0,2}$/, "Guest count is required"),
     packageSelections: z.array(z.object({ packageId: z.string().trim().min(1).max(100), optionId: z.string().trim().max(100).optional(), quantity: z.number().int().min(1).max(365).optional() })).max(20).default([]),
     serviceSelections: z.array(z.object({ serviceId: z.string().trim().min(1).max(100), optionIds: z.array(z.string().trim().min(1).max(100)).min(1).max(10) })).max(20).default([]),
     pickup: z.string().trim().max(200),
@@ -51,9 +52,6 @@ export const enquirySchema = z
     if (!isServiceEnquiry && !isOpenRequest && !value.date) {
       context.addIssue({ code: "custom", message: "Date is required for journeys", path: ["date"] });
     }
-    if (!isServiceEnquiry && !isOpenRequest && !value.guests) {
-      context.addIssue({ code: "custom", message: "Guest count is required for journeys", path: ["guests"] });
-    }
     if (value.preferredChannel === "Email" && !value.email) {
       context.addIssue({
         code: "custom",
@@ -63,6 +61,9 @@ export const enquirySchema = z
     }
     if (value.preferredChannel === "WhatsApp" && !value.whatsapp) {
       context.addIssue({ code: "custom", message: "WhatsApp is required when it is the preferred channel", path: ["whatsapp"] });
+    }
+    if ((value.preferredChannel === "Telegram" || value.preferredChannel === "VK") && !value.contactHandle) {
+      context.addIssue({ code: "custom", message: "A username or profile link is required for this channel", path: ["contactHandle"] });
     }
   });
 

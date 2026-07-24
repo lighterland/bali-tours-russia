@@ -7,16 +7,16 @@ Alur ini menjaga development tetap berjalan tanpa mengklaim proses partner yang 
 ## Alur utama
 
 1. **Discover** — pelanggan melihat paket kandidat, harga indikatif USD, inclusions, exclusions, dan CTA enquiry.
-2. **Enquire** — pelanggan memakai `wa.me` dengan template Rusia atau form website. Nomor WhatsApp wajib; email opsional kecuali menjadi channel utama.
+2. **Enquire** — pelanggan memakai channel pilihan. Field kontak yang relevan wajib diisi dan jumlah tamu selalu wajib.
 3. **Qualify** — Partner Pasar Rusia mengumpulkan tanggal/rentang tanggal, peserta, pickup, paket, kebutuhan khusus, dan channel pilihan.
 4. **Prepare quote** — sistem/tim membuat quotation manual dengan harga USD, masa berlaku, inclusions, exclusions, dan komponen opsional.
-5. **Check availability** — pada pilot selalu berstatus `confirmation required`. Partner Operasional Bali atau supplier terkait dikonfirmasi sebelum pelanggan diminta menyelesaikan booking nyata.
+5. **Confirm details** — Partner Pasar Rusia mengonfirmasi plan, total USD, serta instruksi booking fee 20% tanpa meminta atau menjanjikan final itinerary.
 6. **Customer accepts** — pelanggan menyetujui quotation serta syarat pembatalan/refund yang berlaku.
-7. **Payment and confirmation** — metode, penerima dana, status pembayaran, dan settlement belum ditetapkan dalam tiket ini. Tidak ada pembayaran nyata pada platform pilot.
+7. **Payment and confirmation** — pembayaran berlangsung di luar website dan diverifikasi manual. Booking dinyatakan confirmed setelah booking fee 20% terverifikasi.
 8. **Create booking summary** — catat pelanggan, paket, tanggal, peserta, pickup, kebutuhan khusus, harga, kurs, inclusions/exclusions, payment status, dan verification status.
-9. **Operational handoff** — Partner Operasional Bali menerima ringkasan booking yang lengkap dan menyatakan diterima. Trigger waktu final masih menunggu review partner.
+9. **Operational handoff** — maksimal 24 jam setelah fee terverifikasi, Partner Pasar Rusia memberi tahu customer lalu membuat grup WhatsApp bertiga dan mengirim data minimum yang diperlukan kepada Partner Operasional Bali.
 10. **Reconfirm** — tim mengonfirmasi driver/guide, kendaraan, pickup, perubahan, dan kontak darurat sebelum hari tur.
-11. **Deliver** — Partner Operasional Bali menangani pelaksanaan serta insiden lapangan; pelanggan tetap memakai jalur satu pintu.
+11. **Deliver** — Partner Operasional Bali menangani koordinasi pickup, pelaksanaan, serta insiden lapangan; Partner Pasar Rusia tetap pasif di grup sebagai escalation contact sampai perjalanan selesai.
 12. **Aftercare** — catat completion, keluhan/refund bila ada, rekonsiliasi, serta permintaan review hanya untuk booking nyata.
 
 ## Status booking minimum untuk development
@@ -28,9 +28,33 @@ Cabang yang harus didukung kemudian: `cancelled by customer`, `cancelled by oper
 ## Asumsi pilot yang tidak menjadi komitmen
 
 - Tidak ada instant booking atau inventory real-time.
-- Tidak ada payment rail resmi dalam pilot.
+- Tidak ada payment rail resmi di website; pembayaran dan verifikasinya tetap manual.
 - Availability dan supplier dikonfirmasi manual.
-- Kontak darurat, response time, handoff cutoff, dan backup owner masih menunggu partner.
+- Kontak darurat dan backup owner masih menunggu partner; handoff customer dilakukan maksimal 24 jam setelah fee terverifikasi.
+
+## Template pemberitahuan sebelum handoff
+
+Kirim setelah booking fee terverifikasi dan sebelum kontak atau detail perjalanan dibagikan kepada partner.
+
+**English**
+
+> Your booking is confirmed. I’ll now introduce you to our local Bali operations partner in a WhatsApp group so they can coordinate your pickup and trip arrangements. I’ll stay in the group and help if anything needs escalation.
+
+**Russian — wajib direview penutur fasih sebelum publikasi**
+
+> Ваше бронирование подтверждено. Сейчас я создам общий чат и представлю нашего операционного партнёра на Бали, который будет координировать встречу и детали поездки. Я останусь в группе и подключусь, если потребуется помощь.
+
+## Template pembuka grup handoff
+
+> Booking handoff — [customer name]
+>
+> - Travel dates: [dates]
+> - Guests: [count]
+> - Hotel or pickup point: [location or “to be confirmed”]
+> - Confirmed plan: [plan]
+> - Relevant special requests: [requests or “none”]
+> - Local operations: [partner name]
+> - Escalation contact: Erland
 - Pembatalan operator mengikuti prinsip refund penuh; detail penalti pembatalan pelanggan tetap menunggu supplier/partner.
 
 ## Gerbang menuju penggunaan nyata

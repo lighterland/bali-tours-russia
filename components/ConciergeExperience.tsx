@@ -74,9 +74,9 @@ const ui = {
     fillForm: "Заполнить форму", openWhatsApp: "Открыть WhatsApp", otherChannels: "Другие каналы:",
     formEyebrow: "Заявка", chooseRoute: "Открытый запрос по Бали", emptyPlan: "Ещё не выбрали? Расскажите, какая поездка вам нужна — мы предложим подходящий план.", formIntro: "Укажите даты и детали запроса. Мы свяжемся с вами, уточним условия и поможем со следующим шагом.",
     sent: "Заявка отправлена.", sentDetail: "Ориентир ответа: в течение рабочего дня. Номер:", sendError: "Не получилось отправить.",
-    name: "Имя *", whatsapp: "WhatsApp с кодом страны", date: "Приезд или начало поездки *", serviceDate: "Приезд или желаемая дата (необязательно)", datePlaceholder: "", endDate: "Отъезд или окончание поездки (необязательно)",
-    guests: "Количество гостей *", serviceGuests: "Количество человек (необязательно)", route: "Что вас интересует?", journeysGroup: "Маршруты", servicesGroup: "Услуги на Бали · индивидуальный расчёт", channel: "Как связаться *", optional: "необязательно", pickup: "Отель или район",
-    pickupPlaceholder: "Можно сообщить позже", language: "Язык общения *", wishes: "Пожелания", wishesPlaceholder: "Темп, интересы, особые потребности",
+    name: "Имя *", whatsapp: "Номер WhatsApp", date: "Приезд или начало поездки *", serviceDate: "Приезд или желаемая дата (необязательно)", datePlaceholder: "", endDate: "Отъезд или окончание поездки (необязательно)",
+    guests: "Количество гостей *", serviceGuests: "Количество гостей *", route: "Что вас интересует?", journeysGroup: "Маршруты", servicesGroup: "Услуги на Бали · индивидуальный расчёт", channel: "Предпочтительный способ связи *", optional: "необязательно", pickup: "Отель или место встречи (необязательно)",
+    pickupPlaceholder: "Можно уточнить позже", language: "Язык общения *", wishes: "Что ещё нам стоит знать?", wishesPlaceholder: "Темп, интересы, особые потребности",
     consent: "Я согласен(-на) на обработку данных заявки и обратную связь.", details: "Подробнее", sending: "Отправляем…", send: "Отправить заявку",
     footerRoutes: "Маршруты", footerContact: "Контакты", footerPrivacy: "Данные заявки", footerTerms: "Бронирование и оплата", offerCode: "Код предложения", errorMessage: "Не удалось отправить запрос.", detailsLabel: "Подробнее", includedLabel: "Что включено", routeLabel: "Маршрут и остановки", priceLabel: "Условия цены",
     add: "Добавить в план", added: "В плане", remove: "Удалить", plannerEyebrow: "Ваш план", plannerTitle: "Соберите поездку", plannerEmpty: "Добавляйте маршруты — итог появится здесь.", subtotal: "До скидок", saving: "Вы экономите", estimate: "Итого", bookingFee: "Для подтверждения · 20%", balance: "Остаток на Бали · 80%", guestsShort: "Гостей", rentalDays: "Дней аренды", vehicleChoice: "Вариант транспорта", estimateNote: "Итог указан в USD с учётом скидок и применимых налогов. Внесите 20% для подтверждения, оставшиеся 80% оплачиваются на Бали.", taxIncluded: "Включая применимый PPN", guestSaving: "Скидка для компании", free: "Бесплатно", expandPlan: "Открыть план", collapsePlan: "Свернуть", selectedCount: "выбрано", craftLocked: "Добавьте любой платный маршрут", chooseServices: "Выберите нужные сервисы", servicesSelected: "Сервисы в заявке", bestDeals: "Готовые подборки", selectDeal: "Выбрать подборку",
@@ -88,9 +88,9 @@ const ui = {
     fillForm: "Complete the form", openWhatsApp: "Open WhatsApp", otherChannels: "Other channels:",
     formEyebrow: "Enquiry", chooseRoute: "Open Bali request", emptyPlan: "Not sure what to choose yet? Tell us the kind of trip you want and we’ll shape a suitable plan.", formIntro: "Share your dates and request details. We will contact you, confirm the arrangements, and help with the next step.",
     sent: "Enquiry sent.", sentDetail: "Expected reply: within one business day. Reference:", sendError: "Unable to send.",
-    name: "Name *", whatsapp: "WhatsApp with country code", date: "Arrival or journey start *", serviceDate: "Arrival or preferred date (optional)", datePlaceholder: "", endDate: "Departure or trip end (optional)",
-    guests: "Number of guests *", serviceGuests: "People or group size (optional)", route: "What are you interested in?", journeysGroup: "Journeys", servicesGroup: "Bali services · tailored quotation", channel: "Preferred contact *", optional: "optional", pickup: "Hotel or area",
-    pickupPlaceholder: "You can tell us later", language: "Communication language *", wishes: "Your wishes", wishesPlaceholder: "Pace, interests, special requirements",
+    name: "Name *", whatsapp: "WhatsApp number", date: "Arrival or journey start *", serviceDate: "Arrival or preferred date (optional)", datePlaceholder: "", endDate: "Departure or trip end (optional)",
+    guests: "Number of guests *", serviceGuests: "Number of guests *", route: "What are you interested in?", journeysGroup: "Journeys", servicesGroup: "Bali services · tailored quotation", channel: "Preferred contact *", optional: "optional", pickup: "Hotel or pickup area (optional)",
+    pickupPlaceholder: "You can confirm this later", language: "Communication language *", wishes: "Anything else we should know?", wishesPlaceholder: "Pace, interests, special requirements",
     consent: "I agree to the processing of my enquiry data and to being contacted.", details: "Learn more", sending: "Sending…", send: "Send enquiry",
     footerRoutes: "Journeys", footerContact: "Contact", footerPrivacy: "Enquiry data", footerTerms: "Booking & payment", offerCode: "Offer code", errorMessage: "Unable to send the enquiry.", detailsLabel: "View details", includedLabel: "What's included", routeLabel: "Route and stops", priceLabel: "Price terms",
     add: "Add to trip", added: "In your plan", remove: "Remove", plannerEyebrow: "Your plan", plannerTitle: "Build your Bali trip", plannerEmpty: "Add journeys and your total will appear here.", subtotal: "Before discounts", saving: "You save", estimate: "Total", bookingFee: "To confirm · 20%", balance: "Balance in Bali · 80%", guestsShort: "Guests", rentalDays: "Rental days", vehicleChoice: "Vehicle option", estimateNote: "Your USD total includes discounts and applicable Indonesian taxes. Pay 20% to confirm; the remaining 80% is paid in Bali.", taxIncluded: "Including applicable VAT", guestSaving: "Group saving", free: "Free", expandPlan: "Open plan", collapsePlan: "Collapse", selectedCount: "selected", craftLocked: "Add any paid journey first", chooseServices: "Choose the services you need", servicesSelected: "Services in your enquiry", bestDeals: "Ready-made collections", selectDeal: "Select collection",
@@ -121,12 +121,14 @@ const confirmationCopy = {
   ru: {
     dateNote: "Укажите период пребывания на Бали или желаемую дату начала. Распределять даты по каждому маршруту не нужно.",
     title: "Что произойдёт дальше",
-    steps: ["Отправьте выбранный план", "Получите программу и реквизиты для оплаты", "Внесите 20% — бронирование подтверждено"],
+    steps: ["Отправьте план поездки", "Подтвердите детали и внесите 20%", "Познакомьтесь с локальной командой на Бали"],
+    partnerNote: "Мы представим партнёра в течение 24 часов после подтверждения оплаты.",
   },
   en: {
     dateNote: "Share your Bali travel window or preferred start date. You do not need to assign dates to individual journeys.",
     title: "What happens next",
-    steps: ["Send your selected plan", "Receive the itinerary and payment details", "Pay 20% — your booking is confirmed"],
+    steps: ["Send your Bali plan", "Confirm the details and pay 20%", "Meet your local Bali team"],
+    partnerNote: "Introduced within 24 hours after payment confirmation.",
   },
 } as const;
 
@@ -192,7 +194,7 @@ export function ConciergeExperience({
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
   const planStorageReady = useRef(false);
-  const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", endDate: "", guests: "2", pickup: "", notes: "" });
+  const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", endDate: "", guests: "", pickup: "", notes: "" });
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
   const [showHeroVideo, setShowHeroVideo] = useState(false);
   const copy = siteCopy[locale];
@@ -331,7 +333,7 @@ export function ConciergeExperience({
         selectedServiceOptionIds,
         vehicleVariantId,
         rentalDays,
-        guests: whatsAppDraft.guests || "2",
+        guests: whatsAppDraft.guests,
       }));
     } catch {
       // Storage is a convenience only; booking must not depend on it.
@@ -369,7 +371,6 @@ export function ConciergeExperience({
   }
 
   function choosePackage(id: string) {
-    setWhatsAppDraft((value) => ({ ...value, guests: value.guests || "2" }));
     const isSelected = selectedPackageIds.includes(id);
     if (isSelected) {
       const withoutItem = selectedPackageIds.filter((item) => item !== id);
@@ -396,8 +397,9 @@ export function ConciergeExperience({
     const payload = {
       enquiryId,
       name: data.get("name"),
-      whatsapp: data.get("whatsapp"),
-      email: data.get("email"),
+      whatsapp: String(data.get("whatsapp") || ""),
+      email: String(data.get("email") || ""),
+      contactHandle: String(data.get("contactHandle") || ""),
       preferredChannel: data.get("preferredChannel"),
       requestType: cartItemCount ? "planned" : "open",
       date: [data.get("date"), data.get("endDate")].filter(Boolean).join(" — "),
@@ -438,7 +440,7 @@ export function ConciergeExperience({
         setSubmitState({ status: "idle" });
         form.reset();
         setPreferredChannel("WhatsApp");
-        setWhatsAppDraft({ date: "", endDate: "", guests: "2", pickup: "", notes: "" });
+        setWhatsAppDraft({ date: "", endDate: "", guests: "", pickup: "", notes: "" });
         return;
       }
       const response = await fetch("/api/enquiries", {
@@ -460,7 +462,7 @@ export function ConciergeExperience({
       }
       form.reset();
       setPreferredChannel("WhatsApp");
-      setWhatsAppDraft({ date: "", endDate: "", guests: "2", pickup: "", notes: "" });
+      setWhatsAppDraft({ date: "", endDate: "", guests: "", pickup: "", notes: "" });
     } catch (error) {
       setSubmitState({
         status: "error",
@@ -641,7 +643,7 @@ export function ConciergeExperience({
             <p className="eyebrow dark">{labels.formEyebrow}</p>
             <h3>{enquiryCopy[locale].title}</h3>
             <p>{labels.formIntro}</p>
-            <div className={`enquiry-summary${cartItemCount ? "" : " is-open-request"}`}>{cartItemCount ? <><span>{selectedPackages.length} {enquiryCopy[locale].journeys}</span><span>{selectedServices.length} {enquiryCopy[locale].services}</span><span>{guestCount} {enquiryCopy[locale].guests}</span>{pricedSelectedPackages.length ? <strong>{enquiryCopy[locale].total}: ${estimate.totalUsd}</strong> : null}</> : <strong>{enquiryCopy[locale].open}</strong>}</div>
+            <div className={`enquiry-summary${cartItemCount ? "" : " is-open-request"}`}>{cartItemCount ? <><span>{selectedPackages.length} {enquiryCopy[locale].journeys}</span>{selectedServices.length ? <span>{selectedServices.length} {enquiryCopy[locale].services}</span> : null}{whatsAppDraft.guests ? <span>{guestCount} {enquiryCopy[locale].guests}</span> : null}{pricedSelectedPackages.length ? <strong>{enquiryCopy[locale].total}: ${estimate.totalUsd}</strong> : null}</> : <><strong>{enquiryCopy[locale].open}</strong>{whatsAppDraft.guests ? <span>{guestCount} {enquiryCopy[locale].guests}</span> : null}<span>{whatsAppDraft.date ? (locale === "ru" ? "Даты указаны" : "Dates added") : (locale === "ru" ? "Гибкие даты" : "Dates flexible")}</span></>}</div>
           </div>
           {submitState.status === "success" ? (
             <div className="form-status success" role="status">
@@ -652,35 +654,31 @@ export function ConciergeExperience({
           {submitState.status === "error" ? (
             <div className="form-status error" role="alert"><strong>{labels.sendError}</strong><span>{submitState.message}</span></div>
           ) : null}
-          <div className="form-grid two">
+          <div className="form-grid two form-grid-primary">
             <label><span>{labels.name}</span><input name="name" autoComplete="name" required minLength={2} /></label>
-            <label><span>{labels.whatsapp} {preferredChannel === "WhatsApp" ? "*" : `(${labels.optional})`}</span><input name="whatsapp" autoComplete="tel" inputMode="tel" placeholder="+7 …" required={preferredChannel === "WhatsApp"} pattern="\+?[1-9][0-9]{7,14}" /></label>
+            <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><input name="guests" type="number" min="1" max="999" placeholder={locale === "ru" ? "Количество гостей" : "Number of guests"} value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required /></label>
           </div>
           <div className="form-grid two">
             <label><span>{selectedPackages.length ? labels.date : labels.serviceDate}</span><input ref={startDateRef} name="date" type="date" value={whatsAppDraft.date} onChange={(event) => { const date = event.target.value; if (endDateRef.current) endDateRef.current.min = date || localIsoDate(new Date()); setWhatsAppDraft((value) => ({ ...value, date, endDate: value.endDate && value.endDate < date ? "" : value.endDate })); }} required={selectedPackages.length > 0} /></label>
             <label><span>{labels.endDate}</span><input ref={endDateRef} name="endDate" type="date" min={whatsAppDraft.date || undefined} value={whatsAppDraft.endDate} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, endDate: event.target.value }))} /></label>
           </div>
           <p className="date-guidance">{confirmationCopy[locale].dateNote}</p>
-          <div className="form-grid two">
-            <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><input name="guests" type="number" min="1" max="999" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required={selectedPackages.length > 0} /></label>
-            <div className={`form-plan-summary${cartItemCount ? "" : " is-open-request"}`}><span>{labels.route}</span><strong>{cartItemCount ? `${selectedPackages.length} ${enquiryCopy[locale].journeys} · ${selectedServices.length} ${enquiryCopy[locale].services}` : labels.chooseRoute}</strong>{cartItemCount ? null : <small>{labels.emptyPlan}</small>}</div>
-          </div>
-          <div className="form-grid two">
+          <div className="form-grid two form-grid-contact">
             <label><span>{labels.channel}</span><select name="preferredChannel" value={preferredChannel} onChange={(event) => setPreferredChannel(event.target.value as (typeof contactChannels)[number])}>{contactChannels.map((channel) => <option key={channel}>{channel}</option>)}</select></label>
-            <label><span>Email {preferredChannel === "Email" ? "*" : `(${labels.optional})`}</span><input name="email" type="email" autoComplete="email" required={preferredChannel === "Email"} /></label>
+            {preferredChannel === "WhatsApp" ? <label><span>{labels.whatsapp} *</span><input name="whatsapp" autoComplete="tel" inputMode="tel" placeholder="+7 …" required pattern="\+?[1-9][0-9]{7,14}" /></label> : null}
+            {preferredChannel === "Email" ? <label><span>Email *</span><input name="email" type="email" autoComplete="email" required /></label> : null}
+            {preferredChannel === "Telegram" || preferredChannel === "VK" ? <label><span>{preferredChannel} {locale === "ru" ? "имя пользователя или ссылка" : "username or profile link"} *</span><input name="contactHandle" required placeholder={preferredChannel === "Telegram" ? "@username" : "https://vk.com/…"} /></label> : null}
           </div>
-          <div className="form-grid two">
-            <label><span>{labels.pickup}</span><input name="pickup" autoComplete="street-address" placeholder={labels.pickupPlaceholder} value={whatsAppDraft.pickup} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, pickup: event.target.value }))} /></label>
-          </div>
+          <label><span>{labels.pickup}</span><input name="pickup" autoComplete="street-address" placeholder={labels.pickupPlaceholder} value={whatsAppDraft.pickup} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, pickup: event.target.value }))} /></label>
           <input type="hidden" name="language" value={language} />
           <label><span>{labels.wishes}</span><textarea name="notes" maxLength={1500} placeholder={labels.wishesPlaceholder} value={whatsAppDraft.notes} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, notes: event.target.value }))} /></label>
           <label className="consent"><input type="checkbox" name="consent" required /><span>{labels.consent} <Link href={`/${locale}/privacy`}>{labels.details}</Link>.</span></label>
-          <div className="confirmation-flow"><strong>{confirmationCopy[locale].title}</strong><ol>{confirmationCopy[locale].steps.map((step) => <li key={step}>{step}</li>)}</ol></div>
+          <div className="confirmation-flow"><strong>{confirmationCopy[locale].title}</strong><ol>{confirmationCopy[locale].steps.map((step, index) => <li key={step}><span>{step}</span>{index === 2 ? <small>{confirmationCopy[locale].partnerNote}</small> : null}</li>)}</ol></div>
           <label className="honeypot" aria-hidden="true"><span>Website</span><input name="website" tabIndex={-1} autoComplete="off" /></label>
           <input type="hidden" name="source" value="website-home" />
-          <button className="button submit-button" type="submit" disabled={submitState.status === "submitting"}>
+          <div className="submit-row"><button className="button submit-button" type="submit" disabled={submitState.status === "submitting"}>
             {submitState.status === "submitting" ? labels.sending : labels.send} <ArrowIcon />
-          </button>
+          </button></div>
         </form>
       </section>
 

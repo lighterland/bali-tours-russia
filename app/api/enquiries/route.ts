@@ -46,6 +46,7 @@ function renderEmail(enquiry: EnquiryPayload) {
         ${row("Name", enquiry.name)}
         ${row("WhatsApp", enquiry.whatsapp)}
         ${row("Preferred channel", enquiry.preferredChannel)}
+        ${row("Channel username / profile", enquiry.contactHandle)}
         ${row("Request type", enquiry.requestType === "open" ? "Open Bali request" : "Selected plan")}
         ${row("Email", enquiry.email)}
         ${row("Date / period", enquiry.date)}

@@ -143,8 +143,12 @@ Rekomendasi kurasi berbasis cerita yang berfungsi sebagai filter journey. Hanya 
 _Hindari_: Target diskon, menambahkan journey otomatis, mengubah cart, menyembunyikan Bali Services
 
 **Layanan satu pintu**:
-Model komunikasi ketika pelanggan menggunakan satu nomor WhatsApp bisnis, sementara Partner Pasar Rusia meneruskan masalah kepada penanggung jawab internal yang tepat tanpa meminta pelanggan mengoordinasikan banyak pihak.
-_Hindari_: Semua masalah ditangani Erland, grup supplier-pelanggan
+Model komunikasi sebelum booking terkonfirmasi ketika pelanggan menggunakan satu nomor WhatsApp bisnis dan Partner Pasar Rusia menangani enquiry, detail paket, serta pembayaran. Setelah booking fee 20% terverifikasi, customer diperkenalkan secara transparan kepada Partner Operasional Bali melalui grup WhatsApp bertiga untuk koordinasi pickup dan fulfilment; Partner Pasar Rusia tetap berada di grup sebagai escalation contact sampai perjalanan selesai.
+_Hindari_: Handoff sebelum pembayaran, membagikan kontak tanpa pemberitahuan, meminta pelanggan mencari atau mengoordinasikan supplier sendiri
+
+**Handoff operasional transparan**:
+Peralihan koordinasi setelah booking fee terverifikasi melalui grup WhatsApp customer, Partner Pasar Rusia, dan Partner Operasional Bali. Handoff dilakukan maksimal 24 jam setelah konfirmasi pembayaran dan hanya membawa data minimum yang diperlukan untuk fulfilment.
+_Hindari_: Final itinerary sebagai prasyarat handoff, handoff diam-diam, membagikan data yang tidak relevan
 
 **Dukungan administratif**:
 Tanggung jawab Partner Pasar Rusia atas enquiry, pemilihan paket, quotation, pembayaran, perubahan booking, dan keluhan administratif dalam jam layanan normal.

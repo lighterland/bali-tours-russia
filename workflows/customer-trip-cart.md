@@ -91,6 +91,32 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 73. Template WhatsApp membawa vehicle option dan rental duration, tetapi tidak menampilkan rental subtotal terpisah karena total plan sudah tersedia.
 74. Vehicle option dan rental days di cart ditempatkan di dalam item Transport & Rentals yang sama, tepat bersama line totalnya.
 75. Floating cart memakai compact dock di sisi kanan dan tidak lagi membentang hampir sepanjang viewport; progres diskon dipindahkan ke drawer.
+76. Setelah booking fee 20% terverifikasi, operator melakukan handoff transparan melalui grup WhatsApp yang berisi customer, operator, dan partner operasional Bali.
+77. Sebelum membagikan kontak atau detail perjalanan, customer diberi tahu bahwa partner lokal akan menangani penjemputan dan operasional di Bali.
+78. Handoff hanya membawa data minimum yang diperlukan: nama, tanggal perjalanan, jumlah tamu, hotel atau pickup point, paket terkonfirmasi, dan kebutuhan khusus yang relevan.
+79. Partner mengambil alih koordinasi operasional setelah handoff; operator tetap berada di grup secara pasif sampai perjalanan selesai dan menjadi escalation contact jika terjadi kendala.
+80. Kontak dan detail perjalanan customer tidak diberikan kepada partner sebelum booking fee terverifikasi atau tanpa pemberitahuan kepada customer.
+81. Grup WhatsApp dan perkenalan partner dibuat maksimal 24 jam setelah booking fee terverifikasi; detail pickup final dapat dilengkapi kemudian mendekati tanggal perjalanan.
+82. Form tetap menampilkan **What happens next** sebagai reassurance ringkas, bukan tiga kartu besar yang dominan.
+83. Tiga langkah customer-facing adalah **Send your Bali plan**, **Confirm the details and pay 20%**, dan **Meet your local Bali team**, dengan catatan bahwa partner diperkenalkan maksimal 24 jam setelah pembayaran dikonfirmasi.
+84. Copy **Receive the itinerary and payment details** serta permintaan WhatsApp **Please send the final itinerary** dihapus karena tidak sesuai dengan handoff operasional yang sebenarnya.
+85. Form enquiry tidak menambahkan checkbox kedua khusus partner handoff; consent utama tetap mencakup pemrosesan enquiry dan kontak customer.
+86. Setelah pembayaran terverifikasi dan sebelum grup dibuat, customer menerima pemberitahuan singkat bahwa partner operasional lokal akan diperkenalkan untuk mengatur pickup dan perjalanan.
+87. Kebijakan privasi menjelaskan bahwa data booking minimum dapat dibagikan kepada partner operasional hanya untuk memenuhi layanan yang sudah dikonfirmasi.
+88. Field lokasi memakai label **Hotel or pickup area (optional)** dan helper **You can confirm this later.**
+89. Lokasi yang belum diketahui tidak memblokir enquiry; partner dapat melengkapinya di grup setelah booking dikonfirmasi.
+90. Form hanya menampilkan field kontak yang relevan dengan preferred channel: nomor untuk WhatsApp, email untuk Email, dan username atau profile link untuk Telegram/VK.
+91. Field kontak dari channel lain disembunyikan agar form lebih ringkas; perubahan channel mengganti field aktif tanpa membuat field yang tidak relevan menjadi wajib.
+92. **People or group size** wajib diisi dengan minimum satu orang dan tidak memakai nilai default otomatis.
+93. Field jumlah tamu memakai placeholder **Number of guests** agar angka contoh tidak tersimpan sebagai data customer.
+94. Kartu besar **What are you interested in?** dihapus dari grid form dan diganti compact summary satu baris di bawah intro.
+95. Empty enquiry memakai summary seperti **Open Bali request · [n] guests · Dates flexible**; plan terpilih memakai jumlah journey, jumlah tamu, dan total yang tersedia.
+96. Compact summary tidak mengulang detail item karena rincian lengkap tetap tersedia melalui cart dock.
+97. CTA **Send enquiry** di desktop memakai lebar sekitar 260–320 px dan ditempatkan di kanan bawah form; pada mobile tetap full width.
+98. Tinggi CTA sekitar 52–56 px sehingga terlihat jelas tanpa menjadi banner yang mendominasi halaman.
+99. Urutan bagian akhir form adalah reassurance **What happens next** yang ringkas lalu CTA submit.
+100. Label field memakai sentence case dengan bobot medium; all-caps tidak digunakan untuk seluruh label karena membuat form terasa padat dan administratif.
+101. Vocabulary field yang disarankan: **Name**, **WhatsApp number**, **Travel dates**, **Number of guests**, **Preferred contact**, **Hotel or pickup area**, dan **Anything else we should know?**
 
 ## Customer flow
 
@@ -105,8 +131,10 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 9. Pada rental, pelanggan memilih kendaraan dan jumlah hari sebelum menambahkan item; konfigurasi dan subtotal dapat ditinjau serta diedit kembali di cart.
 10. Saat melanjutkan ke enquiry, pelanggan melihat heading singkat dan compact summary; detail plan tetap tersedia melalui floating cart.
 11. Form menyesuaikan field kontak wajib dengan channel yang dipilih dan menjelaskan bahwa date range adalah periode perjalanan.
-12. Setelah plan dikirim, operator langsung menyusun itinerary dan instruksi pembayaran berdasarkan total yang sudah tampil tanpa meminta pelanggan menunggu pemeriksaan availability.
-13. Setelah booking fee 20% diterima, operator mengirim konfirmasi booking tertulis.
+12. Setelah plan dikirim, operator mengonfirmasi pilihan, total, dan instruksi pembayaran booking fee tanpa menjanjikan atau meminta **final itinerary**.
+13. Setelah booking fee 20% terverifikasi, operator mengirim konfirmasi booking tertulis dan memberi tahu customer bahwa partner lokal akan menangani penjemputan serta operasional di Bali.
+14. Maksimal 24 jam setelah fee terverifikasi dan dengan pemberitahuan kepada customer, operator membuat grup WhatsApp bersama partner lalu mengirim handoff ringkas berisi hanya detail yang diperlukan untuk fulfilment.
+15. Partner melanjutkan koordinasi operasional di grup; operator tetap pasif sebagai escalation contact sampai perjalanan selesai.
 
 ## Edge cases
 
@@ -128,6 +156,8 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 - Browser yang memblokir local storage tetap dapat menggunakan cart; persistence hanya enhancement.
 - Data identitas dan detail perjalanan yang diketik di form tidak pernah dimasukkan ke penyimpanan plan lokal.
 - Perubahan itinerary setelah booking dapat tetap memerlukan penyesuaian operasional, tetapi hal itu bukan availability gate pada flow awal.
+- Jika customer belum menyetujui atau belum mengetahui handoff, data kontak dan detail perjalanannya tidak boleh diteruskan kepada partner.
+- Tidak adanya checkbox partner terpisah bukan izin untuk handoff diam-diam; pemberitahuan setelah pembayaran dan sebelum pembuatan grup tetap wajib.
 
 ## Acceptance criteria
 
@@ -149,6 +179,7 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 - Contact field wajib mengikuti preferred channel dan tidak memaksa WhatsApp untuk pengguna Email, Telegram, atau VK.
 - Plan pilihan bertahan setelah refresh tanpa menyimpan informasi pribadi atau isi form enquiry.
 - Website menampilkan tiga langkah konfirmasi ringkas dan tidak menyebut availability check dalam customer flow.
+- Panel **What happens next** tidak mendominasi form dan memakai copy handoff yang akurat tanpa menyebut **final itinerary**.
 - Date range dijelaskan sebagai periode berada di Bali atau waktu journey dimulai; tidak ada field atau kewajiban tanggal per journey.
 - Empty enquiry tampil sebagai Open Bali request dan tetap dapat dilanjutkan secara profesional.
 - Diskon 8% tidak diterapkan sebelum tujuh eligible journeys.
