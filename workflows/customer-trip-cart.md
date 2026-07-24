@@ -40,9 +40,9 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 22. Pelanggan tidak perlu memilih pickup area ketika menambahkan Craft & Jewellery Studios.
 23. Sistem menentukan transfer Craft secara otomatis dari journeys yang sudah dipilih.
 24. Jika itinerary mencakup Nusa Dua atau Jimbaran, transfer Craft bernilai USD 0.
-25. Jika itinerary belum mencakup area tersebut, cart menampilkan estimasi USD 10 per mobil; status dan harga akhir tetap dikonfirmasi sebelum booking karena kondisi lapangan dapat berubah.
+25. Jika itinerary belum mencakup area tersebut, biaya transfer USD 10 per mobil langsung masuk ke total cart.
 26. `Bali Water Sports` (Benoa/Nusa Dua) dan `Romantic Ocean Dinner` (Jimbaran) menjadi pemicu otomatis transfer Craft gratis.
-27. Sebelum pembayaran booking, operator memeriksa rute/hotel aktual. Jika rute nyata melewati Nusa Dua atau Jimbaran tetapi belum terdeteksi website, confirmation tertulis mengubah biaya transfer Craft dari USD 10 menjadi USD 0 sebelum pelanggan membayar.
+27. Jika plan berubah sebelum pembayaran dan kemudian mencakup Nusa Dua atau Jimbaran, total diperbarui dengan mengubah biaya transfer Craft dari USD 10 menjadi USD 0.
 28. Craft & Jewellery Studios tidak ditambahkan otomatis ke cart.
 29. Setelah ada journey berbayar, Craft dapat ditampilkan sebagai suggested add-on, tetapi hanya masuk cart setelah tindakan eksplisit pelanggan.
 30. Saat Craft ditambahkan, sistem menghitung biaya transfer USD 0 atau USD 10 per mobil berdasarkan itinerary.
@@ -72,20 +72,25 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 54. Untuk rental berharga tetap, pengguna wajib memilih vehicle option dan jumlah hari langsung pada journey card sebelum **Add to trip** aktif.
 55. Jumlah hari rental tetap dapat diedit di cart dan harga ditampilkan sebagai perhitungan eksplisit, misalnya **$35/day × 4 days = $140**.
 56. Ringkasan enquiry memakai format ringkas **Transport & Rentals — [vehicle] — [n] days**.
-57. Template WhatsApp, email, dan data admin memuat vehicle, rental duration, serta rental subtotal sebagai field/baris terpisah.
+57. Semua channel memuat vehicle dan rental duration. Email/data admin dapat memuat rental subtotal terstruktur, sedangkan WhatsApp cukup membawa total plan tanpa subtotal rental terpisah.
 58. Untuk pilihan transport berstatus on request, rental duration tetap dibawa ke enquiry tetapi subtotal tidak dinyatakan final.
 59. Heading enquiry tetap singkat dan komersial, misalnya **Tell us about your Bali plan**, dan tidak memuat daftar nama seluruh journey/service.
-60. Di bawah heading tampil compact summary berisi jumlah journey, jumlah Bali Service, jumlah tamu, dan estimated total bila tersedia.
+60. Di bawah heading tampil compact summary berisi jumlah journey, jumlah Bali Service, jumlah tamu, dan total bila tersedia.
 61. Enquiry tidak menambahkan tombol **View selected plan** karena floating cart sudah menyediakan akses permanen ke detail pilihan.
 62. Detail lengkap pilihan tetap dibawa dalam payload dan template channel, tetapi tidak memenuhi heading atau area awal form.
 63. Seluruh kolom footer desktop dimulai dari garis atas yang sama; blok Brand tidak diberi offset vertikal berbeda dari Explore, Support, atau Connect.
 64. Collection filter hanya menyaring journey cards. Card Bali Services tetap terlihat karena bersifat optional dan berada di luar kategori collection.
 65. Journey partner dianggap selalu dapat dipenuhi; customer flow tidak memakai tahap atau janji **availability check**.
-66. Angka pada cart dan enquiry berlabel **estimated trip total** sampai itinerary dan total final dikirimkan secara tertulis.
-67. Alur konfirmasi adalah: pelanggan mengirim plan, operator mengirim itinerary dan total final, pelanggan membayar booking fee 20%, lalu booking dinyatakan confirmed.
+66. Angka pada cart dan enquiry adalah **total harga dalam USD** setelah diskon dan pajak yang berlaku. Pelanggan membayar 20% untuk konfirmasi dan sisa 80% onsite di Bali; konversi mata uang onsite merupakan detail operasional lapangan.
+67. Alur konfirmasi adalah: pelanggan mengirim plan dengan total USD, operator mengirim itinerary dan instruksi pembayaran berdasarkan total tersebut, pelanggan membayar booking fee 20%, lalu booking dinyatakan confirmed.
 68. WhatsApp hanya wajib jika channel pilihan adalah WhatsApp; email hanya wajib jika channel pilihan adalah Email. Channel lain tidak mewajibkan keduanya karena percakapan dilanjutkan dari akun pengirim.
 69. Konfigurasi plan disimpan lokal agar pilihan tidak hilang saat refresh, tetapi nama, nomor telepon, email, tanggal, hotel, dan catatan tidak disimpan.
-70. Start dan end date berarti periode pelanggan berada di Bali; tanggal pasti tiap journey ditentukan dalam itinerary final.
+70. Start dan end date berarti periode pelanggan berada di Bali atau tanggal perjalanan ingin dimulai; pelanggan tidak perlu menentukan tanggal untuk setiap journey.
+71. Enquiry tanpa journey/service tetap valid sebagai **Open Bali request**, memakai `requestType: open` tanpa memalsukan pilihan Bali Service, dan menampilkan copy komersial yang mengundang pelanggan menjelaskan kebutuhan.
+72. Diskon bundle 8% baru aktif mulai tujuh eligible journeys; lima hingga enam mendapat 5%.
+73. Template WhatsApp membawa vehicle option dan rental duration, tetapi tidak menampilkan rental subtotal terpisah karena total plan sudah tersedia.
+74. Vehicle option dan rental days di cart ditempatkan di dalam item Transport & Rentals yang sama, tepat bersama line totalnya.
+75. Floating cart memakai compact dock di sisi kanan dan tidak lagi membentang hampir sepanjang viewport; progres diskon dipindahkan ke drawer.
 
 ## Customer flow
 
@@ -100,7 +105,7 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 9. Pada rental, pelanggan memilih kendaraan dan jumlah hari sebelum menambahkan item; konfigurasi dan subtotal dapat ditinjau serta diedit kembali di cart.
 10. Saat melanjutkan ke enquiry, pelanggan melihat heading singkat dan compact summary; detail plan tetap tersedia melalui floating cart.
 11. Form menyesuaikan field kontak wajib dengan channel yang dipilih dan menjelaskan bahwa date range adalah periode perjalanan.
-12. Setelah plan dikirim, operator langsung menyusun itinerary dan total final tanpa meminta pelanggan menunggu pemeriksaan availability.
+12. Setelah plan dikirim, operator langsung menyusun itinerary dan instruksi pembayaran berdasarkan total yang sudah tampil tanpa meminta pelanggan menunggu pemeriksaan availability.
 13. Setelah booking fee 20% diterima, operator mengirim konfirmasi booking tertulis.
 
 ## Edge cases
@@ -109,8 +114,8 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 - Service tanpa konfigurasi lengkap tidak dapat ditambahkan.
 - Menghapus semua item menutup drawer dan menyembunyikan floating cart.
 - Craft tidak pernah masuk otomatis dan tidak memakai label "Complimentary add-on".
-- Craft bernilai USD 0 jika plan memuat Bali Water Sports atau Romantic Ocean Dinner; selain itu estimasi USD 10 per mobil.
-- Jika pemeriksaan rute sebelum pembayaran membuktikan itinerary nyata melewati Nusa Dua/Jimbaran, confirmation tertulis mengoreksi estimasi Craft menjadi USD 0.
+- Craft bernilai USD 0 jika plan memuat Bali Water Sports atau Romantic Ocean Dinner; selain itu biayanya USD 10 per mobil.
+- Jika plan berubah sebelum pembayaran dan kemudian mencakup Nusa Dua/Jimbaran, total diperbarui dengan biaya Craft USD 0.
 - Item on-request selalu terlihat terpisah dan tidak boleh membuat total seolah-olah sudah final untuk service tersebut.
 - Hanya satu card Transport & Rentals; tidak ada card service scooter, car, atau minivan yang redundan.
 - Hanya satu card Bali Services di grid `#services`; tidak ada section layanan kedua atau card terpisah untuk tiap request type.
@@ -138,13 +143,18 @@ Pelanggan memilih journey atau Bali Service dari halaman katalog.
 - Collection filter tidak menyembunyikan card Bali Services.
 - Pergantian warna antar-section tetap memiliki ritme terang–gelap setelah section Bali Services terpisah dihapus.
 - Payload enquiry mempertahankan journey, opsi transport, Craft, service on-request, dan detail pengguna sebagai data terstruktur.
-- Card, cart, WhatsApp, email, dan payload admin menampilkan vehicle serta rental duration secara konsisten; subtotal hanya final untuk opsi fixed-price.
+- Card, cart, WhatsApp, email, dan payload admin menampilkan vehicle serta rental duration secara konsisten. Untuk opsi fixed-price, subtotal terstruktur dapat tetap tersedia di email/admin; WhatsApp hanya membawa total plan.
 - Heading enquiry tidak pernah berubah menjadi daftar panjang; compact summary menggantikan daftar tersebut tanpa CTA yang menduplikasi floating cart.
-- Cart dan enquiry secara konsisten menyebut harga sebagai estimasi sebelum itinerary final.
+- Cart dan enquiry secara konsisten menyebut total harga dalam USD, booking fee 20%, dan sisa onsite 80% tanpa menampilkan disclaimer kurs kepada customer.
 - Contact field wajib mengikuti preferred channel dan tidak memaksa WhatsApp untuk pengguna Email, Telegram, atau VK.
 - Plan pilihan bertahan setelah refresh tanpa menyimpan informasi pribadi atau isi form enquiry.
 - Website menampilkan tiga langkah konfirmasi ringkas dan tidak menyebut availability check dalam customer flow.
-- Date range dijelaskan sebagai travel period; exact journey dates ditempatkan di itinerary final.
+- Date range dijelaskan sebagai periode berada di Bali atau waktu journey dimulai; tidak ada field atau kewajiban tanggal per journey.
+- Empty enquiry tampil sebagai Open Bali request dan tetap dapat dilanjutkan secara profesional.
+- Diskon 8% tidak diterapkan sebelum tujuh eligible journeys.
+- WhatsApp tidak menampilkan rental subtotal terpisah.
+- Rental controls dan line total berada dalam satu visual item di cart.
+- Compact cart dock tidak menutupi sebagian besar lebar halaman pada desktop maupun mobile.
 - Copy RU dan EN memiliki perilaku serta hirarki yang sama; copy Rusia melewati review penutur fasih sebelum publikasi.
 
 ## Definition of done

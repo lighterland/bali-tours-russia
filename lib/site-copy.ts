@@ -36,7 +36,7 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
       steps: [
         { number: "01", title: "Расскажите о поездке", body: "Дата, количество гостей, район отеля, интересы и особые пожелания." },
         { number: "02", title: "Получите предложение", body: "Подходящий маршрут, понятная стоимость и всё, что входит в программу." },
-        { number: "03", title: "Подтвердите бронирование", body: "Получите итоговую программу и сумму, затем внесите 20% для подтверждения." },
+        { number: "03", title: "Подтвердите бронирование", body: "Получите программу и реквизиты, затем внесите 20% для подтверждения." },
         { number: "04", title: "Отправляйтесь на Бали", body: "После оплаты бронирование подтверждено; вы получаете сводку и контакт на день тура." },
       ],
     },
@@ -73,14 +73,14 @@ export const siteCopy: Record<"ru" | "en", SiteCopy> = {
       body: "For couples, families, and small groups—planned around your pace, with thoughtful support from the first message until you return to your hotel.",
       link: "See how it works",
     },
-    routes: { eyebrow: "Journeys", title: "Shape your own Bali.", body: "Add the journeys you love, see the final total instantly, or start with a ready-made Best Deal collection." },
+    routes: { eyebrow: "Journeys", title: "Shape your own Bali.", body: "Add the journeys you love, see your total instantly, or start with a ready-made Best Deal collection." },
     process: {
       eyebrow: "Your journey",
       title: "From choosing a journey to the day you travel.",
       steps: [
         { number: "01", title: "Tell us about your trip", body: "Dates, number of guests, hotel area, interests, and special requests." },
         { number: "02", title: "Receive your trip plan", body: "A suitable journey, clear price, and everything included in the experience." },
-        { number: "03", title: "Confirm your booking", body: "Receive the final itinerary and total, then pay 20% to confirm." },
+        { number: "03", title: "Confirm your booking", body: "Receive the itinerary and payment details, then pay 20% to confirm." },
         { number: "04", title: "Experience Bali", body: "After payment, your booking is confirmed and you receive the trip summary and day-of-tour contact." },
       ],
     },

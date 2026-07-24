@@ -14,6 +14,7 @@ export const enquirySchema = z
     ]),
     email: z.union([z.string().trim().email(), z.literal("")]),
     preferredChannel: z.enum(contactChannels),
+    requestType: z.enum(["planned", "open"]).default("planned"),
     date: z.string().trim().max(100),
     guests: z.string().trim().max(20),
     packageSelections: z.array(z.object({ packageId: z.string().trim().min(1).max(100), optionId: z.string().trim().max(100).optional(), quantity: z.number().int().min(1).max(365).optional() })).max(20).default([]),
@@ -29,6 +30,10 @@ export const enquirySchema = z
   .superRefine((value, context) => {
     const services = value.serviceSelections.map((selection) => findBaliService(selection.serviceId)).filter(Boolean);
     const isServiceEnquiry = services.length > 0 && value.packageSelections.length === 0;
+    const isOpenRequest = value.requestType === "open";
+    if (isOpenRequest && (value.packageSelections.length > 0 || value.serviceSelections.length > 0)) {
+      context.addIssue({ code: "custom", message: "Open requests cannot include selected items", path: ["requestType"] });
+    }
     if (services.length !== value.serviceSelections.length) {
       context.addIssue({ code: "custom", message: "Unknown Bali service", path: ["serviceSelections"] });
     }
@@ -43,10 +48,10 @@ export const enquirySchema = z
     if (new Set(serviceIds).size !== serviceIds.length) {
       context.addIssue({ code: "custom", message: "Duplicate Bali service", path: ["serviceSelections"] });
     }
-    if (!isServiceEnquiry && !value.date) {
+    if (!isServiceEnquiry && !isOpenRequest && !value.date) {
       context.addIssue({ code: "custom", message: "Date is required for journeys", path: ["date"] });
     }
-    if (!isServiceEnquiry && !value.guests) {
+    if (!isServiceEnquiry && !isOpenRequest && !value.guests) {
       context.addIssue({ code: "custom", message: "Guest count is required for journeys", path: ["guests"] });
     }
     if (value.preferredChannel === "Email" && !value.email) {

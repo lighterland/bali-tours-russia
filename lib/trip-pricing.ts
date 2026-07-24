@@ -26,7 +26,7 @@ const guestUnitSaving = (guests: number) => {
 };
 
 export const bundleRateFor = (eligibleCount: number) => {
-  if (eligibleCount >= 6) return 0.08;
+  if (eligibleCount >= 7) return 0.08;
   if (eligibleCount >= 5) return 0.05;
   if (eligibleCount >= 3) return 0.03;
   return 0;
@@ -35,7 +35,7 @@ export const bundleRateFor = (eligibleCount: number) => {
 export function nextBundleTarget(eligibleCount: number) {
   if (eligibleCount < 3) return { remaining: 3 - eligibleCount, rate: 0.03 };
   if (eligibleCount < 5) return { remaining: 5 - eligibleCount, rate: 0.05 };
-  if (eligibleCount < 6) return { remaining: 6 - eligibleCount, rate: 0.08 };
+  if (eligibleCount < 7) return { remaining: 7 - eligibleCount, rate: 0.08 };
   return null;
 }
 
