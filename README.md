@@ -1,42 +1,56 @@
-# Bali Tours — Russian Market
+# Bali Closer
 
-Production-oriented Next.js website for a concierge-first Bali tour service marketed directly to travellers from Russia.
+Production website for a concierge-led Bali tour service built for travellers from the Russian market.
 
-## Local development
+The site is available in Russian and English and includes curated journeys, Bali services, transparent pricing, trip planning, and direct enquiry handoff.
+
+## Technology
+
+- Next.js 16
+- React 19
+- TypeScript
+- Static export for GitHub Pages
+- Optional Resend enquiry endpoint for server-hosted deployments
+
+## Getting started
+
+Requirements:
+
+- Node.js 22
+- pnpm 11
 
 ```powershell
-Copy-Item .env.example .env.local
 pnpm install
+Copy-Item .env.example .env.local
 pnpm dev
 ```
 
-Open `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Required environment variables
+## Environment variables
 
-Public:
+Public contact settings:
 
-- `NEXT_PUBLIC_WHATSAPP_NUMBER` — international digits only; used for `wa.me`.
-- `NEXT_PUBLIC_TELEGRAM_URL`
-- `NEXT_PUBLIC_VK_URL`
-- `NEXT_PUBLIC_BUSINESS_EMAIL`
-- `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_HERO_VIDEO_URL` — optional; local `/media/hero-bali.mp4` or hosted URL.
+```text
+NEXT_PUBLIC_WHATSAPP_NUMBER
+NEXT_PUBLIC_TELEGRAM_URL
+NEXT_PUBLIC_VK_URL
+NEXT_PUBLIC_BUSINESS_EMAIL
+NEXT_PUBLIC_SITE_URL
+NEXT_PUBLIC_HERO_VIDEO_URL
+```
 
-Server-only:
+`NEXT_PUBLIC_HERO_VIDEO_URL` is optional. The site uses its local fallback when the value is empty.
 
-- `RESEND_API_KEY`
-- `RESEND_FROM_EMAIL` — must use a Resend-verified sending domain.
-- `ENQUIRY_NOTIFICATION_EMAIL`
+The following server-only variables are required only when the Next.js enquiry API is deployed to a server:
 
-Never prefix secrets with `NEXT_PUBLIC_` or commit `.env.local`.
+```text
+RESEND_API_KEY
+RESEND_FROM_EMAIL
+ENQUIRY_NOTIFICATION_EMAIL
+```
 
-## Contact flows
-
-1. Direct WhatsApp: `wa.me` opens a URL-encoded Russian template; the customer starts the conversation.
-2. Website form: `POST /api/enquiries` validates input and sends a Resend notification; the business team starts follow-up using the customer’s required WhatsApp number or preferred channel.
-
-The form includes server-side validation, conditional email requirement, consent, a honeypot, and a Resend idempotency key. Email is a notification, not the booking source of truth. Add durable rate limiting or CAPTCHA only if measured spam justifies the extra friction.
+Never expose secrets through a `NEXT_PUBLIC_` variable or commit `.env.local`.
 
 ## Quality checks
 
@@ -48,20 +62,27 @@ pnpm build
 
 ## Deployment
 
-Deploy to Vercel, configure all environment variables separately for Development, Preview, and Production, then redeploy. Confirm the Resend domain and destination inbox before enabling the form publicly.
+Pushes to `main` are built and deployed automatically through GitHub Actions to:
 
-## Launch checklist
+[https://lighterland.github.io/bali-tours-russia/](https://lighterland.github.io/bali-tours-russia/)
 
-- Buy and confirm the final brand domain, with `balicloser.com` as the current candidate.
-- Add the domain to Resend and verify the required SPF and DKIM DNS records.
-- Configure `booking@balicloser.com` as the preferred sender and a reply-capable business inbox or forwarding destination.
-- Set production values for `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ENQUIRY_NOTIFICATION_EMAIL`; never expose the API key in browser code.
-- Because GitHub Pages is static, choose and connect a separate serverless/backend endpoint before enabling Resend-powered form delivery. Until then, retain WhatsApp, Telegram, VK, and email-draft fallbacks.
-- Replace temporary Pexels CDN URLs with locally downloaded assets; follow `docs/media-acquisition-guide.md`.
-- Add the final WhatsApp Business number and fallback channel URLs.
-- Verify at least the packages/prices intended for public sale; otherwise keep copy as indicative/on-request.
-- Add the real operator/team image only with written permission.
-- Have Russian copy reviewed by a fluent speaker.
-- Complete legal review for privacy, payments, refunds, and Russia-facing data handling.
-- Test form delivery and spam controls in Vercel Preview.
-- Test keyboard, mobile, reduced-motion, and slow-network behaviour.
+The GitHub Pages build is a static export. Enquiries therefore use the client-side WhatsApp, Telegram, VK, or email fallbacks. The `/api/enquiries` endpoint is available only when the project is deployed to a platform that supports the Next.js server runtime and has the Resend variables configured.
+
+## Repository scope
+
+This repository contains only the production website:
+
+- application source code;
+- website copy and catalogue data;
+- assets used by the website;
+- build, quality, and deployment configuration;
+- essential technical documentation.
+
+Vendor production packs, physical merchandise designs, business planning, research notes, raw conversations, prototypes, and agent working files are intentionally maintained outside this repository.
+
+## Publication requirements
+
+- Russian customer-facing copy must be reviewed by a fluent Russian speaker.
+- Package details, prices, and partner terms must be verified before publication.
+- Customer names, contact details, travel dates, and special requests must never be committed.
+- Only media with confirmed usage rights may be published.

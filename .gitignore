@@ -24,3 +24,25 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+
+# local project workspace (never publish)
+.agents/
+.codex/
+.scratch/
+AGENTS.md
+CONTEXT.md
+NOTES.md
+skills-lock.json
+workflows/
+
+# business, research, and physical-production material
+deliverables/
+design/
+docs/
+output/
+prototype/
+vendor/
+
+# local working files
+tmp/
+public/media/incoming/.drafts/
