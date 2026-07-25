@@ -13,4 +13,4 @@ Status: done
 - 2026-07-25: Implemented in commit `8af20aa`.
 - 2026-07-25: Desktop 1280×720 and mobile 390×844 visual checks passed for the logo placement.
 - 2026-07-25: GitHub Pages production build passed.
-
+- 2026-07-25: Symbol corrected to the approved simple half-sun with eleven straight rays and one horizontal baseline; all contour lines removed across website, SVG, vendor, and mockup assets.

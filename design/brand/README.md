@@ -2,7 +2,7 @@
 
 ## Logo architecture
 
-- Universal mark: a rising sun above two contour lines inspired by Bali rice terraces.
+- Universal mark: a simple half rising sun with eleven straight rays and one horizontal baseline.
 - Russian horizontal wordmark: `BALI · БЛИЖЕ`.
 - English horizontal wordmark: `BALI · CLOSER`.
 - Staff uniform back: stacked mark with `BALI CLOSER`.
@@ -22,7 +22,7 @@ The website asset folder includes separate gold, white, and deep-forest SVG expo
 - Horizontal minimum width: 150 px on screen or 40 mm in print.
 - Stacked minimum width: 32 mm in print.
 - Symbol minimum size: 24 px on screen or 8 mm in print.
-- Do not stretch, rotate, add shadows, use gradients, or rearrange the rays and contour lines.
+- Do not stretch, rotate, add shadows, use gradients, add contour lines, or rearrange the rays and baseline.
 
 ## Uniform recommendation
 

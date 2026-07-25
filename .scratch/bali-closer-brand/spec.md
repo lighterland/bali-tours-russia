@@ -6,7 +6,7 @@ Implemented locally on 25 July 2026. Automated checks and desktop/mobile visual 
 
 ## Confirmed decisions
 
-1. Universal symbol: simplified sunrise with seven rays and two rice-terrace contour lines.
+1. Universal symbol: simple half sunrise with eleven straight rays and one horizontal baseline, matching the approved reference; no contour or wave lines.
 2. Wordmark uses bold clean sans-serif typography.
 3. Russian website: `BALI · БЛИЖЕ`; English website: `BALI · CLOSER`.
 4. Uniform back: stacked symbol with `BALI CLOSER`.
@@ -20,4 +20,3 @@ Implemented locally on 25 July 2026. Automated checks and desktop/mobile visual 
 - Website remains compatible with GitHub Pages static export.
 - Vendor package includes outlined SVG artwork at physical print dimensions and three official colour treatments.
 - Russian wordmark is not published until fluent review is recorded.
-

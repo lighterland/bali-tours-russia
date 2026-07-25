@@ -10,7 +10,7 @@ Run this workflow whenever a new branded medium is requested or an existing logo
 
 ## Source of truth
 
-- Universal symbol: sunrise plus two rice-terrace contour lines.
+- Universal symbol: simple half sunrise with eleven straight rays and one horizontal baseline; no contour or wave lines.
 - Website wordmarks: `BALI · БЛИЖЕ` for Russian and `BALI · CLOSER` for English.
 - Staff uniform back: stacked symbol plus `BALI CLOSER`.
 - Official colours and size rules: `design/brand/README.md`.
