@@ -12,6 +12,7 @@ import { calculateTripEstimate, conditionalTransferUsdFor, nextBundleTarget } fr
 import { readyMadeCollections } from "@/lib/ready-made-collections";
 import { parseStoredTripPlan, serializeTripPlan, tripPlanStorageKey } from "@/lib/trip-plan-storage";
 import Link from "next/link";
+import { BrandLogo } from "./BrandLogo";
 
 type Props = {
   packages: TourPackage[];
@@ -475,8 +476,7 @@ export function ConciergeExperience({
     <main>
       <header className="site-header">
         <a className="brand" href="#top" aria-label={labels.brand}>
-          <span className="brand-mark">B</span>
-          <span>{labels.brand}</span>
+          <BrandLogo locale={locale} />
         </a>
         <nav className={menuOpen ? "site-nav is-open" : "site-nav"} aria-label={labels.navLabel}>
           <a href="#services" onClick={() => setMenuOpen(false)}>{copy.nav.routes}</a>
@@ -683,7 +683,7 @@ export function ConciergeExperience({
       </section>
 
       <footer className="site-footer">
-        <div className="footer-brand"><div className="brand"><span className="brand-mark">B</span><span>{labels.brand}</span></div><p>{copy.footer.body}</p></div>
+        <div className="footer-brand"><div className="brand"><BrandLogo locale={locale} /></div><p>{copy.footer.body}</p></div>
         <nav className="footer-column" aria-label={cartLabels.explore}><strong>{cartLabels.explore}</strong><a href="#services">{labels.footerRoutes}</a><a href="#services">{services[locale].eyebrow}</a></nav>
         <nav className="footer-column" aria-label={cartLabels.support}><strong>{cartLabels.support}</strong><a href="#request">{labels.footerContact}</a><Link href={`/${locale}/privacy`}>{labels.footerPrivacy}</Link><Link href={`/${locale}/terms`}>{labels.footerTerms}</Link></nav>
         <div className="footer-column footer-connect"><strong>{cartLabels.connect}</strong><a href={`mailto:${publicEmail}`}>{publicEmail}</a><div className="footer-socials"><a className="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><SocialIcon name="instagram" /></a><a className="social-link" href="https://vk.com/" target="_blank" rel="noreferrer" aria-label="VK"><SocialIcon name="vk" /></a>{telegramUrl ? <a className="social-link" href={telegramUrl} target="_blank" rel="noreferrer" aria-label="Telegram"><SocialIcon name="telegram" /></a> : null}<a className="social-link" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label="WhatsApp"><SocialIcon name="whatsapp" /></a></div></div>
