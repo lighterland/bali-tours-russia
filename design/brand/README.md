@@ -14,7 +14,7 @@
 - White: `#FFFFFF` for dark photography or very dark backgrounds.
 - Deep forest: `#071510` for light backgrounds and documents.
 
-The SVG masters use champagne gold. Because every logo is single-colour, vendors may replace all gold strokes and fills with either official white or deep forest without changing opacity, stroke width, spacing, or proportions.
+The website asset folder includes separate gold, white, and deep-forest SVG exports. Outlined physical-production artwork is under `design/vendor/`; those files contain no live text or font dependency.
 
 ## Clear space and minimum size
 
@@ -27,5 +27,5 @@ The SVG masters use champagne gold. Because every logo is single-colour, vendors
 ## Uniform recommendation
 
 - Shirt colour: deep forest `#071510`.
-- Front: hero slogan only, two-colour print.
-- Back: `logo-stacked-en-gold.svg`, centred 7 cm below the collar, recommended print width 90 mm.
+- Front: `design/vendor/uniform-front-slogan-outline-gold.svg`, centred on chest at 280 × 240 mm.
+- Back: `design/vendor/uniform-back-logo-outline-gold.svg`, centred 7 cm below the collar at 90 × 65 mm.
