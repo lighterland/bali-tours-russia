@@ -6,7 +6,7 @@ type BrandLogoProps = {
 
 function SunriseMark() {
   return (
-    <svg className="brand-logo-mark" viewBox="0 0 72 58" aria-hidden="true">
+    <svg className="brand-logo-mark" viewBox="6 7 60 31" aria-hidden="true">
       <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
         <path d="M20 36a16 16 0 0 1 32 0" strokeWidth="2.2" />
         <path d="M8 36h56" strokeWidth="2" />

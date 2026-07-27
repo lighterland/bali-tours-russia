@@ -195,7 +195,7 @@ export function ConciergeExperience({
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
   const planStorageReady = useRef(false);
-  const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", endDate: "", guests: "", pickup: "", notes: "" });
+  const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", endDate: "", guests: "1", pickup: "", notes: "" });
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
   const [showHeroVideo, setShowHeroVideo] = useState(false);
   const copy = siteCopy[locale];
@@ -318,7 +318,7 @@ export function ConciergeExperience({
         const vehicleOptionExists = packages.find((tour) => tour.id === "vehicle-rental")?.pricing.variants?.some((variant) => variant.id === restored.vehicleVariantId);
         setVehicleVariantId(vehicleOptionExists ? restored.vehicleVariantId : "");
         setRentalDays(restored.rentalDays);
-        setWhatsAppDraft((value) => ({ ...value, guests: restored.guests }));
+        setWhatsAppDraft((value) => ({ ...value, guests: restored.guests || "1" }));
       }
       planStorageReady.current = true;
     }, 0);
@@ -441,7 +441,7 @@ export function ConciergeExperience({
         setSubmitState({ status: "idle" });
         form.reset();
         setPreferredChannel("WhatsApp");
-        setWhatsAppDraft({ date: "", endDate: "", guests: "", pickup: "", notes: "" });
+        setWhatsAppDraft({ date: "", endDate: "", guests: "1", pickup: "", notes: "" });
         return;
       }
       const response = await fetch("/api/enquiries", {
@@ -463,7 +463,7 @@ export function ConciergeExperience({
       }
       form.reset();
       setPreferredChannel("WhatsApp");
-      setWhatsAppDraft({ date: "", endDate: "", guests: "", pickup: "", notes: "" });
+      setWhatsAppDraft({ date: "", endDate: "", guests: "1", pickup: "", notes: "" });
     } catch (error) {
       setSubmitState({
         status: "error",
@@ -656,7 +656,7 @@ export function ConciergeExperience({
           ) : null}
           <div className="form-grid two form-grid-primary">
             <label><span>{labels.name}</span><input name="name" autoComplete="name" required minLength={2} /></label>
-            <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><input name="guests" type="number" min="1" max="999" placeholder={locale === "ru" ? "Количество гостей" : "Number of guests"} value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} required /></label>
+            <label><span>{selectedPackages.length ? labels.guests : labels.serviceGuests}</span><input name="guests" type="number" min="1" max="999" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value || "1" }))} required /></label>
           </div>
           <div className="form-grid two">
             <label><span>{selectedPackages.length ? labels.date : labels.serviceDate}</span><input ref={startDateRef} name="date" type="date" value={whatsAppDraft.date} onChange={(event) => { const date = event.target.value; if (endDateRef.current) endDateRef.current.min = date || localIsoDate(new Date()); setWhatsAppDraft((value) => ({ ...value, date, endDate: value.endDate && value.endDate < date ? "" : value.endDate })); }} required={selectedPackages.length > 0} /></label>
@@ -703,7 +703,7 @@ export function ConciergeExperience({
           <div className="cart-drawer-body">
             {pricedSelectedPackages.length ? <section className="cart-section">
               <div className="cart-section-title"><strong>{cartLabels.journeys}</strong><span>{pricedSelectedPackages.length}</span></div>
-              <label className="cart-field"><span>{labels.guestsShort}</span><input type="number" min="1" max="999" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value }))} /></label>
+              <label className="cart-field"><span>{labels.guestsShort}</span><input type="number" min="1" max="999" value={whatsAppDraft.guests} onChange={(event) => setWhatsAppDraft((value) => ({ ...value, guests: event.target.value || "1" }))} required /></label>
               {pricedSelectedPackages.map((tour) => {
                 const isRental = tour.id === "vehicle-rental" && Boolean(vehiclePackage?.pricing.variants);
                 return <div className={`cart-line${isRental ? " cart-line-rental" : ""}`} key={tour.id}>
