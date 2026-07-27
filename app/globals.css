@@ -113,9 +113,9 @@
 /* Bali Closer brand system */
 .brand{color:var(--gold)}
 .brand-logo{display:inline-flex;align-items:center;color:inherit}
-.brand-logo-mark{display:block;flex:0 0 auto;width:48px;height:auto}
+.brand-logo-mark{display:block;flex:0 0 auto;width:48px;aspect-ratio:663/344;background:currentColor;mask-position:center;mask-repeat:no-repeat;mask-size:contain;-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:contain}
 .brand-logo-wordmark{font-size:14px;font-weight:900;letter-spacing:.065em;line-height:1;white-space:nowrap}
 .brand-logo-horizontal{gap:8px}
 .brand-logo-stacked{align-items:center;flex-direction:column;gap:5px}
-.brand-logo-symbol .brand-logo-mark{width:40px;height:auto}
-@media(max-width:720px){.brand-logo-mark{width:42px;height:auto}.brand-logo-wordmark{font-size:11px;letter-spacing:.045em}.brand-logo-horizontal{gap:6px}}
+.brand-logo-symbol .brand-logo-mark{width:40px}
+@media(max-width:720px){.brand-logo-mark{width:42px}.brand-logo-wordmark{font-size:11px;letter-spacing:.045em}.brand-logo-horizontal{gap:6px}}

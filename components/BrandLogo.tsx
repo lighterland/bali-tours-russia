@@ -1,6 +1,3 @@
-import Image from "next/image";
-import sunriseMarkGold from "../public/brand/sunrise-mark-gold.png";
-
 type BrandLogoProps = {
   locale: "ru" | "en";
   layout?: "horizontal" | "stacked" | "symbol";
@@ -8,13 +5,13 @@ type BrandLogoProps = {
 };
 
 function SunriseMark() {
+  const markUrl = `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/brand/sunrise-mark-gold.png`;
+
   return (
-    <Image
+    <span
       className="brand-logo-mark"
-      src={sunriseMarkGold}
-      alt=""
       aria-hidden="true"
-      unoptimized
+      style={{ maskImage: `url(${markUrl})`, WebkitMaskImage: `url(${markUrl})` }}
     />
   );
 }
