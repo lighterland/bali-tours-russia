@@ -1,25 +1,28 @@
 # Media manifest
 
-Tambahkan satu baris untuk setiap aset yang masuk ke production.
+Production media and its source record. Original gallery downloads are kept outside the website repository under `bali-tours-russia-materials/output/pexels-gallery-source`.
 
-| File | Source page / generator | Contributor | Acquired | License/terms snapshot | Usage | Rights review |
-| --- | --- | --- | --- | --- | --- | --- |
-| `hero-bali-rice-terrace.jpg` | pending | pending | pending | pending | home hero | pending |
-| `route-ubud.jpg` | pending | pending | pending | pending | route card | pending |
-| `route-east-bali.jpg` | pending | pending | pending | pending | route card | pending |
-| `route-north-bali.jpg` | pending | pending | pending | pending | route card | pending |
-| `route-south-uluwatu.jpg` | pending | pending | pending | pending | route card | pending |
-| `route-nusa-penida.jpg` | pending | pending | pending | pending | route card | pending |
-| `trust-local-team.jpg` | partner, written permission required | pending | pending | pending | trust proof | pending |
-| `craft-jewellery.webp` | user-supplied Pexels file `pexels-darrel-und-217939-693617.jpg` | Darrel Und | 2026-07-15 | verify Pexels source page before launch | craft and jewellery card | pending |
-| `hero-bali.mp4` | user-supplied `15821291_720_1280_30fps.mp4`, used without re-encoding | pending | 2026-07-15 | verify original source terms before launch | home hero | pending |
+| Production asset | Source | Usage |
+| --- | --- | --- |
+| `hero-bali.mp4` | user-supplied `15821291_720_1280_30fps.mp4` | home hero video |
+| `craft-jewellery.webp` | Pexels photo 693617, Darrel Und | package card |
+| `gallery/rice-terraces-*` | https://www.pexels.com/photo/33720812/ | gallery |
+| `gallery/nusa-penida-*` | https://www.pexels.com/photo/32021944/ | gallery |
+| `gallery/tanah-lot-*` | https://www.pexels.com/photo/33626257/ | gallery |
+| `gallery/bali-temple-*` | https://www.pexels.com/photo/26728928/ | gallery |
+| `gallery/bali-surfing-*` | https://www.pexels.com/photo/30067474/ | gallery |
+| `gallery/craft-studio-*` | https://www.pexels.com/photo/31246492/ | gallery |
+| `gallery/bali-snorkeling-*` | https://www.pexels.com/photo/35784293/ | gallery |
+| `gallery/rice-mountain-*` | https://www.pexels.com/photo/35697845/ | hero fallback and gallery |
+| `gallery/ubud-landscape-*` | https://www.pexels.com/photo/35738184/ | gallery |
+| `gallery/bali-water-sports-*` | https://www.pexels.com/photo/30526707/ | gallery |
+| `gallery/northwest-bali-*` | https://www.pexels.com/photo/27375301/ | gallery |
+| `gallery/bali-fishing-*` | https://www.pexels.com/photo/20388434/ | gallery |
+| `gallery/turtle-island-*` | https://www.pexels.com/photo/7714554/ | gallery |
+| `gallery/bali-safari-*` | Pexels photo 66898 | gallery |
+| `gallery/mount-batur-*` | https://www.pexels.com/photo/37559058/ | gallery |
+| `gallery/ocean-adventure-*` | https://www.pexels.com/photo/16228621/ | gallery |
+| `gallery/atv-adventure-*` | Pexels photo 163407 | gallery |
+| `gallery/bali-road-*` | https://www.pexels.com/photo/116675/ | gallery |
 
-The supplied 28.33 MB file is used byte-for-byte without compression or re-encoding. The still image loads first; reduced-motion, data-saver, and 2G visitors keep the still image instead of loading video.
-
-## Temporary CDN assets used by the current build
-
-| Runtime key | Source page | Contributor | Role |
-| --- | --- | --- | --- |
-| `riceTerraces` | https://www.pexels.com/photo/stunning-bali-rice-terraces-in-indonesia-33720812/ | Lars H Knudsen | atmosphere |
-| `nusaPenida` | https://www.pexels.com/photo/stunning-coastal-cliffs-in-nusa-penida-bali-32021944/ | verify on source page before launch | atmosphere |
-| `sunsetTemple` | https://www.pexels.com/photo/scenic-tanah-lot-temple-at-sunset-in-bali-33626257/ | Harsh & Leena Bansal | atmosphere |
+All gallery originals were acquired on 2026-07-31. Production derivatives are local responsive AVIF and WebP files; the page does not hotlink third-party images.

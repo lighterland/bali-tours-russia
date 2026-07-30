@@ -1,9 +1,11 @@
 import type { TourPackage } from "@/lib/catalogue";
+import { craftTransferUsdFor, privateGroupBreakdown } from "@/lib/pricing-rules";
 
 export const TRAVEL_SERVICE_VAT_RATE = 0.011;
-export function conditionalTransferUsdFor(tour: TourPackage, packageIds: readonly string[]) {
+export function conditionalTransferUsdFor(tour: TourPackage, packageIds: readonly string[], guests = 1) {
   if (tour.pricing.model !== "conditional_transfer") return tour.pricing.amountUsd;
-  return packageIds.some((id) => tour.pricing.freeWhenPackageIds?.includes(id)) ? 0 : tour.pricing.amountUsd;
+  const isFree = packageIds.some((id) => tour.pricing.freeWhenPackageIds?.includes(id));
+  return craftTransferUsdFor(guests, isFree);
 }
 
 export type TripEstimate = {
@@ -47,7 +49,7 @@ export function calculateTripEstimate(
 ): TripEstimate {
   const safeGuests = Math.max(1, Math.floor(guests));
   const lines = selectedPackages.map((tour) => {
-    if (tour.pricing.model === "conditional_transfer") return { id: tour.id, totalUsd: conditionalTransferUsdFor(tour, selectedPackages.map((item) => item.id)), guestSavingUsd: 0 };
+    if (tour.pricing.model === "conditional_transfer") return { id: tour.id, totalUsd: conditionalTransferUsdFor(tour, selectedPackages.map((item) => item.id), safeGuests), guestSavingUsd: 0 };
     if (tour.pricing.model === "free") return { id: tour.id, totalUsd: 0, guestSavingUsd: 0 };
     if (tour.id === "vehicle-rental" && vehicleAmountUsd !== undefined) {
       return { id: tour.id, totalUsd: vehicleAmountUsd * Math.max(1, rentalDays), guestSavingUsd: 0 };
@@ -61,10 +63,15 @@ export function calculateTripEstimate(
       };
     }
     if (tour.pricing.model === "per_group") {
-      const extraGuests = Math.max(0, safeGuests - (tour.pricing.includedGuests || safeGuests));
+      const breakdown = privateGroupBreakdown(
+        tour.pricing.amountUsd,
+        tour.pricing.includedGuests || safeGuests,
+        tour.pricing.extraGuestUsd || 0,
+        safeGuests,
+      );
       return {
         id: tour.id,
-        totalUsd: tour.pricing.amountUsd + extraGuests * (tour.pricing.extraGuestUsd || 0),
+        totalUsd: breakdown.totalUsd,
         guestSavingUsd: 0,
       };
     }

@@ -1,0 +1,578 @@
+[
+  {
+    "slug": "rice-terraces",
+    "source": "rice-terraces.jpg",
+    "width": 1800,
+    "height": 2700,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "rice-terraces-360.avif",
+        "bytes": 32536
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "rice-terraces-360.webp",
+        "bytes": 41938
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "rice-terraces-1200.avif",
+        "bytes": 306331
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "rice-terraces-1200.webp",
+        "bytes": 420416
+      }
+    ]
+  },
+  {
+    "slug": "nusa-penida",
+    "source": "nusa-penida.jpg",
+    "width": 1800,
+    "height": 2699,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "nusa-penida-360.avif",
+        "bytes": 21584
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "nusa-penida-360.webp",
+        "bytes": 30750
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "nusa-penida-1200.avif",
+        "bytes": 211108
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "nusa-penida-1200.webp",
+        "bytes": 303502
+      }
+    ]
+  },
+  {
+    "slug": "tanah-lot",
+    "source": "tanah-lot.jpg",
+    "width": 1800,
+    "height": 2753,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "tanah-lot-360.avif",
+        "bytes": 31697
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "tanah-lot-360.webp",
+        "bytes": 43734
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "tanah-lot-1200.avif",
+        "bytes": 347220
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "tanah-lot-1200.webp",
+        "bytes": 453182
+      }
+    ]
+  },
+  {
+    "slug": "bali-temple",
+    "source": "bali-temple.jpg",
+    "width": 1800,
+    "height": 2700,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-temple-360.avif",
+        "bytes": 15141
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-temple-360.webp",
+        "bytes": 20522
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-temple-1200.avif",
+        "bytes": 74585
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-temple-1200.webp",
+        "bytes": 115780
+      }
+    ]
+  },
+  {
+    "slug": "bali-surfing",
+    "source": "surfing.jpg",
+    "width": 1800,
+    "height": 1200,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-surfing-360.avif",
+        "bytes": 6247
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-surfing-360.webp",
+        "bytes": 11630
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-surfing-1200.avif",
+        "bytes": 88019
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-surfing-1200.webp",
+        "bytes": 156448
+      }
+    ]
+  },
+  {
+    "slug": "craft-studio",
+    "source": "craft.jpg",
+    "width": 1800,
+    "height": 2895,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "craft-studio-360.avif",
+        "bytes": 23208
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "craft-studio-360.webp",
+        "bytes": 35018
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "craft-studio-1200.avif",
+        "bytes": 140492
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "craft-studio-1200.webp",
+        "bytes": 231586
+      }
+    ]
+  },
+  {
+    "slug": "bali-snorkeling",
+    "source": "snorkeling.jpg",
+    "width": 1800,
+    "height": 1013,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-snorkeling-360.avif",
+        "bytes": 20550
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-snorkeling-360.webp",
+        "bytes": 21760
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-snorkeling-1200.avif",
+        "bytes": 165129
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-snorkeling-1200.webp",
+        "bytes": 201784
+      }
+    ]
+  },
+  {
+    "slug": "rice-mountain",
+    "source": "rice-mountain.jpg",
+    "width": 1800,
+    "height": 1350,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "rice-mountain-360.avif",
+        "bytes": 13735
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "rice-mountain-360.webp",
+        "bytes": 20582
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "rice-mountain-1200.avif",
+        "bytes": 172938
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "rice-mountain-1200.webp",
+        "bytes": 237492
+      }
+    ]
+  },
+  {
+    "slug": "ubud-landscape",
+    "source": "ubud-landscape.jpg",
+    "width": 1800,
+    "height": 1350,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "ubud-landscape-360.avif",
+        "bytes": 18727
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "ubud-landscape-360.webp",
+        "bytes": 26476
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "ubud-landscape-1200.avif",
+        "bytes": 203670
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "ubud-landscape-1200.webp",
+        "bytes": 281218
+      }
+    ]
+  },
+  {
+    "slug": "bali-water-sports",
+    "source": "water-sports.jpg",
+    "width": 1800,
+    "height": 3202,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-water-sports-360.avif",
+        "bytes": 8183
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-water-sports-360.webp",
+        "bytes": 15030
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-water-sports-1200.avif",
+        "bytes": 49237
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-water-sports-1200.webp",
+        "bytes": 100358
+      }
+    ]
+  },
+  {
+    "slug": "northwest-bali",
+    "source": "northwest-bali.jpg",
+    "width": 1800,
+    "height": 1196,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "northwest-bali-360.avif",
+        "bytes": 7686
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "northwest-bali-360.webp",
+        "bytes": 11628
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "northwest-bali-1200.avif",
+        "bytes": 77695
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "northwest-bali-1200.webp",
+        "bytes": 117582
+      }
+    ]
+  },
+  {
+    "slug": "bali-fishing",
+    "source": "fishing.jpg",
+    "width": 1800,
+    "height": 2700,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-fishing-360.avif",
+        "bytes": 17022
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-fishing-360.webp",
+        "bytes": 26236
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-fishing-1200.avif",
+        "bytes": 89688
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-fishing-1200.webp",
+        "bytes": 161528
+      }
+    ]
+  },
+  {
+    "slug": "turtle-island",
+    "source": "turtle-island.jpg",
+    "width": 1800,
+    "height": 2700,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "turtle-island-360.avif",
+        "bytes": 8099
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "turtle-island-360.webp",
+        "bytes": 14276
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "turtle-island-1200.avif",
+        "bytes": 84582
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "turtle-island-1200.webp",
+        "bytes": 182024
+      }
+    ]
+  },
+  {
+    "slug": "bali-safari",
+    "source": "bali-safari.jpg",
+    "width": 1600,
+    "height": 1067,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-safari-360.avif",
+        "bytes": 21964
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-safari-360.webp",
+        "bytes": 27176
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-safari-1200.avif",
+        "bytes": 174941
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-safari-1200.webp",
+        "bytes": 252008
+      }
+    ]
+  },
+  {
+    "slug": "mount-batur",
+    "source": "mount-batur.jpg",
+    "width": 1800,
+    "height": 1200,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "mount-batur-360.avif",
+        "bytes": 5782
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "mount-batur-360.webp",
+        "bytes": 9874
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "mount-batur-1200.avif",
+        "bytes": 42823
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "mount-batur-1200.webp",
+        "bytes": 79926
+      }
+    ]
+  },
+  {
+    "slug": "ocean-adventure",
+    "source": "ocean-adventure.jpg",
+    "width": 1800,
+    "height": 1200,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "ocean-adventure-360.avif",
+        "bytes": 4233
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "ocean-adventure-360.webp",
+        "bytes": 6816
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "ocean-adventure-1200.avif",
+        "bytes": 31229
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "ocean-adventure-1200.webp",
+        "bytes": 53294
+      }
+    ]
+  },
+  {
+    "slug": "atv-adventure",
+    "source": "atv.jpg",
+    "width": 1600,
+    "height": 2844,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "atv-adventure-360.avif",
+        "bytes": 37853
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "atv-adventure-360.webp",
+        "bytes": 49164
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "atv-adventure-1200.avif",
+        "bytes": 174364
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "atv-adventure-1200.webp",
+        "bytes": 271620
+      }
+    ]
+  },
+  {
+    "slug": "bali-road",
+    "source": "bali-road.jpg",
+    "width": 1800,
+    "height": 1013,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-road-360.avif",
+        "bytes": 7396
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-road-360.webp",
+        "bytes": 11546
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-road-1200.avif",
+        "bytes": 55851
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-road-1200.webp",
+        "bytes": 94438
+      }
+    ]
+  }
+]

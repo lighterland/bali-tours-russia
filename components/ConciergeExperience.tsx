@@ -4,13 +4,14 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import type { TourPackage } from "@/lib/catalogue";
 import { contactChannels } from "@/lib/enquiry";
 import { localized, type SupportedLanguage } from "@/lib/i18n";
-import { mediaAssets } from "@/lib/media";
 import { siteCopy } from "@/lib/site-copy";
 import { buildBookingMessage, buildWhatsAppLink } from "@/lib/whatsapp";
 import { baliServicesCard, type BaliService } from "@/lib/bali-services";
 import { calculateTripEstimate, conditionalTransferUsdFor, nextBundleTarget } from "@/lib/trip-pricing";
 import { readyMadeCollections } from "@/lib/ready-made-collections";
 import { parseStoredTripPlan, serializeTripPlan, tripPlanStorageKey } from "@/lib/trip-plan-storage";
+import { CRAFT_TRANSFER_USD_PER_CAR, privateGroupBreakdown, vehicleCountForGuests } from "@/lib/pricing-rules";
+import { galleryImages, type GalleryImage } from "@/lib/gallery";
 import Link from "next/link";
 import { BrandLogo } from "./BrandLogo";
 
@@ -36,7 +37,7 @@ const resolveAssetUrl = (url: string) => {
   return `${basePath}${url}`;
 };
 
-const heroFallback = resolveAssetUrl(mediaAssets.riceTerraces.url);
+const heroFallback = resolveAssetUrl("/media/gallery/rice-mountain-1200.webp");
 
 function localIsoDate(date: Date) {
   const year = date.getFullYear();
@@ -103,9 +104,14 @@ const services = {
   en: { eyebrow: "Bali services", title: "Bali support, made simple.", body: "From visas and property matters to business and banking support, connect with trusted local assistance through one shared plan. Select everything you may need—we’ll review your request and prepare a tailored quotation.", cta: "View your plan", choose: "Choose a service first" },
 } as const;
 
+const galleryCopy = {
+  ru: { eyebrow: "Вдохновение", title: "Бали в мгновениях.", body: "От рассвета на вулкане до океана, храмов и джунглей — выберите настроение будущей поездки.", open: "Открыть фото", close: "Закрыть фото", previous: "Предыдущее фото", next: "Следующее фото" },
+  en: { eyebrow: "Inspiration", title: "Bali, in moments.", body: "From volcanic sunrise to ocean, temples, and jungle—find the atmosphere for your next journey.", open: "Open photo", close: "Close photo", previous: "Previous photo", next: "Next photo" },
+} as const;
+
 const cartCopy = {
-  ru: { cart: "Ваш план", items: "позиций", journeys: "Маршруты", services: "Сервисы · цена по запросу", close: "Закрыть план", view: "Открыть план", quote: "По запросу", option: "Выберите вариант", add: "Добавить в план", craftFree: "Бесплатный трансфер · подходящий маршрут", craftPaid: "Трансфер · $10 за автомобиль", continue: "Перейти к заявке", explore: "Разделы", support: "Поддержка", connect: "Связь", email: "Email" },
-  en: { cart: "Your plan", items: "items", journeys: "Journeys", services: "Services · price on request", close: "Close plan", view: "View your plan", quote: "On request", option: "Choose an option", add: "Add to cart", craftFree: "Free transfer — eligible itinerary", craftPaid: "Transfer · $10 per car", continue: "Continue to enquiry", explore: "Explore", support: "Support", connect: "Connect", email: "Email" },
+  ru: { cart: "Ваш план", items: "позиций", journeys: "Маршруты", services: "Сервисы · цена по запросу", close: "Закрыть план", view: "Открыть план", quote: "По запросу", option: "Выберите вариант", add: "Добавить в план", craftFree: "Бесплатный трансфер · подходящий маршрут", craftPaid: "Трансфер", privateGroup: "Частная группа", includesGuests: "Включено: 1–4 гостя", extraGuests: "Дополнительные гости", cars: "авто", perCar: "за авто", continue: "Перейти к заявке", explore: "Разделы", support: "Поддержка", connect: "Связь", email: "Email" },
+  en: { cart: "Your plan", items: "items", journeys: "Journeys", services: "Services · price on request", close: "Close plan", view: "View your plan", quote: "On request", option: "Choose an option", add: "Add to cart", craftFree: "Free transfer — eligible itinerary", craftPaid: "Transfer", privateGroup: "Private group", includesGuests: "Includes 1–4 guests", extraGuests: "Additional guests", cars: "cars", perCar: "per car", continue: "Continue to enquiry", explore: "Explore", support: "Support", connect: "Connect", email: "Email" },
 } as const;
 
 const collectionCopy = {
@@ -174,6 +180,20 @@ function SocialIcon({ name }: { name: "instagram" | "vk" | "telegram" | "whatsap
   return <svg aria-hidden="true" viewBox="0 0 24 24" className="social-icon" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
 
+function ContactIcon({ name }: { name: "phone" | "email" }) {
+  const path = name === "phone"
+    ? <path d="M7.2 3.5 10 7.2 8.4 9.4c1.3 2.6 3.3 4.6 5.9 5.9l2.2-1.6 3.7 2.8c.4.3.5.9.2 1.3l-1.2 1.8c-.6.9-1.7 1.3-2.8 1C9.7 18.8 5.1 14.2 3.3 7.5 3 6.4 3.4 5.3 4.3 4.7l1.8-1.2c.4-.3.9-.3 1.1 0Z"/>
+    : <><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></>;
+  return <svg aria-hidden="true" viewBox="0 0 24 24" className="contact-icon" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{path}</svg>;
+}
+
+function LanguageFlag({ language }: { language: "ru" | "en" }) {
+  if (language === "ru") {
+    return <svg aria-hidden="true" viewBox="0 0 36 36" className="language-flag"><rect width="36" height="12" fill="#fff"/><rect y="12" width="36" height="12" fill="#1753a0"/><rect y="24" width="36" height="12" fill="#d52b1e"/></svg>;
+  }
+  return <svg aria-hidden="true" viewBox="0 0 36 36" className="language-flag"><rect width="36" height="36" fill="#012169"/><path d="M0 0 36 36M36 0 0 36" stroke="#fff" strokeWidth="9"/><path d="M0 0 36 36M36 0 0 36" stroke="#c8102e" strokeWidth="4"/><path d="M18 0v36M0 18h36" stroke="#fff" strokeWidth="11"/><path d="M18 0v36M0 18h36" stroke="#c8102e" strokeWidth="6"/></svg>;
+}
+
 export function ConciergeExperience({
   packages,
   locale,
@@ -183,6 +203,7 @@ export function ConciergeExperience({
   businessEmail,
 }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState<number | null>(null);
   const [selectedPackageIds, setSelectedPackageIds] = useState<string[]>([]);
   const [serviceAdded, setServiceAdded] = useState(false);
   const [selectedServiceOptionIds, setSelectedServiceOptionIds] = useState<string[]>([]);
@@ -194,6 +215,8 @@ export function ConciergeExperience({
   const language: SupportedLanguage = locale;
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
+  const lightboxCloseRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
   const planStorageReady = useRef(false);
   const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", endDate: "", guests: "1", pickup: "", notes: "" });
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
@@ -202,6 +225,8 @@ export function ConciergeExperience({
   const labels = ui[locale];
   const cartLabels = cartCopy[locale];
   const publicEmail = businessEmail || "booking@balicloser.com";
+  const adminPhoneHref = `tel:+${whatsappNumber.replace(/\D/g, "")}`;
+  const adminPhoneLabel = whatsappNumber.replace(/\D/g, "") === "79011822653" ? "+7 901 182-26-53" : `+${whatsappNumber.replace(/\D/g, "")}`;
   const text = (value: Parameters<typeof localized>[0]) => localized(value, locale);
 
   const selectedPackages = useMemo(
@@ -221,7 +246,7 @@ export function ConciergeExperience({
   const onRequestItemCount = selectedServices.length + (onRequestTransport ? 1 : 0);
   const selectedInterestTitle = [...selectedPackages.map((item) => item.id === "vehicle-rental" && vehicleVariant ? `${text(item.title)} · ${text(vehicleVariant.title)}` : text(item.title)), ...selectedServices.map(serviceTitle)].join(", ") || labels.chooseRoute;
   const craftPackage = packages.find((item) => item.id === "craft-jewellery");
-  const calculatedCraftTransferUsd = craftPackage ? conditionalTransferUsdFor(craftPackage, selectedPackageIds) : 10;
+  const calculatedCraftTransferUsd = craftPackage ? conditionalTransferUsdFor(craftPackage, selectedPackageIds, guestCount) : 10;
   const craftTransferFree = calculatedCraftTransferUsd === 0;
   const vehicleEstimateUsd = vehicleVariant?.status === "fixed" ? vehicleVariant.amountUsd : 0;
   const estimate = calculateTripEstimate(selectedPackages, guestCount, rentalDays, vehicleEstimateUsd);
@@ -234,12 +259,40 @@ export function ConciergeExperience({
   const hasPaidJourney = selectedPackages.some((tour) => tour.pricing.model !== "free");
   const cartItemCount = selectedPackages.length + selectedServices.length;
   const cartVisible = plannerOpen && cartItemCount > 0;
+  const galleryOpen = activeGalleryIndex !== null;
   const dealHint = nextDeal
     ? locale === "ru"
       ? `Добавьте подходящих маршрутов: ${nextDeal.remaining} — и получите скидку ${nextDeal.rate * 100}%`
       : `Add ${nextDeal.remaining} more eligible journeys to unlock ${nextDeal.rate * 100}% off`
     : locale === "ru" ? "Лучшая скидка 8% уже применена" : "Your best 8% deal is applied";
   const lineTotal = (tour: TourPackage) => estimate.lines.find((line) => line.id === tour.id)?.totalUsd || 0;
+  const publicPriceLabel = (tour: TourPackage) => tour.pricing.model === "per_group" && tour.pricing.includedGuests
+    ? `$${tour.pricing.amountUsd} / ${cartLabels.privateGroup.toLowerCase()}`
+    : text(tour.price.label);
+  const cartLineDetail = (tour: TourPackage) => {
+    if (tour.id === "craft-jewellery") {
+      if (craftTransferFree) return cartLabels.craftFree;
+      const cars = vehicleCountForGuests(guestCount);
+      return `${cartLabels.craftPaid} · $${CRAFT_TRANSFER_USD_PER_CAR} ${cartLabels.perCar} × ${cars} ${cartLabels.cars} = $${calculatedCraftTransferUsd}`;
+    }
+    if (tour.pricing.model === "per_group" && tour.pricing.includedGuests) {
+      const breakdown = privateGroupBreakdown(
+        tour.pricing.amountUsd,
+        tour.pricing.includedGuests || 4,
+        tour.pricing.extraGuestUsd || 0,
+        guestCount,
+      );
+      if (!breakdown.extraGuests) return `${cartLabels.privateGroup} · $${breakdown.baseUsd} · ${cartLabels.includesGuests}`;
+      return `${cartLabels.privateGroup} · $${breakdown.baseUsd} + ${breakdown.extraGuests} × $${breakdown.extraGuestUsd} = $${breakdown.totalUsd}`;
+    }
+    return text(tour.price.label);
+  };
+  const galleryPath = (image: GalleryImage, width: number, format: "avif" | "webp") =>
+    resolveAssetUrl(`/media/gallery/${image.slug}-${width}.${format}`);
+  const openGallery = (index: number) => {
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setActiveGalleryIndex(index);
+  };
   const planSummary = selectedInterestTitle;
   const directWhatsApp = buildWhatsAppLink(whatsappNumber, {
     packageTitle: planSummary,
@@ -258,13 +311,21 @@ export function ConciergeExperience({
     const connection = (navigator as Navigator & {
       connection?: EventTarget & { saveData?: boolean; effectiveType?: string };
     }).connection;
+    let heroVideoTimer = 0;
     const updateHeroVideo = () => {
+      window.clearTimeout(heroVideoTimer);
       const slowConnection = ["slow-2g", "2g"].includes(connection?.effectiveType || "");
-      setShowHeroVideo(!connection?.saveData && !slowConnection && !motionQuery.matches);
+      const shouldPlay = window.innerWidth >= 900 && !connection?.saveData && !slowConnection && !motionQuery.matches;
+      if (!shouldPlay) {
+        setShowHeroVideo(false);
+        return;
+      }
+      heroVideoTimer = window.setTimeout(() => setShowHeroVideo(true), 2500);
     };
     updateHeroVideo();
     motionQuery.addEventListener("change", updateHeroVideo);
     connection?.addEventListener("change", updateHeroVideo);
+    window.addEventListener("resize", updateHeroVideo, { passive: true });
 
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const observer = new IntersectionObserver(
@@ -298,6 +359,8 @@ export function ConciergeExperience({
       window.removeEventListener("scroll", animateScroll);
       motionQuery.removeEventListener("change", updateHeroVideo);
       connection?.removeEventListener("change", updateHeroVideo);
+      window.removeEventListener("resize", updateHeroVideo);
+      window.clearTimeout(heroVideoTimer);
       cancelAnimationFrame(frame);
     };
   }, [locale]);
@@ -352,6 +415,36 @@ export function ConciergeExperience({
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [cartVisible]);
+
+  useEffect(() => {
+    if (!galleryOpen) return;
+    document.body.classList.add("gallery-open");
+    lightboxCloseRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveGalleryIndex(null);
+      if (event.key === "ArrowLeft") setActiveGalleryIndex((index) => index === null ? null : (index - 1 + galleryImages.length) % galleryImages.length);
+      if (event.key === "ArrowRight") setActiveGalleryIndex((index) => index === null ? null : (index + 1) % galleryImages.length);
+      if (event.key === "Tab") {
+        const controls = Array.from(document.querySelectorAll<HTMLElement>(".gallery-lightbox figure button"));
+        const first = controls[0];
+        const last = controls.at(-1);
+        if (!first || !last) return;
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.classList.remove("gallery-open");
+      window.removeEventListener("keydown", onKeyDown);
+      previousFocusRef.current?.focus();
+    };
+  }, [galleryOpen]);
 
   function toggleService() {
     if (!serviceAdded && !selectedServiceOptionIds.length) return;
@@ -486,9 +579,30 @@ export function ConciergeExperience({
         </nav>
         <div className="header-actions">
           <div className="language-toggle" role="group" aria-label="Language">
-            {(["ru", "en"] as const).map((value) => <a key={value} href={resolveAssetUrl(`/${value}/`)} className={locale === value ? "active" : ""} aria-current={locale === value ? "page" : undefined}>{value.toUpperCase()}</a>)}
+            {(["ru", "en"] as const).map((value) => {
+              const languageName = value === "ru" ? "Русский" : "English";
+              return <a key={value} href={resolveAssetUrl(`/${value}/`)} className={locale === value ? "active" : ""} aria-label={languageName} title={languageName} aria-current={locale === value ? "page" : undefined}><LanguageFlag language={value} /></a>;
+            })}
           </div>
           <a className="header-cta" href="#request">{copy.nav.cta}</a>
+        </div>
+        <div className="header-direct-contact" aria-label={locale === "ru" ? "Связаться с администратором" : "Contact the administrator"}>
+          <a className="header-contact-link header-phone" href={adminPhoneHref}>
+            <ContactIcon name="phone" />
+            <span><small>{locale === "ru" ? "Позвонить" : "Call"}</small>{adminPhoneLabel}</span>
+          </a>
+          <a className="header-channel-link header-whatsapp" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label={locale === "ru" ? "Написать администратору в WhatsApp" : "Message the administrator on WhatsApp"} title="WhatsApp">
+            <SocialIcon name="whatsapp" />
+            <span>WhatsApp</span>
+          </a>
+          {telegramUrl ? <a className="header-channel-link header-telegram" href={telegramUrl} target="_blank" rel="noreferrer" aria-label={locale === "ru" ? "Написать администратору в Telegram" : "Message the administrator on Telegram"} title="Telegram">
+            <SocialIcon name="telegram" />
+            <span>Telegram</span>
+          </a> : null}
+          <a className="header-contact-link header-email" href={`mailto:${publicEmail}`}>
+            <ContactIcon name="email" />
+            <span><small>Email</small>{publicEmail}</span>
+          </a>
         </div>
         <button
           className="menu-button"
@@ -570,7 +684,8 @@ export function ConciergeExperience({
                 {tour.id === "vehicle-rental" && vehiclePackage?.pricing.variants ? <div className="route-config rental-config"><label><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}><option value="">{cartLabels.option}</option>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}/${locale === "ru" ? "день" : "day"}` : ` · ${cartLabels.quote}`}</option>)}</select></label><label><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label>{vehicleVariant ? <strong className="rental-calculation">{vehicleVariant.status === "fixed" ? `$${vehicleVariant.amountUsd}/${locale === "ru" ? "день" : "day"} × ${rentalDays} = $${rentalSubtotalUsd}` : `${rentalDays} ${locale === "ru" ? "дн. · по запросу" : "days · on request"}`}</strong> : null}</div> : null}
                 <div className="route-bottom">
                   <div className="route-price">
-                    {isCraft && craftTransferFree ? <div className="craft-free-price"><span>{text(tour.price.label)}</span><strong>{labels.free}</strong><em>{collectionCopy[locale].craftIncluded}</em></div> : <strong className="route-price-primary">{text(tour.price.label)}</strong>}
+                    {isCraft && craftTransferFree ? <div className="craft-free-price"><span>{text(tour.price.label)}</span><strong>{labels.free}</strong><em>{collectionCopy[locale].craftIncluded}</em></div> : <strong className="route-price-primary">{publicPriceLabel(tour)}</strong>}
+                    {tour.pricing.model === "per_group" ? <small className="group-price-note">{cartLabels.includesGuests}{tour.pricing.extraGuestUsd ? ` · +$${tour.pricing.extraGuestUsd} ${locale === "ru" ? "за доп. гостя" : "per additional guest"}` : ""}</small> : null}
                     {secondaryPrice && <span className="route-price-secondary">{secondaryPrice}</span>}
                     {isCraft ? <small className="craft-price-note">{collectionCopy[locale].craftNote}</small> : null}
                   </div>
@@ -589,6 +704,25 @@ export function ConciergeExperience({
             </div>
           </article>
          </div>
+      </section>
+
+      <section className="gallery-section section" id="gallery">
+        <div className="gallery-heading" data-reveal>
+          <div><p className="eyebrow dark">{galleryCopy[locale].eyebrow}</p><h2>{galleryCopy[locale].title}</h2></div>
+          <p>{galleryCopy[locale].body}</p>
+        </div>
+        <div className="gallery-mosaic">
+          {galleryImages.map((image, index) => (
+            <button className={`gallery-tile is-${image.layout}`} type="button" key={image.slug} onClick={() => openGallery(index)} aria-label={`${galleryCopy[locale].open}: ${text(image.caption)}`} data-reveal>
+              <picture>
+                <source type="image/avif" srcSet={`${galleryPath(image, 360, "avif")} 360w, ${galleryPath(image, image.width, "avif")} ${image.width}w`} sizes={image.layout === "large" || image.layout === "wide" ? "(max-width: 720px) 100vw, 50vw" : "(max-width: 720px) 50vw, 25vw"} />
+                <source type="image/webp" srcSet={`${galleryPath(image, 360, "webp")} 360w, ${galleryPath(image, image.width, "webp")} ${image.width}w`} sizes={image.layout === "large" || image.layout === "wide" ? "(max-width: 720px) 100vw, 50vw" : "(max-width: 720px) 50vw, 25vw"} />
+                <img src={galleryPath(image, image.width, "webp")} alt={text(image.caption)} width={image.width} height={image.height} loading="lazy" decoding="async" />
+              </picture>
+              <span>{text(image.caption)}</span>
+            </button>
+          ))}
+        </div>
       </section>
 
       <section className="process section" id="process">
@@ -623,7 +757,7 @@ export function ConciergeExperience({
       </section>
 
       <section className="trust section" id="trust">
-        <div className="trust-image" style={{ backgroundImage: `url(${resolveAssetUrl('/media/incoming/Bali%20local%20hospitality%20hands%20detail.jpg')})` }} data-reveal />
+        <div className="trust-image" style={{ backgroundImage: `url(${resolveAssetUrl("/media/incoming/Bali%20local%20hospitality%20hands%20detail.jpg")})` }} role="img" aria-label={copy.trust.title} data-reveal />
         <div className="trust-copy" data-reveal>
           <p className="eyebrow dark">{copy.trust.eyebrow}</p>
           <h2>{copy.trust.title}</h2>
@@ -707,7 +841,7 @@ export function ConciergeExperience({
               {pricedSelectedPackages.map((tour) => {
                 const isRental = tour.id === "vehicle-rental" && Boolean(vehiclePackage?.pricing.variants);
                 return <div className={`cart-line${isRental ? " cart-line-rental" : ""}`} key={tour.id}>
-                  <div><strong>{text(tour.title)}</strong><small>{isRental && vehicleVariant ? `${text(vehicleVariant.title)} · ${rentalDays} ${locale === "ru" ? "дн." : "days"}` : tour.id === "craft-jewellery" ? (craftTransferFree ? cartLabels.craftFree : cartLabels.craftPaid) : text(tour.price.label)}</small></div>
+                  <div><strong>{text(tour.title)}</strong><small>{isRental && vehicleVariant ? `${text(vehicleVariant.title)} · ${rentalDays} ${locale === "ru" ? "дн." : "days"}` : cartLineDetail(tour)}</small></div>
                   <span>${lineTotal(tour)}</span>
                   <button type="button" onClick={() => choosePackage(tour.id)} aria-label={`${labels.remove}: ${text(tour.title)}`}>×</button>
                   {isRental && vehiclePackage?.pricing.variants ? <div className="cart-config cart-line-config"><label><span>{labels.vehicleChoice}</span><select value={vehicleVariantId} onChange={(event) => setVehicleVariantId(event.target.value)}>{vehiclePackage.pricing.variants.map((variant) => <option value={variant.id} key={variant.id}>{text(variant.title)}{variant.status === "fixed" ? ` · $${variant.amountUsd}/${locale === "ru" ? "день" : "day"}` : ` · ${cartLabels.quote}`}</option>)}</select></label><label><span>{labels.rentalDays}</span><input type="number" min="1" max="365" value={rentalDays} onChange={(event) => setRentalDays(Math.max(1, Number(event.target.value) || 1))} /></label></div> : null}
@@ -723,6 +857,22 @@ export function ConciergeExperience({
       <a className="whatsapp-fab" href={directWhatsApp} target="_blank" rel="noreferrer" aria-label={labels.openWhatsApp} title={labels.openWhatsApp}>
         <SocialIcon name="whatsapp" />
       </a>
+      {activeGalleryIndex !== null ? (() => {
+        const image = galleryImages[activeGalleryIndex];
+        return <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={text(image.caption)}>
+          <button className="gallery-lightbox-backdrop" type="button" onClick={() => setActiveGalleryIndex(null)} aria-label={galleryCopy[locale].close} />
+          <figure>
+            <button ref={lightboxCloseRef} className="gallery-lightbox-close" type="button" onClick={() => setActiveGalleryIndex(null)} aria-label={galleryCopy[locale].close}>×</button>
+            <picture>
+              <source type="image/avif" srcSet={galleryPath(image, image.width, "avif")} />
+              <img src={galleryPath(image, image.width, "webp")} alt={text(image.caption)} width={image.width} height={image.height} />
+            </picture>
+            <figcaption>{text(image.caption)}</figcaption>
+            <button className="gallery-lightbox-nav is-previous" type="button" onClick={() => setActiveGalleryIndex((activeGalleryIndex - 1 + galleryImages.length) % galleryImages.length)} aria-label={galleryCopy[locale].previous}>‹</button>
+            <button className="gallery-lightbox-nav is-next" type="button" onClick={() => setActiveGalleryIndex((activeGalleryIndex + 1) % galleryImages.length)} aria-label={galleryCopy[locale].next}>›</button>
+          </figure>
+        </div>;
+      })() : null}
     </main>
   );
 }

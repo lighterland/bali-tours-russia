@@ -5,6 +5,7 @@ const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  allowedDevOrigins: ["127.0.0.1"],
   ...(isGitHubPages
     ? {
         output: "export",

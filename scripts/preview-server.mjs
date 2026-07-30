@@ -3,16 +3,18 @@ import { createReadStream, existsSync, statSync } from "node:fs";
 import { extname, join, normalize } from "node:path";
 
 const root = process.cwd();
-const mime = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".mp4": "video/mp4", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml", ".json": "application/json" };
+const outputRoot = join(root, "out");
+const mime = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".mp4": "video/mp4", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml", ".json": "application/json", ".webp": "image/webp", ".avif": "image/avif", ".woff2": "font/woff2", ".ttf": "font/ttf" };
 
 function resolveFile(urlPath) {
-  const pathname = decodeURIComponent(urlPath.split("?")[0]);
-  if (pathname === "/") return join(root, ".next/server/app/ru.html");
-  if (pathname === "/ru" || pathname === "/en") return join(root, `.next/server/app/${pathname.slice(1)}.html`);
-  if (pathname === "/privacy") return join(root, ".next/server/app/privacy.html");
-  if (pathname.startsWith("/_next/static/")) return join(root, ".next/static", pathname.slice("/_next/static/".length));
-  if (pathname.startsWith("/media/")) return join(root, "public", pathname);
-  return null;
+  let pathname = decodeURIComponent(urlPath.split("?")[0]);
+  if (pathname.startsWith("/bali-tours-russia/")) pathname = pathname.slice("/bali-tours-russia".length);
+  const relativePath = pathname.replace(/^\/+/, "");
+  const direct = join(outputRoot, relativePath);
+  if (existsSync(direct) && statSync(direct).isFile()) return direct;
+  const indexFile = join(direct, "index.html");
+  if (existsSync(indexFile) && statSync(indexFile).isFile()) return indexFile;
+  return pathname === "/" ? join(outputRoot, "ru", "index.html") : null;
 }
 
 http.createServer((request, response) => {
