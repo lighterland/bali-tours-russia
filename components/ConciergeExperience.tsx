@@ -340,16 +340,9 @@ export function ConciergeExperience({
     const connection = (navigator as Navigator & {
       connection?: EventTarget & { saveData?: boolean; effectiveType?: string };
     }).connection;
-    let heroVideoTimer = 0;
     const updateHeroVideo = () => {
-      window.clearTimeout(heroVideoTimer);
       const slowConnection = ["slow-2g", "2g"].includes(connection?.effectiveType || "");
-      const shouldPlay = window.innerWidth >= 900 && !connection?.saveData && !slowConnection && !motionQuery.matches;
-      if (!shouldPlay) {
-        setShowHeroVideo(false);
-        return;
-      }
-      heroVideoTimer = window.setTimeout(() => setShowHeroVideo(true), 2500);
+      setShowHeroVideo(!connection?.saveData && !slowConnection && !motionQuery.matches);
     };
     updateHeroVideo();
     motionQuery.addEventListener("change", updateHeroVideo);
@@ -389,7 +382,6 @@ export function ConciergeExperience({
       motionQuery.removeEventListener("change", updateHeroVideo);
       connection?.removeEventListener("change", updateHeroVideo);
       window.removeEventListener("resize", updateHeroVideo);
-      window.clearTimeout(heroVideoTimer);
       cancelAnimationFrame(frame);
     };
   }, [locale]);
@@ -651,7 +643,7 @@ export function ConciergeExperience({
               <source srcSet={heroFallbackAvif} type="image/avif" />
               <img src={heroFallback} alt="" width="1200" height="900" fetchPriority="high" />
             </picture>
-            {showHeroVideo ? <video autoPlay muted loop playsInline preload="none" poster={heroFallback} src={resolveAssetUrl("/media/hero-bali.mp4")} /> : null}
+            {showHeroVideo ? <video autoPlay muted loop playsInline preload="metadata" poster={heroFallback} src={resolveAssetUrl("/media/hero-bali.mp4")} /> : null}
             <div className="hero-scrim" />
           </div>
           <div className="hero-content">
