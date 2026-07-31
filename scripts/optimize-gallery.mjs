@@ -29,7 +29,7 @@ const gallery = [
   ["kecak-dance.jpg", "kecak-dance"],
   ["bali-sunset.jpg", "bali-sunset"],
   ["bali-ceremony.jpg", "bali-ceremony"],
-  ["bali-road.jpg", "bali-road"],
+  ["gates-of-heaven.jpg", "gates-of-heaven"],
 ];
 
 await fs.mkdir(outputDirectory, { recursive: true });

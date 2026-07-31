@@ -1,5 +1,5 @@
-import type { TourPackage } from "@/lib/catalogue";
-import { craftTransferUsdFor, privateGroupBreakdown } from "@/lib/pricing-rules";
+import type { TourPackage } from "./catalogue.ts";
+import { capacityUnitBreakdown, craftTransferUsdFor, privateGroupBreakdown } from "./pricing-rules.ts";
 
 export const TRAVEL_SERVICE_VAT_RATE = 0.011;
 export function conditionalTransferUsdFor(tour: TourPackage, packageIds: readonly string[], guests = 1) {
@@ -63,6 +63,13 @@ export function calculateTripEstimate(
       };
     }
     if (tour.pricing.model === "per_group") {
+      if (tour.pricing.unitCapacity) {
+        return {
+          id: tour.id,
+          totalUsd: capacityUnitBreakdown(tour.pricing.amountUsd, tour.pricing.unitCapacity, safeGuests).totalUsd,
+          guestSavingUsd: 0,
+        };
+      }
       const breakdown = privateGroupBreakdown(
         tour.pricing.amountUsd,
         tour.pricing.includedGuests || safeGuests,

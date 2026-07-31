@@ -26,5 +26,5 @@ export const galleryImages: GalleryImage[] = [
   { slug: "kecak-dance", caption: { ru: "Танец кечак", en: "Kecak dance" }, width: 1200, height: 800, layout: "wide" },
   { slug: "bali-sunset", caption: { ru: "Закат на пляже Бали", en: "Bali beach sunset" }, width: 1200, height: 1600, layout: "small" },
   { slug: "bali-ceremony", caption: { ru: "Балийская церемония", en: "Balinese ceremony" }, width: 1200, height: 800, layout: "tall" },
-  { slug: "bali-road", caption: { ru: "Дороги Бали", en: "Roads of Bali" }, width: 1200, height: 675, layout: "wide" },
+  { slug: "gates-of-heaven", caption: { ru: "Ворота рая в храме Лемпуянг", en: "Gates of Heaven at Lempuyang" }, width: 1200, height: 2133, layout: "wide" },
 ];

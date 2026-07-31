@@ -2,10 +2,17 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  capacityUnitBreakdown,
   craftTransferUsdFor,
   privateGroupBreakdown,
   vehicleCountForGuests,
 } from "./pricing-rules.ts";
+
+test("capacity-priced units add another unit only after capacity is exceeded", () => {
+  assert.deepEqual(capacityUnitBreakdown(390, 4, 4), { unitUsd: 390, capacity: 4, units: 1, totalUsd: 390 });
+  assert.deepEqual(capacityUnitBreakdown(390, 4, 5), { unitUsd: 390, capacity: 4, units: 2, totalUsd: 780 });
+  assert.deepEqual(capacityUnitBreakdown(390, 4, 9), { unitUsd: 390, capacity: 4, units: 3, totalUsd: 1170 });
+});
 
 test("vehicle transfers allocate one car for every four guests", () => {
   assert.equal(vehicleCountForGuests(1), 1);

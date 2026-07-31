@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import type { TourPackage } from "@/lib/catalogue";
 import { contactChannels } from "@/lib/enquiry";
 import { localized, type SupportedLanguage } from "@/lib/i18n";
@@ -10,7 +10,7 @@ import { baliServicesCard, type BaliService } from "@/lib/bali-services";
 import { calculateTripEstimate, conditionalTransferUsdFor, nextBundleTarget } from "@/lib/trip-pricing";
 import { readyMadeCollections } from "@/lib/ready-made-collections";
 import { parseStoredTripPlan, serializeTripPlan, tripPlanStorageKey } from "@/lib/trip-plan-storage";
-import { CRAFT_TRANSFER_USD_PER_CAR, privateGroupBreakdown, vehicleCountForGuests } from "@/lib/pricing-rules";
+import { capacityUnitBreakdown, CRAFT_TRANSFER_USD_PER_CAR, privateGroupBreakdown, vehicleCountForGuests } from "@/lib/pricing-rules";
 import { galleryImages, type GalleryImage } from "@/lib/gallery";
 import Link from "next/link";
 import { BrandLogo } from "./BrandLogo";
@@ -39,6 +39,19 @@ const resolveAssetUrl = (url: string) => {
 
 const heroFallback = resolveAssetUrl("/media/gallery/rice-mountain-1200.webp");
 const heroFallbackAvif = resolveAssetUrl("/media/gallery/rice-mountain-1200.avif");
+let clientGalleryOrder: GalleryImage[] | undefined;
+const subscribeGalleryOrder = () => () => undefined;
+const getServerGalleryOrder = () => galleryImages;
+const getClientGalleryOrder = () => {
+  if (!clientGalleryOrder) {
+    clientGalleryOrder = [...galleryImages];
+    for (let index = clientGalleryOrder.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [clientGalleryOrder[index], clientGalleryOrder[swapIndex]] = [clientGalleryOrder[swapIndex], clientGalleryOrder[index]];
+    }
+  }
+  return clientGalleryOrder;
+};
 
 function localIsoDate(date: Date) {
   const year = date.getFullYear();
@@ -111,8 +124,8 @@ const galleryCopy = {
 } as const;
 
 const cartCopy = {
-  ru: { cart: "Ваш план", items: "позиций", journeys: "Маршруты", services: "Сервисы · цена по запросу", close: "Закрыть план", view: "Открыть план", quote: "По запросу", option: "Выберите вариант", add: "Добавить в план", craftFree: "Бесплатный трансфер · подходящий маршрут", craftPaid: "Трансфер", privateGroup: "Частная группа", includesGuests: "Включено: 1–4 гостя", extraGuests: "Дополнительные гости", cars: "авто", perCar: "за авто", continue: "Перейти к заявке", explore: "Разделы", support: "Поддержка", connect: "Связь", email: "Email" },
-  en: { cart: "Your plan", items: "items", journeys: "Journeys", services: "Services · price on request", close: "Close plan", view: "View your plan", quote: "On request", option: "Choose an option", add: "Add to cart", craftFree: "Free transfer — eligible itinerary", craftPaid: "Transfer", privateGroup: "Private group", includesGuests: "Includes 1–4 guests", extraGuests: "Additional guests", cars: "cars", perCar: "per car", continue: "Continue to enquiry", explore: "Explore", support: "Support", connect: "Connect", email: "Email" },
+  ru: { cart: "Ваш план", items: "позиций", journeys: "Маршруты", services: "Сервисы · цена по запросу", close: "Закрыть план", view: "Открыть план", quote: "По запросу", option: "Выберите вариант", add: "Добавить в план", craftFree: "Бесплатный трансфер · подходящий маршрут", craftPaid: "Трансфер", privateGroup: "Частная группа", privateBoat: "Частный катер", includesGuests: "Включено: 1–4 гостя", perBoatCapacity: "До 4 гостей на катер", extraGuests: "Дополнительные гости", cars: "авто", boats: "катера", perCar: "за авто", perBoat: "за катер", minimumEstimate: "Минимальная оценка", continue: "Перейти к заявке", explore: "Разделы", support: "Поддержка", connect: "Связь", email: "Email" },
+  en: { cart: "Your plan", items: "items", journeys: "Journeys", services: "Services · price on request", close: "Close plan", view: "View your plan", quote: "On request", option: "Choose an option", add: "Add to cart", craftFree: "Free transfer — eligible itinerary", craftPaid: "Transfer", privateGroup: "Private group", privateBoat: "Private boat", includesGuests: "Includes 1–4 guests", perBoatCapacity: "Up to 4 guests per boat", extraGuests: "Additional guests", cars: "cars", boats: "boats", perCar: "per car", perBoat: "per boat", minimumEstimate: "Minimum estimate", continue: "Continue to enquiry", explore: "Explore", support: "Support", connect: "Connect", email: "Email" },
 } as const;
 
 const collectionCopy = {
@@ -205,6 +218,7 @@ export function ConciergeExperience({
 }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeGalleryIndex, setActiveGalleryIndex] = useState<number | null>(null);
+  const galleryOrder = useSyncExternalStore(subscribeGalleryOrder, getClientGalleryOrder, getServerGalleryOrder);
   const [selectedPackageIds, setSelectedPackageIds] = useState<string[]>([]);
   const [serviceAdded, setServiceAdded] = useState(false);
   const [selectedServiceOptionIds, setSelectedServiceOptionIds] = useState<string[]>([]);
@@ -221,6 +235,7 @@ export function ConciergeExperience({
   const planStorageReady = useRef(false);
   const [whatsAppDraft, setWhatsAppDraft] = useState({ date: "", endDate: "", guests: "1", pickup: "", notes: "" });
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
+
   const [showHeroVideo, setShowHeroVideo] = useState(false);
   const copy = siteCopy[locale];
   const labels = ui[locale];
@@ -267,7 +282,9 @@ export function ConciergeExperience({
       : `Add ${nextDeal.remaining} more eligible journeys to unlock ${nextDeal.rate * 100}% off`
     : locale === "ru" ? "Лучшая скидка 8% уже применена" : "Your best 8% deal is applied";
   const lineTotal = (tour: TourPackage) => estimate.lines.find((line) => line.id === tour.id)?.totalUsd || 0;
-  const publicPriceLabel = (tour: TourPackage) => tour.pricing.model === "per_group" && tour.pricing.includedGuests
+  const publicPriceLabel = (tour: TourPackage) => tour.pricing.unitCapacity
+    ? `$${tour.pricing.amountUsd} / ${cartLabels.privateBoat.toLowerCase()}`
+    : tour.pricing.model === "per_group" && tour.pricing.includedGuests
     ? `$${tour.pricing.amountUsd} / ${cartLabels.privateGroup.toLowerCase()}`
     : text(tour.price.label);
   const cartLineDetail = (tour: TourPackage) => {
@@ -277,6 +294,10 @@ export function ConciergeExperience({
       return `${cartLabels.craftPaid} · $${CRAFT_TRANSFER_USD_PER_CAR} ${cartLabels.perCar} × ${cars} ${cartLabels.cars} = $${calculatedCraftTransferUsd}`;
     }
     if (tour.pricing.model === "per_group" && tour.pricing.includedGuests) {
+      if (tour.pricing.unitCapacity) {
+        const breakdown = capacityUnitBreakdown(tour.pricing.amountUsd, tour.pricing.unitCapacity, guestCount);
+        return `${cartLabels.privateBoat} · $${breakdown.unitUsd} ${cartLabels.perBoat} × ${breakdown.units} ${cartLabels.boats} = $${breakdown.totalUsd} · ${cartLabels.perBoatCapacity}`;
+      }
       const breakdown = privateGroupBreakdown(
         tour.pricing.amountUsd,
         tour.pricing.includedGuests || 4,
@@ -286,6 +307,7 @@ export function ConciergeExperience({
       if (!breakdown.extraGuests) return `${cartLabels.privateGroup} · $${breakdown.baseUsd} · ${cartLabels.includesGuests}`;
       return `${cartLabels.privateGroup} · $${breakdown.baseUsd} + ${breakdown.extraGuests} × $${breakdown.extraGuestUsd} = $${breakdown.totalUsd}`;
     }
+    if (tour.pricing.model === "per_guest" && tour.pricing.estimateOnly) return `${cartLabels.minimumEstimate} · ${text(tour.price.label)}`;
     return text(tour.price.label);
   };
   const galleryPath = (image: GalleryImage, width: number, format: "avif" | "webp") =>
@@ -691,7 +713,7 @@ export function ConciergeExperience({
                 <div className="route-bottom">
                   <div className="route-price">
                     {isCraft && craftTransferFree ? <div className="craft-free-price"><span>{text(tour.price.label)}</span><strong>{labels.free}</strong><em>{collectionCopy[locale].craftIncluded}</em></div> : <strong className="route-price-primary">{publicPriceLabel(tour)}</strong>}
-                    {tour.pricing.model === "per_group" ? <small className="group-price-note">{cartLabels.includesGuests}{tour.pricing.extraGuestUsd ? ` · +$${tour.pricing.extraGuestUsd} ${locale === "ru" ? "за доп. гостя" : "per additional guest"}` : ""}</small> : null}
+                    {tour.pricing.unitCapacity ? <small className="group-price-note">{cartLabels.perBoatCapacity} · {locale === "ru" ? "дополнительный катер добавляется автоматически" : "another boat is added automatically"}</small> : tour.pricing.model === "per_group" ? <small className="group-price-note">{cartLabels.includesGuests}{tour.pricing.extraGuestUsd ? ` · +$${tour.pricing.extraGuestUsd} ${locale === "ru" ? "за доп. гостя" : "per additional guest"}` : ""}</small> : tour.pricing.model === "per_guest" && tour.pricing.estimateOnly ? <small className="group-price-note">{cartLabels.minimumEstimate} · {locale === "ru" ? "на каждого гостя" : "for every guest"}</small> : null}
                     {secondaryPrice && <span className="route-price-secondary">{secondaryPrice}</span>}
                     {isCraft ? <small className="craft-price-note">{collectionCopy[locale].craftNote}</small> : null}
                   </div>
@@ -718,7 +740,7 @@ export function ConciergeExperience({
           <p>{galleryCopy[locale].body}</p>
         </div>
         <div className="gallery-mosaic">
-          {galleryImages.map((image, index) => (
+          {galleryOrder.map((image, index) => (
             <button className={`gallery-tile is-${image.layout}`} type="button" key={image.slug} onClick={() => openGallery(index)} aria-label={`${galleryCopy[locale].open}: ${text(image.caption)}`} data-reveal>
               <picture>
                 <source type="image/avif" srcSet={`${galleryPath(image, 360, "avif")} 360w, ${galleryPath(image, image.width, "avif")} ${image.width}w`} sizes={image.layout === "large" || image.layout === "wide" ? "(max-width: 720px) 100vw, 50vw" : "(max-width: 720px) 50vw, 25vw"} />
@@ -864,7 +886,7 @@ export function ConciergeExperience({
         <SocialIcon name="whatsapp" />
       </a>
       {activeGalleryIndex !== null ? (() => {
-        const image = galleryImages[activeGalleryIndex];
+        const image = galleryOrder[activeGalleryIndex];
         return <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label={text(image.caption)}>
           <button className="gallery-lightbox-backdrop" type="button" onClick={() => setActiveGalleryIndex(null)} aria-label={galleryCopy[locale].close} />
           <figure>
@@ -874,8 +896,8 @@ export function ConciergeExperience({
               <img src={galleryPath(image, image.width, "webp")} alt={text(image.caption)} width={image.width} height={image.height} />
             </picture>
             <figcaption>{text(image.caption)}</figcaption>
-            <button className="gallery-lightbox-nav is-previous" type="button" onClick={() => setActiveGalleryIndex((activeGalleryIndex - 1 + galleryImages.length) % galleryImages.length)} aria-label={galleryCopy[locale].previous}>‹</button>
-            <button className="gallery-lightbox-nav is-next" type="button" onClick={() => setActiveGalleryIndex((activeGalleryIndex + 1) % galleryImages.length)} aria-label={galleryCopy[locale].next}>›</button>
+            <button className="gallery-lightbox-nav is-previous" type="button" onClick={() => setActiveGalleryIndex((activeGalleryIndex - 1 + galleryOrder.length) % galleryOrder.length)} aria-label={galleryCopy[locale].previous}>‹</button>
+            <button className="gallery-lightbox-nav is-next" type="button" onClick={() => setActiveGalleryIndex((activeGalleryIndex + 1) % galleryOrder.length)} aria-label={galleryCopy[locale].next}>›</button>
           </figure>
         </div>;
       })() : null}

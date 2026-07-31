@@ -544,34 +544,34 @@
     ]
   },
   {
-    "slug": "bali-road",
-    "source": "bali-road.jpg",
+    "slug": "gates-of-heaven",
+    "source": "gates-of-heaven.jpg",
     "width": 1800,
-    "height": 1013,
+    "height": 3200,
     "files": [
       {
         "format": "avif",
         "width": 360,
-        "file": "bali-road-360.avif",
-        "bytes": 6051
+        "file": "gates-of-heaven-360.avif",
+        "bytes": 18795
       },
       {
         "format": "webp",
         "width": 360,
-        "file": "bali-road-360.webp",
-        "bytes": 11546
+        "file": "gates-of-heaven-360.webp",
+        "bytes": 32870
       },
       {
         "format": "avif",
         "width": 1200,
-        "file": "bali-road-1200.avif",
-        "bytes": 53107
+        "file": "gates-of-heaven-1200.avif",
+        "bytes": 131839
       },
       {
         "format": "webp",
         "width": 1200,
-        "file": "bali-road-1200.webp",
-        "bytes": 94438
+        "file": "gates-of-heaven-1200.webp",
+        "bytes": 235270
       }
     ]
   }

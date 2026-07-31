@@ -23,6 +23,7 @@ export type TourPackage = {
     amountUsd: number;
     includedGuests?: number;
     extraGuestUsd?: number;
+    unitCapacity?: number;
     estimateOnly?: boolean;
     discountEligible?: boolean;
     freeWhenPackageIds?: readonly string[];
@@ -130,6 +131,7 @@ const auditedPriceAdjustments: Partial<Record<string, TourPackage["price"]>> = {
   "nusa-penida": { status: "fixed", currencies: ["USD"], label: local("$96 / гость", "$96 / guest") },
   "craft-jewellery": { status: "fixed", currencies: ["USD"], label: local("$10 / авто", "$10 / car") },
   "vehicle-rental": { status: "fixed", currencies: ["USD"], label: local("от $7 / день", "from $7 / day") },
+  "water-sports": { status: "fixed", currencies: ["USD"], label: local("от $30 / гость", "from $30 / guest") },
   "java-bromo-ijen": { status: "fixed", currencies: ["USD"], label: local("от $375 / гость", "from $375 / guest") },
   "java-yogyakarta": { status: "fixed", currencies: ["USD"], label: local("от $450 / гость", "from $450 / guest") },
 };
@@ -141,7 +143,7 @@ const pricingByPackage: Record<string, TourPackage["pricing"]> = {
   "temple-tour": { model: "per_group", amountUsd: 65, includedGuests: 4, extraGuestUsd: 10, discountEligible: true },
   "beach-tour": { model: "per_group", amountUsd: 60, includedGuests: 4, extraGuestUsd: 6, discountEligible: true },
   rafting: { model: "per_guest", amountUsd: 45, estimateOnly: true, discountEligible: true },
-  fishing: { model: "per_group", amountUsd: 390, includedGuests: 4, estimateOnly: true, discountEligible: true },
+  fishing: { model: "per_group", amountUsd: 390, includedGuests: 4, unitCapacity: 4, estimateOnly: true, discountEligible: true },
   "turtle-snorkeling": { model: "per_guest", amountUsd: 38, discountEligible: true },
   surfing: { model: "per_guest", amountUsd: 70, discountEligible: true },
   safari: { model: "per_guest", amountUsd: 75, estimateOnly: true, discountEligible: true },
@@ -176,6 +178,9 @@ export const packages: TourPackage[] = basePackages.map((item) => ({
   price: auditedPriceAdjustments[item.id] || item.price,
   pricing: pricingByPackage[item.id] || item.pricing,
   experience: stories[item.id] || item.experience,
+  priceDetail: item.id === "water-sports"
+    ? local("$30 — минимальная цена за одну активность для одного гостя. Итог зависит от выбранных активностей и рассчитывается на каждого гостя.", "$30 is the minimum for one activity per guest. The final total depends on the activities selected and is calculated for every guest.")
+    : item.priceDetail,
   promotion: item.id === "nusa-penida"
     ? { badge: local("Лучшее предложение", "Best deal"), note: local("Островной маршрут с личной координацией", "A signature island day with personal coordination"), spotlight: true }
     : item.id === "water-sports"

@@ -7,6 +7,11 @@ export const vehicleCountForGuests = (guests: number, capacity = STANDARD_VEHICL
 export const craftTransferUsdFor = (guests: number, isFree: boolean) =>
   isFree ? 0 : vehicleCountForGuests(guests) * CRAFT_TRANSFER_USD_PER_CAR;
 
+export const capacityUnitBreakdown = (unitUsd: number, capacity: number, guests: number) => {
+  const units = vehicleCountForGuests(guests, capacity);
+  return { unitUsd, capacity, units, totalUsd: unitUsd * units };
+};
+
 export const privateGroupBreakdown = (
   baseUsd: number,
   includedGuests: number,

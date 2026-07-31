@@ -23,6 +23,6 @@ Production media and its source record. Original gallery downloads are kept outs
 | `gallery/kecak-dance-*` | https://www.pexels.com/photo/35364635/ | gallery |
 | `gallery/bali-sunset-*` | https://www.pexels.com/photo/37611304/ | gallery |
 | `gallery/bali-ceremony-*` | https://www.pexels.com/photo/36717228/ | gallery |
-| `gallery/bali-road-*` | https://www.pexels.com/photo/116675/ | gallery |
+| `gallery/gates-of-heaven-*` | https://www.pexels.com/photo/28154007/ | gallery |
 
 All gallery originals were acquired on 2026-07-31. Production derivatives are local responsive AVIF and WebP files; the page does not hotlink third-party images.
