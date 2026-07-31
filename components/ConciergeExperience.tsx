@@ -44,11 +44,17 @@ const subscribeGalleryOrder = () => () => undefined;
 const getServerGalleryOrder = () => galleryImages;
 const getClientGalleryOrder = () => {
   if (!clientGalleryOrder) {
-    clientGalleryOrder = [...galleryImages];
-    for (let index = clientGalleryOrder.length - 1; index > 0; index -= 1) {
+    const shuffledImages = [...galleryImages];
+    const shuffledLayouts = galleryImages.map((image) => image.layout);
+    for (let index = shuffledImages.length - 1; index > 0; index -= 1) {
       const swapIndex = Math.floor(Math.random() * (index + 1));
-      [clientGalleryOrder[index], clientGalleryOrder[swapIndex]] = [clientGalleryOrder[swapIndex], clientGalleryOrder[index]];
+      [shuffledImages[index], shuffledImages[swapIndex]] = [shuffledImages[swapIndex], shuffledImages[index]];
     }
+    for (let index = shuffledLayouts.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [shuffledLayouts[index], shuffledLayouts[swapIndex]] = [shuffledLayouts[swapIndex], shuffledLayouts[index]];
+    }
+    clientGalleryOrder = shuffledImages.map((image, index) => ({ ...image, layout: shuffledLayouts[index] }));
   }
   return clientGalleryOrder;
 };
