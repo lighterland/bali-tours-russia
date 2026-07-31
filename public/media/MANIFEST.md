@@ -15,14 +15,14 @@ Production media and its source record. Original gallery downloads are kept outs
 | `gallery/bali-snorkeling-*` | https://www.pexels.com/photo/35784293/ | gallery |
 | `gallery/rice-mountain-*` | https://www.pexels.com/photo/35697845/ | hero fallback and gallery |
 | `gallery/ubud-landscape-*` | https://www.pexels.com/photo/35738184/ | gallery |
-| `gallery/bali-water-sports-*` | https://www.pexels.com/photo/30526707/ | gallery |
-| `gallery/northwest-bali-*` | https://www.pexels.com/photo/27375301/ | gallery |
-| `gallery/bali-fishing-*` | https://www.pexels.com/photo/20388434/ | gallery |
-| `gallery/turtle-island-*` | https://www.pexels.com/photo/7714554/ | gallery |
-| `gallery/bali-safari-*` | Pexels photo 66898 | gallery |
-| `gallery/mount-batur-*` | https://www.pexels.com/photo/37559058/ | gallery |
-| `gallery/ocean-adventure-*` | https://www.pexels.com/photo/16228621/ | gallery |
-| `gallery/atv-adventure-*` | Pexels photo 163407 | gallery |
+| `gallery/handara-gate-*` | https://www.pexels.com/photo/2499699/ | gallery |
+| `gallery/ulun-danu-*` | https://www.pexels.com/photo/5505594/ | gallery |
+| `gallery/bali-waterfall-*` | https://www.pexels.com/photo/29989222/ | gallery |
+| `gallery/canang-sari-*` | https://www.pexels.com/photo/30686176/ | gallery |
+| `gallery/monkey-forest-*` | https://www.pexels.com/photo/13013204/ | gallery |
+| `gallery/kecak-dance-*` | https://www.pexels.com/photo/35364635/ | gallery |
+| `gallery/bali-sunset-*` | https://www.pexels.com/photo/37611304/ | gallery |
+| `gallery/bali-ceremony-*` | https://www.pexels.com/photo/36717228/ | gallery |
 | `gallery/bali-road-*` | https://www.pexels.com/photo/116675/ | gallery |
 
 All gallery originals were acquired on 2026-07-31. Production derivatives are local responsive AVIF and WebP files; the page does not hotlink third-party images.

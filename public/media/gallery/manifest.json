@@ -9,7 +9,7 @@
         "format": "avif",
         "width": 360,
         "file": "rice-terraces-360.avif",
-        "bytes": 32536
+        "bytes": 22703
       },
       {
         "format": "webp",
@@ -21,7 +21,7 @@
         "format": "avif",
         "width": 1200,
         "file": "rice-terraces-1200.avif",
-        "bytes": 306331
+        "bytes": 221604
       },
       {
         "format": "webp",
@@ -41,7 +41,7 @@
         "format": "avif",
         "width": 360,
         "file": "nusa-penida-360.avif",
-        "bytes": 21584
+        "bytes": 16361
       },
       {
         "format": "webp",
@@ -53,7 +53,7 @@
         "format": "avif",
         "width": 1200,
         "file": "nusa-penida-1200.avif",
-        "bytes": 211108
+        "bytes": 159080
       },
       {
         "format": "webp",
@@ -73,7 +73,7 @@
         "format": "avif",
         "width": 360,
         "file": "tanah-lot-360.avif",
-        "bytes": 31697
+        "bytes": 22093
       },
       {
         "format": "webp",
@@ -85,7 +85,7 @@
         "format": "avif",
         "width": 1200,
         "file": "tanah-lot-1200.avif",
-        "bytes": 347220
+        "bytes": 237834
       },
       {
         "format": "webp",
@@ -105,7 +105,7 @@
         "format": "avif",
         "width": 360,
         "file": "bali-temple-360.avif",
-        "bytes": 15141
+        "bytes": 12257
       },
       {
         "format": "webp",
@@ -117,7 +117,7 @@
         "format": "avif",
         "width": 1200,
         "file": "bali-temple-1200.avif",
-        "bytes": 74585
+        "bytes": 74134
       },
       {
         "format": "webp",
@@ -137,7 +137,7 @@
         "format": "avif",
         "width": 360,
         "file": "bali-surfing-360.avif",
-        "bytes": 6247
+        "bytes": 6415
       },
       {
         "format": "webp",
@@ -149,7 +149,7 @@
         "format": "avif",
         "width": 1200,
         "file": "bali-surfing-1200.avif",
-        "bytes": 88019
+        "bytes": 84195
       },
       {
         "format": "webp",
@@ -169,7 +169,7 @@
         "format": "avif",
         "width": 360,
         "file": "craft-studio-360.avif",
-        "bytes": 23208
+        "bytes": 18756
       },
       {
         "format": "webp",
@@ -181,7 +181,7 @@
         "format": "avif",
         "width": 1200,
         "file": "craft-studio-1200.avif",
-        "bytes": 140492
+        "bytes": 129300
       },
       {
         "format": "webp",
@@ -201,7 +201,7 @@
         "format": "avif",
         "width": 360,
         "file": "bali-snorkeling-360.avif",
-        "bytes": 20550
+        "bytes": 12727
       },
       {
         "format": "webp",
@@ -213,7 +213,7 @@
         "format": "avif",
         "width": 1200,
         "file": "bali-snorkeling-1200.avif",
-        "bytes": 165129
+        "bytes": 106682
       },
       {
         "format": "webp",
@@ -233,7 +233,7 @@
         "format": "avif",
         "width": 360,
         "file": "rice-mountain-360.avif",
-        "bytes": 13735
+        "bytes": 10977
       },
       {
         "format": "webp",
@@ -245,7 +245,7 @@
         "format": "avif",
         "width": 1200,
         "file": "rice-mountain-1200.avif",
-        "bytes": 172938
+        "bytes": 129261
       },
       {
         "format": "webp",
@@ -265,7 +265,7 @@
         "format": "avif",
         "width": 360,
         "file": "ubud-landscape-360.avif",
-        "bytes": 18727
+        "bytes": 13131
       },
       {
         "format": "webp",
@@ -277,7 +277,7 @@
         "format": "avif",
         "width": 1200,
         "file": "ubud-landscape-1200.avif",
-        "bytes": 203670
+        "bytes": 139129
       },
       {
         "format": "webp",
@@ -288,258 +288,258 @@
     ]
   },
   {
-    "slug": "bali-water-sports",
-    "source": "water-sports.jpg",
+    "slug": "handara-gate",
+    "source": "handara-gate.jpg",
     "width": 1800,
-    "height": 3202,
+    "height": 2402,
     "files": [
       {
         "format": "avif",
         "width": 360,
-        "file": "bali-water-sports-360.avif",
-        "bytes": 8183
+        "file": "handara-gate-360.avif",
+        "bytes": 11316
       },
       {
         "format": "webp",
         "width": 360,
-        "file": "bali-water-sports-360.webp",
-        "bytes": 15030
+        "file": "handara-gate-360.webp",
+        "bytes": 16596
       },
       {
         "format": "avif",
         "width": 1200,
-        "file": "bali-water-sports-1200.avif",
-        "bytes": 49237
+        "file": "handara-gate-1200.avif",
+        "bytes": 123298
       },
       {
         "format": "webp",
         "width": 1200,
-        "file": "bali-water-sports-1200.webp",
-        "bytes": 100358
+        "file": "handara-gate-1200.webp",
+        "bytes": 202396
       }
     ]
   },
   {
-    "slug": "northwest-bali",
-    "source": "northwest-bali.jpg",
-    "width": 1800,
-    "height": 1196,
-    "files": [
-      {
-        "format": "avif",
-        "width": 360,
-        "file": "northwest-bali-360.avif",
-        "bytes": 7686
-      },
-      {
-        "format": "webp",
-        "width": 360,
-        "file": "northwest-bali-360.webp",
-        "bytes": 11628
-      },
-      {
-        "format": "avif",
-        "width": 1200,
-        "file": "northwest-bali-1200.avif",
-        "bytes": 77695
-      },
-      {
-        "format": "webp",
-        "width": 1200,
-        "file": "northwest-bali-1200.webp",
-        "bytes": 117582
-      }
-    ]
-  },
-  {
-    "slug": "bali-fishing",
-    "source": "fishing.jpg",
-    "width": 1800,
-    "height": 2700,
-    "files": [
-      {
-        "format": "avif",
-        "width": 360,
-        "file": "bali-fishing-360.avif",
-        "bytes": 17022
-      },
-      {
-        "format": "webp",
-        "width": 360,
-        "file": "bali-fishing-360.webp",
-        "bytes": 26236
-      },
-      {
-        "format": "avif",
-        "width": 1200,
-        "file": "bali-fishing-1200.avif",
-        "bytes": 89688
-      },
-      {
-        "format": "webp",
-        "width": 1200,
-        "file": "bali-fishing-1200.webp",
-        "bytes": 161528
-      }
-    ]
-  },
-  {
-    "slug": "turtle-island",
-    "source": "turtle-island.jpg",
-    "width": 1800,
-    "height": 2700,
-    "files": [
-      {
-        "format": "avif",
-        "width": 360,
-        "file": "turtle-island-360.avif",
-        "bytes": 8099
-      },
-      {
-        "format": "webp",
-        "width": 360,
-        "file": "turtle-island-360.webp",
-        "bytes": 14276
-      },
-      {
-        "format": "avif",
-        "width": 1200,
-        "file": "turtle-island-1200.avif",
-        "bytes": 84582
-      },
-      {
-        "format": "webp",
-        "width": 1200,
-        "file": "turtle-island-1200.webp",
-        "bytes": 182024
-      }
-    ]
-  },
-  {
-    "slug": "bali-safari",
-    "source": "bali-safari.jpg",
-    "width": 1600,
-    "height": 1067,
-    "files": [
-      {
-        "format": "avif",
-        "width": 360,
-        "file": "bali-safari-360.avif",
-        "bytes": 21964
-      },
-      {
-        "format": "webp",
-        "width": 360,
-        "file": "bali-safari-360.webp",
-        "bytes": 27176
-      },
-      {
-        "format": "avif",
-        "width": 1200,
-        "file": "bali-safari-1200.avif",
-        "bytes": 174941
-      },
-      {
-        "format": "webp",
-        "width": 1200,
-        "file": "bali-safari-1200.webp",
-        "bytes": 252008
-      }
-    ]
-  },
-  {
-    "slug": "mount-batur",
-    "source": "mount-batur.jpg",
+    "slug": "ulun-danu",
+    "source": "ulun-danu.jpg",
     "width": 1800,
     "height": 1200,
     "files": [
       {
         "format": "avif",
         "width": 360,
-        "file": "mount-batur-360.avif",
-        "bytes": 5782
+        "file": "ulun-danu-360.avif",
+        "bytes": 7350
       },
       {
         "format": "webp",
         "width": 360,
-        "file": "mount-batur-360.webp",
-        "bytes": 9874
+        "file": "ulun-danu-360.webp",
+        "bytes": 13648
       },
       {
         "format": "avif",
         "width": 1200,
-        "file": "mount-batur-1200.avif",
-        "bytes": 42823
+        "file": "ulun-danu-1200.avif",
+        "bytes": 67987
       },
       {
         "format": "webp",
         "width": 1200,
-        "file": "mount-batur-1200.webp",
-        "bytes": 79926
+        "file": "ulun-danu-1200.webp",
+        "bytes": 134954
       }
     ]
   },
   {
-    "slug": "ocean-adventure",
-    "source": "ocean-adventure.jpg",
+    "slug": "bali-waterfall",
+    "source": "bali-waterfall.jpg",
+    "width": 1800,
+    "height": 2700,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-waterfall-360.avif",
+        "bytes": 15768
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-waterfall-360.webp",
+        "bytes": 23848
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-waterfall-1200.avif",
+        "bytes": 155138
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-waterfall-1200.webp",
+        "bytes": 234942
+      }
+    ]
+  },
+  {
+    "slug": "canang-sari",
+    "source": "canang-sari.jpg",
     "width": 1800,
     "height": 1200,
     "files": [
       {
         "format": "avif",
         "width": 360,
-        "file": "ocean-adventure-360.avif",
-        "bytes": 4233
+        "file": "canang-sari-360.avif",
+        "bytes": 6553
       },
       {
         "format": "webp",
         "width": 360,
-        "file": "ocean-adventure-360.webp",
-        "bytes": 6816
+        "file": "canang-sari-360.webp",
+        "bytes": 9932
       },
       {
         "format": "avif",
         "width": 1200,
-        "file": "ocean-adventure-1200.avif",
-        "bytes": 31229
+        "file": "canang-sari-1200.avif",
+        "bytes": 45714
       },
       {
         "format": "webp",
         "width": 1200,
-        "file": "ocean-adventure-1200.webp",
-        "bytes": 53294
+        "file": "canang-sari-1200.webp",
+        "bytes": 79776
       }
     ]
   },
   {
-    "slug": "atv-adventure",
-    "source": "atv.jpg",
-    "width": 1600,
-    "height": 2844,
+    "slug": "monkey-forest",
+    "source": "monkey-forest.jpg",
+    "width": 1800,
+    "height": 2700,
     "files": [
       {
         "format": "avif",
         "width": 360,
-        "file": "atv-adventure-360.avif",
-        "bytes": 37853
+        "file": "monkey-forest-360.avif",
+        "bytes": 12426
       },
       {
         "format": "webp",
         "width": 360,
-        "file": "atv-adventure-360.webp",
-        "bytes": 49164
+        "file": "monkey-forest-360.webp",
+        "bytes": 20790
       },
       {
         "format": "avif",
         "width": 1200,
-        "file": "atv-adventure-1200.avif",
-        "bytes": 174364
+        "file": "monkey-forest-1200.avif",
+        "bytes": 91138
       },
       {
         "format": "webp",
         "width": 1200,
-        "file": "atv-adventure-1200.webp",
-        "bytes": 271620
+        "file": "monkey-forest-1200.webp",
+        "bytes": 155882
+      }
+    ]
+  },
+  {
+    "slug": "kecak-dance",
+    "source": "kecak-dance.jpg",
+    "width": 1800,
+    "height": 1200,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "kecak-dance-360.avif",
+        "bytes": 9312
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "kecak-dance-360.webp",
+        "bytes": 14956
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "kecak-dance-1200.avif",
+        "bytes": 51404
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "kecak-dance-1200.webp",
+        "bytes": 83296
+      }
+    ]
+  },
+  {
+    "slug": "bali-sunset",
+    "source": "bali-sunset.jpg",
+    "width": 1800,
+    "height": 2400,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-sunset-360.avif",
+        "bytes": 11676
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-sunset-360.webp",
+        "bytes": 20642
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-sunset-1200.avif",
+        "bytes": 105036
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-sunset-1200.webp",
+        "bytes": 187374
+      }
+    ]
+  },
+  {
+    "slug": "bali-ceremony",
+    "source": "bali-ceremony.jpg",
+    "width": 1800,
+    "height": 1200,
+    "files": [
+      {
+        "format": "avif",
+        "width": 360,
+        "file": "bali-ceremony-360.avif",
+        "bytes": 9395
+      },
+      {
+        "format": "webp",
+        "width": 360,
+        "file": "bali-ceremony-360.webp",
+        "bytes": 15986
+      },
+      {
+        "format": "avif",
+        "width": 1200,
+        "file": "bali-ceremony-1200.avif",
+        "bytes": 62528
+      },
+      {
+        "format": "webp",
+        "width": 1200,
+        "file": "bali-ceremony-1200.webp",
+        "bytes": 104222
       }
     ]
   },
@@ -553,7 +553,7 @@
         "format": "avif",
         "width": 360,
         "file": "bali-road-360.avif",
-        "bytes": 7396
+        "bytes": 6051
       },
       {
         "format": "webp",
@@ -565,7 +565,7 @@
         "format": "avif",
         "width": 1200,
         "file": "bali-road-1200.avif",
-        "bytes": 55851
+        "bytes": 53107
       },
       {
         "format": "webp",

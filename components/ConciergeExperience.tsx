@@ -38,6 +38,7 @@ const resolveAssetUrl = (url: string) => {
 };
 
 const heroFallback = resolveAssetUrl("/media/gallery/rice-mountain-1200.webp");
+const heroFallbackAvif = resolveAssetUrl("/media/gallery/rice-mountain-1200.avif");
 
 function localIsoDate(date: Date) {
   const year = date.getFullYear();
@@ -93,7 +94,7 @@ const ui = {
     name: "Name *", whatsapp: "WhatsApp number", date: "Arrival or journey start *", serviceDate: "Arrival or preferred date (optional)", datePlaceholder: "", endDate: "Departure or trip end (optional)",
     guests: "Number of guests *", serviceGuests: "Number of guests *", route: "What are you interested in?", journeysGroup: "Journeys", servicesGroup: "Bali services · tailored quotation", channel: "Preferred contact *", optional: "optional", pickup: "Hotel or pickup area (optional)",
     pickupPlaceholder: "You can confirm this later", language: "Communication language *", wishes: "Anything else we should know?", wishesPlaceholder: "Pace, interests, special requirements",
-    consent: "I agree to the processing of my enquiry data and to being contacted.", details: "Learn more", sending: "Sending…", send: "Send enquiry",
+    consent: "I agree to the processing of my enquiry data and to being contacted.", details: "Read the enquiry privacy details", sending: "Sending…", send: "Send enquiry",
     footerRoutes: "Journeys", footerContact: "Contact", footerPrivacy: "Enquiry data", footerTerms: "Booking & payment", offerCode: "Offer code", errorMessage: "Unable to send the enquiry.", detailsLabel: "View details", includedLabel: "What's included", routeLabel: "Route and stops", priceLabel: "Price terms",
     add: "Add to trip", added: "In your plan", remove: "Remove", plannerEyebrow: "Your plan", plannerTitle: "Build your Bali trip", plannerEmpty: "Add journeys and your total will appear here.", subtotal: "Before discounts", saving: "You save", estimate: "Total", bookingFee: "To confirm · 20%", balance: "Balance in Bali · 80%", guestsShort: "Guests", rentalDays: "Rental days", vehicleChoice: "Vehicle option", estimateNote: "Your USD total includes discounts and applicable Indonesian taxes. Pay 20% to confirm; the remaining 80% is paid in Bali.", taxIncluded: "Including applicable VAT", guestSaving: "Group saving", free: "Free", expandPlan: "Open plan", collapsePlan: "Collapse", selectedCount: "selected", craftLocked: "Add any paid journey first", chooseServices: "Choose the services you need", servicesSelected: "Services in your enquiry", bestDeals: "Ready-made collections", selectDeal: "Select collection",
   },
@@ -587,7 +588,7 @@ export function ConciergeExperience({
           <a className="header-cta" href="#request">{copy.nav.cta}</a>
         </div>
         <div className="header-direct-contact" aria-label={locale === "ru" ? "Связаться с администратором" : "Contact the administrator"}>
-          <a className="header-contact-link header-phone" href={adminPhoneHref}>
+          <a className="header-contact-link header-phone" href={adminPhoneHref} aria-label={`${locale === "ru" ? "Позвонить" : "Call"} ${adminPhoneLabel}`}>
             <ContactIcon name="phone" />
             <span><small>{locale === "ru" ? "Позвонить" : "Call"}</small>{adminPhoneLabel}</span>
           </a>
@@ -599,7 +600,7 @@ export function ConciergeExperience({
             <SocialIcon name="telegram" />
             <span>Telegram</span>
           </a> : null}
-          <a className="header-contact-link header-email" href={`mailto:${publicEmail}`}>
+          <a className="header-contact-link header-email" href={`mailto:${publicEmail}`} aria-label={`Email ${publicEmail}`}>
             <ContactIcon name="email" />
             <span><small>Email</small>{publicEmail}</span>
           </a>
@@ -617,7 +618,11 @@ export function ConciergeExperience({
 
       <section className="hero" id="top">
         <div className="hero-sticky">
-          <div className="hero-media" style={{ backgroundImage: `url(${heroFallback})` }} aria-hidden="true">
+          <div className="hero-media" aria-hidden="true">
+            <picture className="hero-picture">
+              <source srcSet={heroFallbackAvif} type="image/avif" />
+              <img src={heroFallback} alt="" width="1200" height="900" fetchPriority="high" />
+            </picture>
             {showHeroVideo ? <video autoPlay muted loop playsInline preload="none" poster={heroFallback} src={resolveAssetUrl("/media/hero-bali.mp4")} /> : null}
             <div className="hero-scrim" />
           </div>
@@ -665,7 +670,8 @@ export function ConciergeExperience({
             const isCraft = tour.id === "craft-jewellery";
             const isCraftLocked = tour.id === "craft-jewellery" && !hasPaidJourney;
             return <article className={`route-card ${tour.promotion?.spotlight ? "featured" : ""} ${isSelected ? "selected" : ""}`} key={tour.id}>
-              <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`} style={curatedMedia[tour.id] ? { backgroundImage: `url(${resolveAssetUrl(curatedMedia[tour.id])})` } : undefined} role="img" aria-label={text(tour.title)}>
+              <div className={`route-image ${curatedMedia[tour.id] ? "has-media" : "media-pending"}`}>
+                {curatedMedia[tour.id] ? <img src={resolveAssetUrl(curatedMedia[tour.id])} alt={text(tour.title)} loading="lazy" decoding="async" /> : null}
                 {tour.promotion && <span className="offer-badge">{text(tour.promotion.badge)}</span>}
               </div>
               <div className="route-body">
