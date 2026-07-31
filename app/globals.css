@@ -157,13 +157,13 @@
 
 /* Mobile direct contact stays readable instead of collapsing to unlabeled icons. */
 @media(max-width:720px){
-  .header-direct-contact{display:grid;grid-column:1/-1;grid-row:2;grid-template-columns:max-content 30px 30px max-content;grid-template-areas:"phone whatsapp telegram email";justify-content:start;gap:5px;width:100%;height:auto;min-height:34px;padding-top:4px}
+  .header-direct-contact{display:grid;grid-column:1/-1;grid-row:2;grid-template-columns:max-content 30px 30px max-content;grid-template-areas:"phone whatsapp telegram email";justify-content:start;gap:4px;width:100%;height:auto;min-height:34px;padding-top:4px}
   .header-phone{grid-area:phone}.header-whatsapp{grid-area:whatsapp}.header-telegram{grid-area:telegram}.header-email{grid-area:email}
-  .header-phone,.header-email{width:auto;min-width:0;padding:0 8px;justify-content:flex-start}
+  .header-phone,.header-email{width:auto;min-width:0;padding:0 6px;justify-content:flex-start}
   .header-email{max-width:min(42vw,260px)}
   .header-phone>span,.header-email>span{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
-@media(max-width:560px){
+@media(max-width:370px){
   .header-direct-contact{grid-template-columns:max-content 30px 30px;grid-template-areas:"phone whatsapp telegram" "email email email"}
   .header-email{width:max-content;max-width:min(100%,260px)}
 }
